@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useFormikContext } from "formik";
 import { Button } from "../button";
@@ -10,7 +10,10 @@ export const FormikResetButton = ({ children, ...rest }: any) => {
   };
 
   return (
-    <Button  onClick={handleReset} {...rest}>
+    <Button
+      onClick={handleReset}
+      {...rest}
+    >
       {children}
     </Button>
   );

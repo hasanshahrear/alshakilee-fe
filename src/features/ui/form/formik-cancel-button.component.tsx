@@ -1,13 +1,9 @@
-'use client'
+"use client";
 
 import { useFormikContext } from "formik";
-import { Button } from "../button";
+import { Button, ButtonProps } from "primereact/button";
 
-export const FormikCancelButton = ({
-  className,
-  children,
-  ...rest
-}: any) => {
+export function FormikCancelButton({ children, ...rest }: ButtonProps) {
   const formik = useFormikContext();
   const handleCancel = () => {
     formik.resetForm();
@@ -15,13 +11,12 @@ export const FormikCancelButton = ({
 
   return (
     <Button
-      className={`${className} `}
       onClick={handleCancel}
-      {...rest}
       outlined
-      severity="secondary"
+      severity={rest?.severity ?? "secondary"}
+      {...rest}
     >
       {children}
     </Button>
   );
-};
+}

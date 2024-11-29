@@ -1,87 +1,53 @@
-'use client'
+"use client";
 
-import { Field, FieldProps, GenericFieldHTMLAttributes, } from "formik";
-import { InputHTMLAttributes, useId } from "react";
-import { Input } from "../input";
+import { useField } from "formik";
+import { InputText, InputTextProps } from "primereact/inputtext";
+import { useId } from "react";
 
-type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  name?: string;
-  id?: string,
-  label?: string,
-  placeholder?: string,
-  disabled?: boolean,
-  className?: string,
-  error?: boolean,
-  helperText?: string,
-  requiredIcon?: string,
-  password?:boolean,
-};
+type FormikTextFieldProps = {
+  name: string;
+  label?: string;
+  requiredIcon?: string;
+  helperText?: string;
+} & InputTextProps;
 
-function TextField({
+export function FormikTextField({
   name,
-  id,
   label,
-  placeholder,
-  disabled,
-  className = "",
-  error,
   helperText,
   requiredIcon,
-  password,
   ...rest
-}: TextFieldProps) {
-  const generatedID = useId();
-  const inputId = id || generatedID;
+}: FormikTextFieldProps) {
+  const inputId = useId();
+  const [field, meta] = useField(name);
+  const inputProps = { ...rest, ...field };
 
   return (
     <div>
       <div className="flex">
         {label && (
-          <label  htmlFor={inputId} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor={inputId}
+            className="mb-2 block text-sm font-medium"
+          >
             {label}
+            {requiredIcon && (
+              <span className="ml-1 text-red-600">{requiredIcon}</span>
+            )}
           </label>
         )}
-        {requiredIcon && <label className="text-red-600 ml-1">{requiredIcon}</label>}
       </div>
       <div className="flex flex-row items-center">
-        <Input name={name} id={inputId} type={password? "password": "text"} disabled={disabled} placeholder={placeholder} {...rest} />
+        <InputText
+          id={inputId}
+          type={inputProps?.type ?? "text"}
+          className="w-full"
+          {...inputProps}
+        />
       </div>
 
-      {error && <small className="text-red-600">{helperText}</small>}
-      {helperText && !error && <small>{helperText}</small>}
+      {meta?.error && <small className="text-red-600">{meta?.error}</small>}
+      {helperText && !meta?.error && <small>{helperText}</small>}
     </div>
-  );
-}
-
-type FormikTextFieldProps = GenericFieldHTMLAttributes & {
-  props?: TextFieldProps
-};
-
-export function FormikTextField({
-  disabled,
-  props,
-  ...rest
-}: FormikTextFieldProps) {
-  return (
-    <Field {...rest} >
-      {({
-        field,
-        meta: { touched, error },
-        form: { isSubmitting },
-      }: FieldProps<string>) => {
-        return(
-        <TextField 
-          {...field} 
-          {...props} 
-          disabled={disabled || isSubmitting} 
-          error={(touched && !!error)} 
-          helperText={
-            touched && !!error
-              ? (error as string)
-              : props?.helperText
-          } 
-        />
-      )}}
-    </Field>
   );
 }

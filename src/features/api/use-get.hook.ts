@@ -13,8 +13,6 @@ export function useGet<ResponseType = Record<string, unknown>>({
   queryKey,
   ...rest
 }: TProps) {
-  console.log({ url });
-  console.log(process.env.NEXT_PUBLIC_API_URL + "/" + url);
   const fetchFunction = async () => {
     try {
       const response: AxiosResponse<ResponseType> = await axios.get(
@@ -25,7 +23,6 @@ export function useGet<ResponseType = Record<string, unknown>>({
       );
       return response.data;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };

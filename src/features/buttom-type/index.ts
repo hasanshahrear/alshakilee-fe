@@ -1,1 +1,1 @@
-export { ButtomType } from "./buttom-type.component";
+export { ButtomType } from "./buttom-type-list.component";

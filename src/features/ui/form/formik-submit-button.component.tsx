@@ -1,28 +1,20 @@
-'use client'
-import { useFormikContext } from "formik";
-import { Button } from "../button";
-import styles from "./formik-submit-button.component.module.css";
+"use client";
 
-export const FormikSubmitButton = ({
-  type = "submit",
-  disabled,
-  severity = "secondary",
-  outlined,
-  className,
-  // loadingIcon = <CgSpinner className="icon-spin mr-1" />,
-  ...rest
-}: any) => {
+import { useFormikContext } from "formik";
+import { Button, ButtonProps } from "primereact/button";
+import { CgSpinner } from "react-icons/cg";
+
+export function FormikSubmitButton({ type, disabled, ...rest }: ButtonProps) {
   const { isSubmitting } = useFormikContext();
 
   return (
     <Button
-      type={type}
-      severity={severity ?? "secondary"}
+      type={type ?? "submit"}
+      severity={rest.severity ?? "secondary"}
       disabled={disabled || isSubmitting}
-      // loading={isSubmitting ? isSubmitting : false}
-      // loadingIcon={loadingIcon}
-      className={`${className} ${styles.saveButton}`}
+      loading={isSubmitting ?? false}
+      loadingIcon={<CgSpinner className="icon-spin mr-1" />}
       {...rest}
     />
   );
-};
+}

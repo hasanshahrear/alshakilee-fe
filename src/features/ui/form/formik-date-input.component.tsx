@@ -1,9 +1,13 @@
-
-'use client'
+"use client";
 
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Field, FieldProps, GenericFieldHTMLAttributes, useFormikContext } from "formik";
+import {
+  Field,
+  FieldProps,
+  GenericFieldHTMLAttributes,
+  useFormikContext,
+} from "formik";
 import { CalendarIcon } from "lucide-react";
 import { InputHTMLAttributes, useEffect, useId, useState } from "react";
 import { SelectRangeEventHandler } from "react-day-picker";
@@ -33,25 +37,19 @@ function DateField({
 }: CalenderFieldProps) {
   const generatedID = useId();
   const inputId = id || generatedID;
-  const {setFieldValue, values}  = useFormikContext();
-  const [date, setDate] = useState<Date>()
+  const { setFieldValue, values } = useFormikContext();
+  const [date, setDate] = useState<Date>();
 
-  useEffect(()=>{
-    if(date){
-      setFieldValue(`${name}`, date.toDateString())
+  useEffect(() => {
+    if (date) {
+      setFieldValue(`${name}`, date.toDateString());
     }
-  }, [date])
+  }, [date]);
 
   return (
     <div className="w-full">
       <div className="mb-2">
-        {label && (
-          <label
-            htmlFor={inputId}
-          >
-            {label}
-          </label>
-        )}
+        {label && <label htmlFor={inputId}>{label}</label>}
         {requiredIcon && <label style={{ color: "red" }}>{requiredIcon}</label>}
       </div>
       <Popover>
@@ -60,7 +58,7 @@ function DateField({
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              !date && "text-muted-foreground",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -106,11 +104,9 @@ export function FormikDateField({
           {...field}
           {...props}
           disabled={disabled || isSubmitting}
-          error={ (touched && !!error)}
+          error={touched && !!error}
           helperText={
-             touched && !!error
-              ? (error as string)
-              : props?.helperText
+            touched && !!error ? (error as string) : props?.helperText
           }
         />
       )}

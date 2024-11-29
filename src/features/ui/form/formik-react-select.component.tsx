@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useField, useFormikContext } from "formik";
 import Select, { MultiValue, SingleValue } from "react-select";
@@ -45,11 +45,9 @@ type Props = {
   error?: boolean;
   loginStyle?: boolean;
   requiredIcon?: string;
-  onSelect?: (
-    value:  SingleValue<SelectOptionType>
-  ) => void;
+  onSelect?: (value: SingleValue<SelectOptionType>) => void;
   onChange?: (
-    value: MultiValue<SelectOptionType> | SingleValue<SelectOptionType>
+    value: MultiValue<SelectOptionType> | SingleValue<SelectOptionType>,
   ) => void; // <-- Add this line
 } & Omit<
   StateManagerProps<SelectOptionType, false | true, SelectMultipleOptionType>,
@@ -57,8 +55,16 @@ type Props = {
 >;
 
 export function FormikReactSelect(props: any) {
-  const { name, label, error, helperText, apiError, requiredIcon, onSelect, ...restProps } =
-    props;
+  const {
+    name,
+    label,
+    error,
+    helperText,
+    apiError,
+    requiredIcon,
+    onSelect,
+    ...restProps
+  } = props;
   const [field, meta] = useField(name);
   const { setFieldValue } = useFormikContext();
 
@@ -87,13 +93,18 @@ export function FormikReactSelect(props: any) {
     <div className="w-full">
       <div className="flex">
         {label && (
-          <label htmlFor="item" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label
+            htmlFor="item"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+          >
             {label}
           </label>
         )}
-        {requiredIcon && <label className="text-red-600 ml-1">{requiredIcon}</label>}
+        {requiredIcon && (
+          <label className="ml-1 text-red-600">{requiredIcon}</label>
+        )}
       </div>
-      
+
       <Select
         {...restProps}
         value={value}

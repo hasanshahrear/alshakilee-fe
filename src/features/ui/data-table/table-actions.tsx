@@ -14,13 +14,19 @@ export function TableAction({ handleDelete, handleEdit }: Readonly<TProps>) {
         onClick={handleEdit}
         className="rounded-lg border border-green-500 p-2"
       >
-        <FiEdit className="text-green-500" size={16} />
+        <FiEdit
+          className="text-green-500"
+          size={16}
+        />
       </button>
       <button
         onClick={handleDelete}
         className="rounded-lg border border-red-500 p-2"
       >
-        <AiFillDelete className="text-red-500" size={16} />
+        <AiFillDelete
+          className="text-red-500"
+          size={16}
+        />
       </button>
     </div>
   );
