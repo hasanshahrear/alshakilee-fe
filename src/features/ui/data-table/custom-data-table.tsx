@@ -23,7 +23,6 @@ export function CustomDataTable({ columns, url, queryKey }: Readonly<TProps>) {
   const [rows, setRows] = useState<number>(10);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
-    console.log(event);
     setFirst(event.first);
     setPage(event.page);
     setRows(event.rows);
@@ -64,7 +63,7 @@ export function CustomDataTable({ columns, url, queryKey }: Readonly<TProps>) {
         <Paginator
           first={first}
           rows={rows}
-          totalRecords={data?.data?.meta.totalPages}
+          totalRecords={data?.data?.meta.total}
           rowsPerPageOptions={[10, 20, 30]}
           onPageChange={onPageChange}
           className="flex justify-center"

@@ -20,32 +20,32 @@ export function usePost<
   RequestType = Record<string, unknown>,
   ResponseType = Record<string, unknown>,
 >({ url, ...rest }: TProps<RequestType, ResponseType>) {
-  const fetchFunction: MutationFunction<
-    AxiosResponse<ResponseType>,
-    RequestType
-  > = async (data: RequestType) => {
+  const requestUrl = process.env.NEXT_PUBLIC_API_URL + "/" + url;
+
+  const fetchFunction: MutationFunction<ResponseType, RequestType> = async (
+    data: RequestType,
+  ) => {
     try {
       let response: AxiosResponse<ResponseType>;
-      response = await axios.post(process.env.NEXT_PUBLIC_API_URL + url, data);
-      return response;
+      response = await axios.post(requestUrl, data);
+      return response?.data;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
 
   return useMutation<
-    AxiosResponse<ResponseType>,
+    ResponseType,
     AxiosError,
     RequestType,
-    MutationFunction<AxiosResponse<ResponseType>, RequestType>
+    MutationFunction<ResponseType, RequestType>
   >({
     mutationFn: (data) => fetchFunction(data),
     ...(rest as UseMutationOptions<
-      AxiosResponse<ResponseType>,
+      ResponseType,
       AxiosError,
       RequestType,
-      MutationFunction<AxiosResponse<ResponseType>, RequestType>
+      MutationFunction<ResponseType, RequestType>
     >),
   });
 }

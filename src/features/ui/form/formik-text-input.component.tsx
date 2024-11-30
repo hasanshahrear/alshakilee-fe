@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/features/utils";
 import { useField } from "formik";
 import { InputText, InputTextProps } from "primereact/inputtext";
 import { useId } from "react";
@@ -9,6 +10,7 @@ type FormikTextFieldProps = {
   label?: string;
   requiredIcon?: string;
   helperText?: string;
+  className?: string;
 } & InputTextProps;
 
 export function FormikTextField({
@@ -16,6 +18,7 @@ export function FormikTextField({
   label,
   helperText,
   requiredIcon,
+  className,
   ...rest
 }: FormikTextFieldProps) {
   const inputId = useId();
@@ -41,8 +44,8 @@ export function FormikTextField({
         <InputText
           id={inputId}
           type={inputProps?.type ?? "text"}
-          className="w-full"
           {...inputProps}
+          className={cn("w-full", className)}
         />
       </div>
 

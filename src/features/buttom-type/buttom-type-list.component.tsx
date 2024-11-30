@@ -40,9 +40,9 @@ export function ButtomType() {
           if (!visible) return;
           setVisible(false);
         }}
-        className="min-w-96"
+        className="w-1/3"
       >
-        <ButtomTypeCreateUpdate />
+        <ButtomTypeCreateUpdate setVisible={setVisible} />
       </Dialog>
     </div>
   );
