@@ -1,7 +1,11 @@
 "use client";
 
-import { Api, QueryKey, usePost } from "@/features/api";
-import { TGlobalErrorResponse, TGlobalSuccessResponse } from "@/features/model";
+import { Api, QueryKey, useGet, usePatch, usePost } from "@/features/api";
+import {
+  TGetButtomTypeByID,
+  TGlobalErrorResponse,
+  TGlobalSuccessResponse,
+} from "@/features/model";
 import { axiosErrorToast, axiosSuccessToast } from "@/features/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -15,11 +19,13 @@ import {
 } from "./form.config";
 
 type TProps = {
+  id?: number;
   setVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export function ButtomTypeCreateUpdate({ setVisible }: TProps) {
+export function ButtomTypeCreateUpdate({ id, setVisible }: TProps) {
   const queryClient = useQueryClient();
+
   const { mutateAsync } = usePost<TButtomCreateUpdateType>({
     url: Api.BottomType,
     onSuccess: (data) => {
@@ -34,12 +40,40 @@ export function ButtomTypeCreateUpdate({ setVisible }: TProps) {
     },
   });
 
+  const { data: dataGetById } = useGet<TGetButtomTypeByID>({
+    queryKey: QueryKey.GetAllBottomType,
+    url: Api.BottomType + "/" + id,
+    enabled: !!id,
+  });
+
+  const { mutateAsync: mutateAsyncPut } = usePatch({
+    url: Api.BottomType + "/" + id,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.GetAllBottomType],
+      });
+      axiosSuccessToast(data as TGlobalSuccessResponse);
+      setVisible(false);
+    },
+  });
+
   const handleSubmit = async (values: TButtomCreateUpdateType) => {
+    if (id) {
+      await mutateAsyncPut(values);
+      return;
+    }
     await mutateAsync(values);
   };
+
   return (
     <Formik
-      initialValues={initailValue}
+      initialValues={
+        id
+          ? {
+              name: dataGetById?.data?.name as string,
+            }
+          : initailValue
+      }
       validationSchema={buttomCreateUpdateSchema}
       enableReinitialize
       onSubmit={handleSubmit}

@@ -5,12 +5,14 @@ type TProps = {
   url: string;
   queryParams?: AxiosRequestConfig["params"];
   queryKey: string;
+  enabled?: boolean;
 };
 
 export function useGet<ResponseType = Record<string, unknown>>({
   url,
   queryParams: params,
   queryKey,
+  enabled = true,
   ...rest
 }: TProps) {
   const fetchFunction = async () => {
@@ -30,6 +32,7 @@ export function useGet<ResponseType = Record<string, unknown>>({
   return useQuery({
     queryKey: [queryKey, params],
     queryFn: fetchFunction,
+    enabled,
     ...rest,
   });
 }

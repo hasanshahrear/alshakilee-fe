@@ -16,7 +16,7 @@ type TProps<RequestType, ResponseType> = {
   MutationFunction<AxiosResponse<ResponseType>, RequestType>
 >;
 
-export function usePost<
+export function usePatch<
   RequestType = Record<string, unknown>,
   ResponseType = Record<string, unknown>,
 >({ url, ...rest }: TProps<RequestType, ResponseType>) {
@@ -27,7 +27,7 @@ export function usePost<
   ) => {
     try {
       let response: AxiosResponse<ResponseType>;
-      response = await axios.post(requestUrl, data);
+      response = await axios.patch(requestUrl, data);
       return response?.data;
     } catch (error) {
       throw error;
