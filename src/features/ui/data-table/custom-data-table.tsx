@@ -1,26 +1,32 @@
 "use client";
 
 import { useGet } from "@/features/api";
+import { useSearchParams } from "next/navigation";
 import { Column, ColumnProps } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import { useState } from "react";
+import { ActiveInactiveTab } from "./active-inactive-tab.component";
 import { TDataTableRes } from "./data-table.model";
-
-type TColumnMeta = {
-  field: string;
-  header: string;
-};
 
 type TProps = {
   columns: ColumnProps[];
   url: string;
   queryKey: string;
+  statusFilter?: boolean;
 };
-export function CustomDataTable({ columns, url, queryKey }: Readonly<TProps>) {
+export function CustomDataTable({
+  columns,
+  url,
+  queryKey,
+  statusFilter = true,
+}: Readonly<TProps>) {
   const [first, setFirst] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
   const [rows, setRows] = useState<number>(10);
+
+  const searchParams = useSearchParams();
+  const activeStatus = searchParams.get("status");
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
@@ -34,15 +40,13 @@ export function CustomDataTable({ columns, url, queryKey }: Readonly<TProps>) {
     queryParams: {
       page: page + 1,
       limit: rows,
+      status: activeStatus === "0" ? "true" : "false",
     },
   });
 
-  if (isPending) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <>
+      {statusFilter && <ActiveInactiveTab />}
       <DataTable
         value={data?.data?.data}
         loading={isPending}

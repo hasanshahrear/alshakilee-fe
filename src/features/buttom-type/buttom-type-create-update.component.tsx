@@ -78,7 +78,7 @@ export function ButtomTypeCreateUpdate({ id, setVisible }: TProps) {
       enableReinitialize
       onSubmit={handleSubmit}
     >
-      <ButtomTypeCreateUpdateForm />
+      <ButtomTypeCreateUpdateForm id={id} />
     </Formik>
   );
 }

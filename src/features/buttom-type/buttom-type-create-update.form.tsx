@@ -1,7 +1,11 @@
 import { FormikSubmitButton, FormikTextField } from "@/features/ui";
 import { Form } from "formik";
 
-export function ButtomTypeCreateUpdateForm() {
+type TProps = {
+  id?: number;
+};
+
+export function ButtomTypeCreateUpdateForm({ id }: TProps) {
   return (
     <Form className="flex flex-col gap-5">
       <FormikTextField
@@ -11,7 +15,7 @@ export function ButtomTypeCreateUpdateForm() {
         requiredIcon="*"
       />
       <FormikSubmitButton className="flex justify-center">
-        Save
+        {id ? "Update" : "Save"}
       </FormikSubmitButton>
     </Form>
   );
