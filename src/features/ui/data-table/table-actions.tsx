@@ -9,20 +9,14 @@ type TProps = {
 
 export function TableAction({ handleDelete, handleEdit }: Readonly<TProps>) {
   return (
-    <div className="flex justify-center gap-2">
-      <button
-        onClick={handleEdit}
-        className="rounded-lg border border-green-500 p-2"
-      >
+    <div className="flex justify-center gap-4">
+      <button onClick={handleEdit}>
         <FiEdit
           className="text-green-500"
           size={16}
         />
       </button>
-      <button
-        onClick={handleDelete}
-        className="rounded-lg border border-red-500 p-2"
-      >
+      <button onClick={handleDelete}>
         <AiFillDelete
           className="text-red-500"
           size={16}
