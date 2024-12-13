@@ -1,6 +1,6 @@
 "use client";
 
-import { Api, QueryKey, useGet, usePatch, usePost } from "@/features/api";
+import { Api, QueryKey, useGet, usePost, usePut } from "@/features/api";
 import {
   TGetButtomTypeByID,
   TGlobalErrorResponse,
@@ -46,7 +46,7 @@ export function ButtomTypeCreateUpdate({ id, setVisible }: TProps) {
     enabled: !!id,
   });
 
-  const { mutateAsync: mutateAsyncPut } = usePatch({
+  const { mutateAsync: mutateAsyncPut } = usePut({
     url: Api.BottomType + "/" + id,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
