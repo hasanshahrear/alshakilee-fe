@@ -46,6 +46,7 @@ export function FormikTextField({
           type={inputProps?.type ?? "text"}
           {...inputProps}
           className={cn("w-full", className)}
+          onFocus={(e) => e.target.select()}
         />
       </div>
 

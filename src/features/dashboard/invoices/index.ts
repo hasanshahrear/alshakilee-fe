@@ -1,1 +1,2 @@
-export { Invoices } from "./invoices-type-list.component";
+export { InvoicesCreateUpdate } from "./invoices-create-update.component";
+export { Invoices } from "./invoices-list.component";

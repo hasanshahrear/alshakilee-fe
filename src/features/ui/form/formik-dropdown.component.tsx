@@ -1,24 +1,30 @@
 import { cn } from "@/features/utils";
 import { useField } from "formik";
-import { Calendar, CalendarProps } from "primereact/calendar";
+import { Dropdown, DropdownProps } from "primereact/dropdown";
 import { useId } from "react";
 
-type TFormikDateProps = {
+type TOption = {
+  name: string;
+  value: string | number;
+};
+
+type TFormikDropdownProps = {
   name: string;
   label?: string;
   requiredIcon?: string;
   helperText?: string;
   className?: string;
-} & CalendarProps;
+  options: TOption[];
+} & DropdownProps;
 
-export function FormikDateField({
+export function FormikDropdown({
   name,
-  className,
-  helperText,
   label,
   requiredIcon,
+  helperText,
+  className,
   ...rest
-}: TFormikDateProps) {
+}: TFormikDropdownProps) {
   const inputId = useId();
   const [field, meta] = useField(name);
   const inputProps = { ...rest, ...field };
@@ -39,10 +45,13 @@ export function FormikDateField({
         )}
       </div>
       <div className="flex flex-row items-center">
-        <Calendar
+        <Dropdown
           {...inputProps}
           id={inputId}
+          options={inputProps.options}
           className={cn("w-full", className)}
+          optionLabel="name"
+          optionValue="value"
         />
       </div>
 

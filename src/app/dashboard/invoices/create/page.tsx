@@ -1,5 +1,5 @@
-import { Customer } from "@/features/dashboard";
+import { InvoicesCreateUpdate } from "@/features/dashboard";
 
 export default function InvoicesCreatePage() {
-  return <Customer />;
+  return <InvoicesCreateUpdate />;
 }

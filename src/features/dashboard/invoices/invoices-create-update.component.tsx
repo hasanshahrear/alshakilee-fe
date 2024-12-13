@@ -6,21 +6,21 @@ import { axiosErrorToast, axiosSuccessToast } from "@/features/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Formik } from "formik";
-import { CustomerTypeCreateUpdateForm } from "./customer-type-create-update.form";
 import {
-  customerCreateUpdateSchema,
   initailValue,
-  TCustomerCreateUpdateType,
+  invoicesCreateUpdateSchema,
+  TInvoicesCreateUpdateType,
 } from "./form.config";
+import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
 
 export function InvoicesCreateUpdate() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = usePost<TCustomerCreateUpdateType>({
-    url: Api.Customer,
+  const { mutateAsync } = usePost<TInvoicesCreateUpdateType>({
+    url: Api.Invoices,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey.GetAllCustomer],
+        queryKey: [QueryKey.GetAllInvoice],
       });
       axiosSuccessToast(data as TGlobalSuccessResponse);
     },
@@ -29,18 +29,18 @@ export function InvoicesCreateUpdate() {
     },
   });
 
-  const handleSubmit = async (values: TCustomerCreateUpdateType) => {
+  const handleSubmit = async (values: TInvoicesCreateUpdateType) => {
     await mutateAsync(values);
   };
 
   return (
     <Formik
       initialValues={initailValue}
-      validationSchema={customerCreateUpdateSchema}
+      validationSchema={invoicesCreateUpdateSchema}
       enableReinitialize
       onSubmit={handleSubmit}
     >
-      <CustomerTypeCreateUpdateForm />
+      <InvoicesCreateUpdateForm />
     </Formik>
   );
 }
