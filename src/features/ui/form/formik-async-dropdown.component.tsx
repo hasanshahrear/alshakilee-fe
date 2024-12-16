@@ -1,26 +1,24 @@
-"use client";
-
 import { cn } from "@/features/utils";
 import { useField } from "formik";
-import { InputText, InputTextProps } from "primereact/inputtext";
+import { AutoComplete, AutoCompleteProps } from "primereact/autocomplete";
 import { useId } from "react";
 
-type FormikTextFieldProps = {
+type TFormikDropdownProps = {
   name: string;
   label?: string;
   requiredIcon?: string;
   helperText?: string;
   className?: string;
-} & InputTextProps;
+} & AutoCompleteProps;
 
-export function FormikTextField({
+export function FormikAsyncDropdown({
   name,
   label,
-  helperText,
   requiredIcon,
+  helperText,
   className,
   ...rest
-}: FormikTextFieldProps) {
+}: TFormikDropdownProps) {
   const inputId = useId();
   const [field, meta] = useField(name);
   const inputProps = { ...rest, ...field };
@@ -41,12 +39,10 @@ export function FormikTextField({
         )}
       </div>
       <div className="flex flex-row items-center">
-        <InputText
-          id={inputId}
-          type={inputProps?.type ?? "text"}
+        <AutoComplete
           {...inputProps}
+          id={inputId}
           className={cn("w-full", className)}
-          onFocus={(e) => e.target.select()}
         />
       </div>
 

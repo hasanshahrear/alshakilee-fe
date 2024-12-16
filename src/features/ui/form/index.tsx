@@ -1,5 +1,6 @@
 "use client";
 
+export { FormikAsyncDropdown } from "./formik-async-dropdown.component";
 export { FormikCancelButton } from "./formik-cancel-button.component";
 export { FormikDateField } from "./formik-date-input.component";
 export { FormikDropdown } from "./formik-dropdown.component";

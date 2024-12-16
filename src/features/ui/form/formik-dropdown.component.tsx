@@ -55,7 +55,9 @@ export function FormikDropdown({
         />
       </div>
 
-      {meta?.error && <small className="text-red-600">{meta?.error}</small>}
+      {meta?.error && meta?.touched && (
+        <small className="text-red-600">{meta?.error}</small>
+      )}
       {helperText && !meta?.error && <small>{helperText}</small>}
     </div>
   );

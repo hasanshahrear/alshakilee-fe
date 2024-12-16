@@ -1,14 +1,19 @@
 import { Api, QueryKey, useGet } from "@/features/api";
 import { TGetAllCustomer } from "@/features/model";
 import {
+  FormikAsyncDropdown,
   FormikDateField,
   FormikDropdown,
   FormikSubmitButton,
 } from "@/features/ui";
 import { Form } from "formik";
+import { AutoCompleteCompleteEvent } from "primereact/autocomplete";
+import { useState } from "react";
 import { InvoiceArray } from "./invoice-array.component";
 
 export function InvoicesCreateUpdateForm() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const { data: dataCustomerList } = useGet<TGetAllCustomer>({
     url: Api.Customer,
     queryKey: QueryKey.GetAllCustomer,
@@ -16,6 +21,20 @@ export function InvoicesCreateUpdateForm() {
       status: true,
     },
   });
+
+  const customerSearch = (e: AutoCompleteCompleteEvent) => {
+    console.log(e.query);
+    setSearchQuery(e.query);
+  };
+
+  const searchData: { name: string; code: string }[] =
+    dataCustomerList?.data?.data?.map((x) => ({
+      name: x?.name,
+      code: String(x?.id),
+    })) as [];
+
+  console.log({ searchData });
+
   return (
     <Form className="flex flex-col gap-5">
       <div className="grid grid-cols-7 gap-4">
@@ -33,6 +52,15 @@ export function InvoicesCreateUpdateForm() {
               })) as []
             }
             filter
+          />
+          <FormikAsyncDropdown
+            name="customerId"
+            label="Customer Name"
+            className="p-inputtext-sm"
+            requiredIcon="*"
+            suggestions={searchData}
+            completeMethod={customerSearch}
+            // value={}
           />
         </div>
 

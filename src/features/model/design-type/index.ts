@@ -13,10 +13,10 @@ export type TGetAllDesignType = {
   status: number;
   message: string;
   description: string;
-  data: TCustomerList;
+  data: TDesignTypeList;
 };
 
-export type TCustomerList = {
+export type TDesignTypeList = {
   data: TDesignTypeData[];
   meta: TPageMeta;
 };
