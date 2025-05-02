@@ -77,8 +77,8 @@ export function Customer() {
       />
       <PageHeader
         breadCrumbJson={customerTypeBreadcrumb}
-        title="Customer Type"
-        buttonText="Create"
+        title="Customer"
+        buttonText="Create Customer"
         buttonClick={() => {
           if (visible) return;
           setVisible(true);

@@ -1,8 +1,8 @@
 "use client";
 
+import { CirclePlusIcon } from "@/features/icons";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import { FaPlus } from "react-icons/fa6";
 
 type TProps = {
   breadCrumbJson: any;
@@ -16,33 +16,32 @@ export function PageHeader({
   title,
   buttonText,
   buttonClick,
-}: TProps) {
+}: Readonly<TProps>) {
   return (
-    <div className="flex flex-col gap-4">
-      <BreadCrumb
-        model={breadCrumbJson}
-        className="h-fit w-fit rounded-none border-none bg-transparent p-0 py-0.5"
-        pt={{
-          label: {
-            className: "text-purple-800",
-          },
-          separator: {
-            className: "text-purple-800",
-          },
-        }}
-      />
-      <div className="flex items-center justify-between rounded-lg border bg-purple-800 p-3 pl-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-semibold text-white">{title}</h1>
-        </div>
-        <Button
-          className="border-none bg-white text-purple-800"
+    <div className="flex flex-row justify-between items-center gap-4">
+      <div>
+        <h1 className="text-2xl font-medium text-title mb-3">{title}</h1>
+        <BreadCrumb
+          model={breadCrumbJson}
+          className="h-fit w-fit rounded-none border-none bg-transparent p-0 py-0.5"
+          pt={{
+            label: {
+              className: "text-bodyText",
+            },
+            separator: {
+              className: "text-bodyText",
+            },
+          }}
+        />
+      </div>
+       <Button
+          className="border-none bg-primary h-12 rounded-[10px] font-medium text-base px-6 flex gap-2 justify-center"
           size="small"
           onClick={buttonClick}
         >
-          <FaPlus className="mr-2" /> {buttonText}
+          <CirclePlusIcon /> {buttonText}
         </Button>
-      </div>
+      
     </div>
   );
 }
