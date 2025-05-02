@@ -21,7 +21,15 @@ export default {
       xl: "1140px",
       xxl: "1320px",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        title: ['"Space Grotesk"', 'sans-serif'],
+      },
+      colors: {
+        primary: "#0D99FF",
+        bg: "#F1F4FA",
+      }
+    },
   },
   plugins: [],
 } satisfies Config;
