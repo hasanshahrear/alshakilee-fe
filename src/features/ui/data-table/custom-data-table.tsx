@@ -47,6 +47,7 @@ export function CustomDataTable({
   return (
     <>
       {statusFilter && <ActiveInactiveTab />}
+      <div className="bg-white p-4 rounded-[10px] shadow-sm">
       <DataTable
         value={data?.data?.data}
         loading={isPending}
@@ -68,11 +69,12 @@ export function CustomDataTable({
           first={first}
           rows={rows}
           totalRecords={data?.data?.meta.total}
-          rowsPerPageOptions={[10, 20, 30]}
+          rowsPerPageOptions={[10, 20, 30, 50, 100]}
           onPageChange={onPageChange}
-          className="flex justify-center"
+          className="flex justify-center mt-4"
         />
       )}
+      </div>
     </>
   );
 }

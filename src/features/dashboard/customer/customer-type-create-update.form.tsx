@@ -5,25 +5,29 @@ type TProps = {
   id?: number;
 };
 
-export function CustomerTypeCreateUpdateForm({ id }: TProps) {
+export function CustomerTypeCreateUpdateForm({ id }: Readonly<TProps>) {
   return (
     <Form className="flex flex-col gap-5">
       <FormikTextField
         name="name"
         label="Customer Name"
+        placeholder="Enter Customer Name"
         className="p-inputtext-sm"
         requiredIcon="*"
       />
       <FormikTextField
         name="mobile"
         label="Mobile No"
+        placeholder="Enter Mobile No"
         className="p-inputtext-sm"
         requiredIcon="*"
         keyfilter="pint"
       />
-      <FormikSubmitButton className="flex justify-center">
+     <div className="w-full flex justify-end">
+     <FormikSubmitButton className="flex justify-center items-end bg-primary h-12 w-fit border-none">
         {id ? "Update" : "Save"}
       </FormikSubmitButton>
+     </div>
     </Form>
   );
 }

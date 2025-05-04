@@ -15,7 +15,7 @@ type TCustomLinkProps = {
 
 const CustomLink = ({href, children}:TCustomLinkProps) => {
   const pathname = usePathname(); 
-  const isActive = href === pathname; 
+  const isActive = pathname === href || pathname.startsWith(`${href}/`);
   const activeClass = isActive ? "bg-primary text-white" : "text-gray-700 hover:bg-gray-100"; 
 
   return (

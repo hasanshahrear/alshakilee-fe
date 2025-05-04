@@ -1,4 +1,5 @@
 import { Api, QueryKey, useGet } from "@/features/api";
+import { CirclePlusIcon } from "@/features/icons";
 import { TGetAllCustomer } from "@/features/model";
 import {
   FormikAsyncDropdown,
@@ -36,7 +37,7 @@ export function InvoicesCreateUpdateForm() {
   console.log({ searchData });
 
   return (
-    <Form className="flex flex-col gap-5">
+    <Form className="flex flex-col gap-5 bg-white p-5 rounded-md shadow-md">
       <div className="grid grid-cols-7 gap-4">
         <div className="col-span-2">
           <FormikDropdown
@@ -76,9 +77,11 @@ export function InvoicesCreateUpdateForm() {
 
       <InvoiceArray />
 
-      <FormikSubmitButton className="flex justify-center">
-        Save
-      </FormikSubmitButton>
+      <div className="w-full flex justify-end">
+        <FormikSubmitButton  className="border-none bg-primary h-12 rounded-[10px] font-medium text-base px-6 flex gap-2 justify-center">
+          <CirclePlusIcon /> Create Invoice
+        </FormikSubmitButton>
+     </div>
     </Form>
   );
 }

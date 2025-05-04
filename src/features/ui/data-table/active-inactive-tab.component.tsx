@@ -61,7 +61,7 @@ export function ActiveInactiveTab(){
     <div className="relative ">
     <InputText
       placeholder="Type to search..."
-      className="p-inputtext-sm focus:border-primary h-[40px] focus:ring-0 rounded-r-none border-r-0 w-[320px]"
+      className="p-inputtext-sm focus:border-primary h-10 focus:ring-0 rounded-r-none border-r-0 w-[320px]"
       value={search}
       onChange={(e) => setSearch(e.target.value)}
     />

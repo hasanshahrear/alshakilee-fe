@@ -23,7 +23,7 @@ type TProps = {
   setVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export function CustomerTypeCreateUpdate({ id, setVisible }: TProps) {
+export function CustomerTypeCreateUpdate({ id, setVisible }: Readonly<TProps>) {
   const queryClient = useQueryClient();
 
   const { mutateAsync } = usePost<TCustomerCreateUpdateType>({
@@ -71,6 +71,7 @@ export function CustomerTypeCreateUpdate({ id, setVisible }: TProps) {
         id
           ? {
               name: dataGetById?.data?.name as string,
+              mobile: dataGetById?.data?.mobile as string,
             }
           : initailValue
       }

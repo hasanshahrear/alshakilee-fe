@@ -13,7 +13,7 @@ export function Invoices() {
       <PageHeader
         breadCrumbJson={invoicesBreadcrumb}
         title="Invoices"
-        buttonText="Create"
+        buttonText="Create Invoice"
         buttonClick={() => {
           push("invoices/create");
         }}

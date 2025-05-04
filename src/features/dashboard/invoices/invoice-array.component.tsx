@@ -7,7 +7,8 @@ import {
 } from "@/features/ui";
 import { FieldArray, useFormikContext } from "formik";
 import { Button } from "primereact/button";
-import { FaMinus } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
+import { MdClose } from "react-icons/md";
 import { initialItemValue, TInvoicesCreateUpdateType } from "./form.config";
 
 export function InvoiceArray() {
@@ -158,11 +159,13 @@ export function InvoiceArray() {
               {values?.items && values?.items?.length > 1 && (
                 <Button
                   type="button"
-                  icon={<FaMinus className="text-2xl" />}
+                  icon={<MdClose className="text-2xl" />}
                   severity="danger"
                   onClick={() => remove(i)}
-                  className="absolute bottom-2 right-2"
+                  className="absolute bottom-2 right-2 p-2"
                   size="small"
+                  rounded 
+                  aria-label="Cancel"
                 />
               )}
             </div>
@@ -171,7 +174,14 @@ export function InvoiceArray() {
             <Button
               type="button"
               label="Add More Size"
+              className="h-10 bg-primary border-none rounded-full font-medium"
+              icon={<AiOutlinePlus size="20" className="mr-2" />}
               onClick={() => push(initialItemValue)}
+              pt={{
+                label: {
+                  className: "font-normal",
+                }
+              }}
             />
           </div>
         </>

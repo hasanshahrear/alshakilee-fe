@@ -78,7 +78,7 @@ export function DesignType() {
       <PageHeader
         breadCrumbJson={designTypeBreadcrumb}
         title="Design Type"
-        buttonText="Create"
+        buttonText="Create Design"
         buttonClick={() => {
           if (visible) return;
           setVisible(true);

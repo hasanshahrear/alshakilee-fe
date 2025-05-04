@@ -5,18 +5,21 @@ type TProps = {
   id?: number;
 };
 
-export function ButtomTypeCreateUpdateForm({ id }: TProps) {
+export function ButtomTypeCreateUpdateForm({ id }: Readonly<TProps>) {
   return (
     <Form className="flex flex-col gap-5">
       <FormikTextField
         name="name"
         label="Buttom Name"
+        placeholder="Enter Buttom Name"
         className="p-inputtext-sm"
         requiredIcon="*"
       />
-      <FormikSubmitButton className="flex justify-center">
+     <div className="w-full flex justify-end">
+     <FormikSubmitButton className="flex justify-center items-end bg-primary h-12 w-fit border-none">
         {id ? "Update" : "Save"}
       </FormikSubmitButton>
+     </div>
     </Form>
   );
 }
