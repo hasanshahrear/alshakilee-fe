@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NextTopLoader from "nextjs-toploader";
 import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Toaster } from "sonner";
 
 type TProps = {
