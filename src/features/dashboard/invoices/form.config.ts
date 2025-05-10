@@ -1,38 +1,50 @@
 import * as yup from "yup";
 
 export const invoiceItemSchema = yup.object({
-  designTypeId: yup.number().required().label("Design Type").positive(),
-  bottomTypeId: yup.number().required().label("Buttom Type").positive(),
-  quantity: yup.number().required().label("Quantity").positive(),
   length: yup.number().required().label("Length").positive(),
   shoulder: yup.number().required().label("Shoulder").positive(),
   hand: yup.number().required().label("Hand").positive(),
-  handLouse: yup.number().required().label("Hand Louse").positive(),
+  handLoose: yup.number().required().label("Hand Loose"),
   neck: yup.number().required().label("Neck").positive(),
-  neckLouse: yup.number().required().label("Neck Louse").positive(),
-  centreLouse: yup.number().required().label("Centre Louse").positive(),
-  sdType: yup.string().nullable().label("SD Type"),
-  pocketStyle: yup.string().required().label("Pocket Style"),
-  sewingType: yup.string().required().label("Sewing Type"),
+  loose: yup.number().required().label("Loose"),
+  centreLoose: yup.number().required().label("Centre Loose"),
+  bottom: yup.number().required().label("Bottom"),
+  open: yup.number().required().label("Open"),
+  button: yup.string().required().label("Button"),
+  design: yup.string().required().label("Design"),
+  pocket: yup.string().required().label("Pocket"),
+  sewing: yup.string().required().label("Sewing"),
+  sd: yup.string().nullable().label("SD"),
+  pan: yup.string().nullable().label("Pan"),
+  description: yup.string().nullable().label("Description"),
+  quantity: yup.number().required().label("Quantity").positive(),
+  price: yup.number().required().label("Price").positive(),
 });
 
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
 
 export const initialItemValue: TInvoiceItemType = {
-  designTypeId: 0,
-  bottomTypeId: 0,
-  centreLouse: 0,
-  hand: 0,
-  handLouse: 0,
   length: 0,
-  neck: 0,
-  neckLouse: 0,
-  quantity: 0,
   shoulder: 0,
-  pocketStyle: "P2",
-  sewingType: "Chap",
-  sdType: "SD",
+  hand: 0,
+  handLoose: 0,
+  neck: 0,
+  loose: 0,
+  centreLoose: 0,
+  bottom: 0,
+  open: 0,
+  button: "",
+  design: "",
+  pocket: "P2",
+  sewing: "Chap",
+  sd: "SD",
+  pan: "NO_PAN",
+  description: null,
+  quantity: 1,
+  price: 0,
 };
+
+
 
 export const invoicesCreateUpdateSchema = yup.object({
   customerId: yup.mixed().required().label("Customer is Required"),

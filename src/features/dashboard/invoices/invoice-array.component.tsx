@@ -1,9 +1,9 @@
 import { Api, QueryKey, useGet } from "@/features/api";
 import { TGetAllButtomType, TGetAllDesignType } from "@/features/model";
 import {
-  FormikDropdown,
   FormikRadioButton,
-  FormikTextField,
+  FormikTextareaField,
+  FormikTextField
 } from "@/features/ui";
 import { FieldArray, useFormikContext } from "formik";
 import { Button } from "primereact/button";
@@ -13,6 +13,7 @@ import { initialItemValue, TInvoicesCreateUpdateType } from "./form.config";
 
 export function InvoiceArray() {
   const { values } = useFormikContext<TInvoicesCreateUpdateType>();
+
   const { data: dataButtomTypeList } = useGet<TGetAllButtomType>({
     url: Api.BottomType,
     queryKey: QueryKey.GetAllBottomType,
@@ -20,6 +21,7 @@ export function InvoiceArray() {
       status: true,
     },
   });
+
   const { data: dataDesignList } = useGet<TGetAllDesignType>({
     url: Api.DesignType,
     queryKey: QueryKey.GetAllDesignType,
@@ -27,107 +29,139 @@ export function InvoiceArray() {
       status: true,
     },
   });
+
   return (
     <FieldArray
       name="items"
       render={({ push, remove }) => (
-        <>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-2">
           {values?.items?.map((_, i) => (
             <div
               className="relative"
               key={i}
             >
+              <p className=" text-sm font-semibold text-primary mb-2 py-2 px-4 bg-primary/10 rounded">
+                Invoice No: {i + 1} 
+              </p>
               <div
-                className="grid grid-cols-7 gap-4 rounded-lg bg-gray-100 p-4"
+                className="grid grid-cols-6 xl:grid-cols-12 rounded-lg bg-gray-100 p-5 items-start gap-2"
                 key={i}
               >
-                <FormikTextField
-                  name={`items[${i}].quantity`}
-                  type="number"
-                  keyfilter="pint"
-                  label="Quantity"
-                  className="p-inputtext-sm"
-                />
-                <FormikTextField
-                  name={`items[${i}].length`}
-                  type="number"
-                  keyfilter="pnum"
-                  label="Length"
-                  className="p-inputtext-sm"
-                />
-                <FormikTextField
-                  name={`items[${i}].shoulder`}
-                  type="number"
-                  keyfilter="pnum"
-                  label="Shoulder"
-                  className="p-inputtext-sm"
-                />
+                
+                <div className="col-span-3">
+                  <FormikTextField
+                    name={`items[${i}].length`}
+                    type="number"
+                    keyfilter="pnum"
+                    label="Length"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
+                  />
+                </div>
+
+                <div className="col-span-3">
+                  <FormikTextField
+                    name={`items[${i}].shoulder`}
+                    type="number"
+                    keyfilter="pnum"
+                    label="Shoulder"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
+                  />
+                </div>
+                
+                <div className="col-span-3">
                 <FormikTextField
                   name={`items[${i}].hand`}
                   type="number"
                   keyfilter="pnum"
                   label="Hand"
                   className="p-inputtext-sm"
+                  requiredIcon="*"
                 />
+                </div>
+                <div className="col-span-3">
                 <FormikTextField
-                  name={`items[${i}].handLouse`}
+                  name={`items[${i}].handLoose`}
                   type="number"
                   keyfilter="pnum"
-                  label="Hand Louse"
+                  label="HandLoose"
                   className="p-inputtext-sm"
+                  requiredIcon="*"
                 />
+                </div>
+                <div className="col-span-3">
                 <FormikTextField
                   name={`items[${i}].neck`}
                   type="number"
                   keyfilter="pnum"
                   label="Neck"
                   className="p-inputtext-sm"
+                  requiredIcon="*"
                 />
+                </div>
+                <div className="col-span-3">
                 <FormikTextField
-                  name={`items[${i}].neckLouse`}
+                  name={`items[${i}].loose`}
                   type="number"
                   keyfilter="pnum"
-                  label="Neck Louse"
+                  label="Loose"
                   className="p-inputtext-sm"
-                />{" "}
+                  requiredIcon="*"
+                />
+                </div>
+                <div className="col-span-3">
                 <FormikTextField
-                  name={`items[${i}].centreLouse`}
+                  name={`items[${i}].centreLoose`}
                   type="number"
                   keyfilter="pnum"
-                  label="Centre Louse"
-                  className="p-inputtext-sm"
-                />
-                <FormikDropdown
-                  name={`items[${i}].bottomTypeId`}
-                  label="Buttom Type"
+                  label="CentreLoose"
                   className="p-inputtext-sm"
                   requiredIcon="*"
-                  options={
-                    dataButtomTypeList?.data?.data?.map((x) => ({
-                      ...x,
-                      name: x?.name,
-                      value: x?.id,
-                    })) as []
-                  }
-                  filter
                 />
-                <FormikDropdown
-                  name={`items[${i}].designTypeId`}
-                  label="Design Type"
+                </div>
+                <div className="col-span-3">
+                <FormikTextField
+                  name={`items[${i}].bottom`}
+                  type="number"
+                  keyfilter="pnum"
+                  label="Bottom"
                   className="p-inputtext-sm"
                   requiredIcon="*"
-                  options={
-                    dataDesignList?.data?.data?.map((x) => ({
-                      ...x,
-                      name: x?.name,
-                      value: x?.id,
-                    })) as []
-                  }
-                  filter
                 />
+                </div>
+                <div className="col-span-3">
+                <FormikTextField
+                  name={`items[${i}].open`}
+                  type="number"
+                  keyfilter="pnum"
+                  label="Open"
+                  className="p-inputtext-sm"
+                  requiredIcon="*"
+                />
+                </div>
+                <div className="col-span-3 xl:col-span-3">
+                  <FormikTextField
+                    name={`items[${i}].button`}
+                    type="text"
+                    label="Button"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
+                  />
+                </div>
+                <div className="col-span-3 xl:col-span-6">
+                  <FormikTextField
+                    name={`items[${i}].design`}
+                    type="text"
+                    label="Design"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
+                  />
+                </div>
+                <div className="col-span-3">
                 <FormikRadioButton
-                  name={`items[${i}].pocketStyle`}
-                  label="PocketStyle"
+                  name={`items[${i}].pocket`}
+                  label="Pocket"
                   requiredIcon="*"
                   options={[
                     { name: "P2", value: "P2" },
@@ -135,9 +169,11 @@ export function InvoiceArray() {
                   ]}
                   className="p-inputtext-sm"
                 />
+                </div>
+                <div className="col-span-3">
                 <FormikRadioButton
-                  name={`items[${i}].sewingType`}
-                  label="Sewing Type"
+                  name={`items[${i}].sewing`}
+                  label="Sewing"
                   requiredIcon="*"
                   options={[
                     { name: "Chap", value: "Chap" },
@@ -145,9 +181,11 @@ export function InvoiceArray() {
                   ]}
                   className="p-inputtext-sm"
                 />
+                </div>
+                <div className="col-span-3">
                 <FormikRadioButton
-                  name={`items[${i}].sdType`}
-                  label="SD Type"
+                  name={`items[${i}].sd`}
+                  label="SD"
                   requiredIcon="*"
                   options={[
                     { name: "SD", value: "SD" },
@@ -155,14 +193,59 @@ export function InvoiceArray() {
                   ]}
                   className="p-inputtext-sm"
                 />
+                </div>
+                <div className="col-span-3">
+                <FormikRadioButton
+                  name={`items[${i}].pan`}
+                  label="Pan"
+                  requiredIcon="*"
+                  options={[
+                    { name: "No Pan", value: "NO_PAN" },
+                    { name: "Pan", value: "PAN" },
+                  ]}
+                  className="p-inputtext-sm text-xs"
+                />
+                </div>
+
+               
+                <div className="col-span-6 xl:col-span-12">
+                  <FormikTextareaField 
+                    name={`items[${i}].description`}
+                    label="Description"
+                    className="w-full"
+                    rows={3}
+                  />
+                </div>
+                <div className="col-span-6 xl:col-span-12 gap-2 flex flex-col items-end">
+                  <div className="">
+                    <FormikTextField
+                      name={`items[${i}].quantity`}
+                      type="text"
+                      keyfilter="pint"
+                      label="Quantity"
+                      className="p-inputtext-sm text-right"
+                      requiredIcon="*"
+                    />
+                  </div>
+                  <div className="">
+                    <FormikTextField
+                      name={`items[${i}].price`}
+                      type="number"
+                      keyfilter="pnum"
+                      label="Price"
+                      className="p-inputtext-sm text-right"
+                      requiredIcon="*"
+                    />
+                  </div>
+                </div>
               </div>
               {values?.items && values?.items?.length > 1 && (
                 <Button
                   type="button"
-                  icon={<MdClose className="text-2xl" />}
+                  icon={<MdClose className="text-xl" />}
                   severity="danger"
                   onClick={() => remove(i)}
-                  className="absolute bottom-2 right-2 p-2"
+                  className="absolute top-1 right-2 h-7 w-7 p-0"
                   size="small"
                   rounded 
                   aria-label="Cancel"
@@ -184,7 +267,7 @@ export function InvoiceArray() {
               }}
             />
           </div>
-        </>
+        </div>
       )}
     />
   );

@@ -2,7 +2,7 @@
 
 import { cn } from "@/features/utils";
 import { useField } from "formik";
-import { InputText, InputTextProps } from "primereact/inputtext";
+import { InputTextarea, InputTextareaProps } from "primereact/inputtextarea";
 import { useId } from "react";
 
 type FormikTextFieldProps = {
@@ -11,9 +11,9 @@ type FormikTextFieldProps = {
   requiredIcon?: string;
   helperText?: string;
   className?: string;
-} & InputTextProps;
+} & InputTextareaProps;
 
-export function FormikTextField({
+export function FormikTextareaField({
   name,
   label,
   helperText,
@@ -41,11 +41,10 @@ export function FormikTextField({
         )}
       </div>
       <div className="flex flex-row items-center">
-        <InputText
+        <InputTextarea
           id={inputId}
-          type={inputProps?.type ?? "text"}
           {...inputProps}
-          className={cn("w-full h-10 focus:border-primary focus:ring-0", className)}
+          className={cn("w-full focus:border-primary focus:ring-0", className)}
           onFocus={(e) => e.target.select()}
         />
       </div>

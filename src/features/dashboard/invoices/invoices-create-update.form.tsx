@@ -2,10 +2,9 @@ import { Api, QueryKey, useGet } from "@/features/api";
 import { CirclePlusIcon } from "@/features/icons";
 import { TGetAllCustomer } from "@/features/model";
 import {
-  FormikAsyncDropdown,
   FormikDateField,
   FormikDropdown,
-  FormikSubmitButton,
+  FormikSubmitButton
 } from "@/features/ui";
 import { Form } from "formik";
 import { AutoCompleteCompleteEvent } from "primereact/autocomplete";
@@ -54,15 +53,7 @@ export function InvoicesCreateUpdateForm() {
             }
             filter
           />
-          <FormikAsyncDropdown
-            name="customerId"
-            label="Customer Name"
-            className="p-inputtext-sm"
-            requiredIcon="*"
-            suggestions={searchData}
-            completeMethod={customerSearch}
-            // value={}
-          />
+        
         </div>
 
         <div className="col-span-2">

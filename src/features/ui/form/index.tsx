@@ -7,3 +7,4 @@ export { FormikDropdown } from "./formik-dropdown.component";
 export { FormikRadioButton } from "./formik-radio-button.component";
 export { FormikSubmitButton } from "./formik-submit-button.component";
 export { FormikTextField } from "./formik-text-input.component";
+export { FormikTextareaField } from "./formik-textarea.component";
