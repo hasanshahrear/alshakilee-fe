@@ -39,7 +39,7 @@ export const initialItemValue: TInvoiceItemType = {
   sewing: "Chap",
   sd: "SD",
   pan: "NO_PAN",
-  description: null,
+  description: "",
   quantity: 1,
   price: 0,
 };

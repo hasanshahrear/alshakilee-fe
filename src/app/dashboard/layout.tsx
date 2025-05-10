@@ -1,6 +1,6 @@
 "use client"
 
-import { ButtomIcon, DashboardIcon, DesignIcon, InvoiceIcon, PeopleIcon } from "@/features/icons";
+import { DashboardIcon, InvoiceIcon, PeopleIcon } from "@/features/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -35,8 +35,6 @@ export default function DashboardLayout({ children }: Readonly<TProps>) {
           <CustomLink href="/dashboard"><DashboardIcon /> Dashboard</CustomLink>
           <CustomLink href="/dashboard/invoices"><InvoiceIcon /> Invoices</CustomLink>
           <CustomLink href="/dashboard/customer"><PeopleIcon /> Customer</CustomLink>
-          <CustomLink href="/dashboard/design-type"><DesignIcon /> Design</CustomLink>
-          <CustomLink href="/dashboard/buttom-type"><ButtomIcon /> Buttom</CustomLink>
         </div>
       </div>
 
