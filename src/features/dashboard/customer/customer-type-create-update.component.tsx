@@ -70,7 +70,6 @@ export function CustomerTypeCreateUpdate({ id, setVisible }: Readonly<TProps>) {
       initialValues={
         id
           ? {
-              name: dataGetById?.data?.name as string,
               mobile: dataGetById?.data?.mobile as string,
             }
           : initailValue

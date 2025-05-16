@@ -176,8 +176,8 @@ export function InvoiceArray() {
                   label="Sewing"
                   requiredIcon="*"
                   options={[
-                    { name: "Chap", value: "Chap" },
-                    { name: "Lock", value: "Lock" },
+                    { name: "Chap", value: "CHAP" },
+                    { name: "Lock", value: "LOCK" },
                   ]}
                   className="p-inputtext-sm"
                 />
