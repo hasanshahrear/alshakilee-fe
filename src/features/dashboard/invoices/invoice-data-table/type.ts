@@ -1,13 +1,4 @@
-import { DataTableValue } from "primereact/datatable";
-
-// export type TInvoiceItem = {
-//   id: number;
-//   description: string;
-//   length: number;
-//   hand: number;
-//   quantity: number;
-//   price: number;
-// } extends DataTableValue;
+import { TInvoiceItemType } from "../form.config";
 
 export type TInvoice = {
   id: number;
@@ -21,7 +12,7 @@ export type TInvoice = {
     mobile: string;
     isActive: boolean;
   };
-  invoiceItems: DataTableValue[];
+  invoiceItems: TInvoiceItemType[];
 };
 
 export type TDataTableRes = {

@@ -122,10 +122,10 @@ export function InvoiceArray() {
                 </div>
                 <div className="col-span-3">
                 <FormikTextField
-                  name={`items[${i}].bottom`}
+                  name={`items[${i}].downLoose`}
                   type="number"
                   keyfilter="pnum"
-                  label="Bottom"
+                  label="DownLoose"
                   className="p-inputtext-sm"
                   requiredIcon="*"
                 />
@@ -182,18 +182,7 @@ export function InvoiceArray() {
                   className="p-inputtext-sm"
                 />
                 </div>
-                <div className="col-span-3">
-                <FormikRadioButton
-                  name={`items[${i}].sd`}
-                  label="SD"
-                  requiredIcon="*"
-                  options={[
-                    { name: "SD", value: "SD" },
-                    { name: "No SD", value: "No_SD" },
-                  ]}
-                  className="p-inputtext-sm"
-                />
-                </div>
+                
                 <div className="col-span-3">
                 <FormikRadioButton
                   name={`items[${i}].pan`}
@@ -206,22 +195,32 @@ export function InvoiceArray() {
                   className="p-inputtext-sm text-xs"
                 />
                 </div>
-
-               
-                <div className="col-span-6 xl:col-span-12">
+                <div className="col-span-3">
+                <FormikRadioButton
+                  name={`items[${i}].sd`}
+                  label="SD"
+                  requiredIcon="*"
+                  options={[
+                    { name: "SD", value: "SD" },
+                    { name: "No SD", value: "NO_SD" },
+                    { name: "KT", value: "KT" },
+                  ]}
+                  className="p-inputtext-sm"
+                />
+                </div>
+                <div className="col-span-6 xl:col-span-9">
                   <FormikTextareaField 
                     name={`items[${i}].description`}
                     label="Description"
-                    className="w-full"
+                    className="w-full h-[112px]"
                     rows={3}
                   />
                 </div>
-                <div className="col-span-6 xl:col-span-12 gap-2 flex flex-col items-end">
+                <div className="col-span-6 xl:col-span-3 gap-2 flex flex-col items-end">
                   <div className="">
                     <FormikTextField
                       name={`items[${i}].quantity`}
-                      type="text"
-                      keyfilter="pint"
+                      type="number"
                       label="Quantity"
                       className="p-inputtext-sm text-right"
                       requiredIcon="*"
