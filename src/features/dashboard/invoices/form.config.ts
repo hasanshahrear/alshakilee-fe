@@ -1,13 +1,14 @@
 import * as yup from "yup";
 
 export const invoiceItemSchema = yup.object({
+  id: yup.number().nullable(),
   length: yup.number().required().label("Length").positive(),
   shoulder: yup.number().required().label("Shoulder").positive(),
   hand: yup.number().required().label("Hand").positive(),
-  handLoose: yup.number().required().label("Hand Loose"),
+  handLoose: yup.string().required().label("Hand Loose"),
   neck: yup.number().required().label("Neck").positive(),
-  loose: yup.number().required().label("Loose"),
-  centreLoose: yup.number().required().label("Centre Loose"),
+  chestLoose: yup.number().required().label("Chest Loose"),
+  centreLoose: yup.string().required().label("Centre Loose"),
   downLoose: yup.number().required().label("Bottom"),
   open: yup.number().required().label("Open"),
   button: yup.string().required().label("Button"),
@@ -19,6 +20,7 @@ export const invoiceItemSchema = yup.object({
   description: yup.string().nullable().label("Description"),
   quantity: yup.number().required().label("Quantity").positive(),
   price: yup.number().required().label("Price").positive(),
+  fabric: yup.string().notRequired().label("Fabric"),
 });
 
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
@@ -27,10 +29,10 @@ export const initialItemValue: TInvoiceItemType = {
   length: 0,
   shoulder: 0,
   hand: 0,
-  handLoose: 0,
+  handLoose: "",
   neck: 0,
-  loose: 0,
-  centreLoose: 0,
+  chestLoose: 0,
+  centreLoose: "",
   downLoose: 0,
   open: 0,
   button: "",
@@ -42,11 +44,11 @@ export const initialItemValue: TInvoiceItemType = {
   description: "",
   quantity: 1,
   price: 0,
+  fabric: "",
 };
 
-
-
 export const invoicesCreateUpdateSchema = yup.object({
+  id: yup.number().nonNullable(),
   customerId: yup.mixed().required().label("Customer is Required"),
   deliveryDate: yup.date().required().label("Delivery Date"),
   items: yup.array().of(invoiceItemSchema).min(1),

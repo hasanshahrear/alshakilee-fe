@@ -1,6 +1,6 @@
 "use client";
 
-import { Api, QueryKey, useGet, usePost } from "@/features/api";
+import { Api, QueryKey, useGet, usePost, usePut } from "@/features/api";
 import {
   TGetInvoiceByID,
   TGlobalErrorResponse,
@@ -37,7 +37,16 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     },
   });
 
+  const { mutateAsync: mutateAsyncUpdateInvoice } =
+    usePut<TInvoicesCreateUpdateType>({
+      url: Api.Invoices + "/" + slug,
+    });
+
   const handleSubmit = async (values: TInvoicesCreateUpdateType) => {
+    if (slug) {
+      mutateAsyncUpdateInvoice(values);
+      return;
+    }
     await mutateAsync(values);
   };
 
@@ -56,6 +65,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               ),
               customerId: dataGetInvoiceById?.data?.customerId ?? "",
               items: dataGetInvoiceById?.data?.invoiceItems ?? [],
+              id: dataGetInvoiceById?.data.id,
             }
           : initailValue
       }
