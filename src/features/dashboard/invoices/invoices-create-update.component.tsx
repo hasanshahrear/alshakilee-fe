@@ -1,7 +1,11 @@
 "use client";
 
-import { Api, QueryKey, usePost } from "@/features/api";
-import { TGlobalErrorResponse, TGlobalSuccessResponse } from "@/features/model";
+import { Api, QueryKey, useGet, usePost } from "@/features/api";
+import {
+  TGetInvoiceByID,
+  TGlobalErrorResponse,
+  TGlobalSuccessResponse,
+} from "@/features/model";
 import { axiosErrorToast, axiosSuccessToast } from "@/features/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -13,7 +17,11 @@ import {
 } from "./form.config";
 import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
 
-export function InvoicesCreateUpdate() {
+type TPageProps = {
+  slug?: string;
+};
+
+export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
   const queryClient = useQueryClient();
 
   const { mutateAsync } = usePost<TInvoicesCreateUpdateType>({
@@ -33,9 +41,24 @@ export function InvoicesCreateUpdate() {
     await mutateAsync(values);
   };
 
+  const { data: dataGetInvoiceById } = useGet<TGetInvoiceByID>({
+    url: Api.Invoices + "/" + slug,
+    queryKey: QueryKey.GetInvoiceById,
+  });
+
   return (
     <Formik
-      initialValues={initailValue}
+      initialValues={
+        slug
+          ? {
+              deliveryDate: new Date(
+                dataGetInvoiceById?.data?.deliveryDate ?? "",
+              ),
+              customerId: dataGetInvoiceById?.data?.customerId ?? "",
+              items: dataGetInvoiceById?.data?.invoiceItems ?? [],
+            }
+          : initailValue
+      }
       validationSchema={invoicesCreateUpdateSchema}
       enableReinitialize
       onSubmit={handleSubmit}

@@ -2,7 +2,7 @@
 
 import { Api, QueryKey, usePatch } from "@/features/api";
 import { PageHeader, TableAction } from "@/features/ui";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { invoicesBreadcrumb } from "./data";
 import { InvoiceDataTable } from "./invoice-data-table";
 import {
@@ -15,6 +15,7 @@ import { BsExclamationTriangle } from "react-icons/bs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { TGlobalErrorResponse, TGlobalSuccessResponse } from "@/features/model";
+import { useRouter } from "nextjs-toploader/app";
 
 type TPatchInvoices = {
   isActive: boolean;
@@ -104,7 +105,9 @@ export function Invoices() {
             align: "center",
             body: ({ id }) => (
               <TableAction
-                handleEdit={() => {}}
+                handleEdit={() => {
+                  push(`invoices/update/${id}`);
+                }}
                 handleDelete={() => handleDelete(id)}
               />
             ),

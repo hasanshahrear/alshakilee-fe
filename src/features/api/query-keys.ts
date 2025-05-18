@@ -3,4 +3,6 @@ export enum QueryKey {
   GetAllDesignType = "get-all-design-type",
   GetAllCustomer = "get-all-customer",
   GetAllInvoice = "get-all-invoice",
+
+  GetInvoiceById = "get-invoice-by-id",
 }
