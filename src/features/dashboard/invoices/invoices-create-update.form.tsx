@@ -4,7 +4,7 @@ import { TGetAllCustomer } from "@/features/model";
 import {
   FormikDateField,
   FormikDropdown,
-  FormikSubmitButton
+  FormikSubmitButton,
 } from "@/features/ui";
 import { Form } from "formik";
 import { AutoCompleteCompleteEvent } from "primereact/autocomplete";
@@ -36,7 +36,7 @@ export function InvoicesCreateUpdateForm() {
   console.log({ searchData });
 
   return (
-    <Form className="flex flex-col gap-5 bg-white p-5 rounded-md shadow-md">
+    <Form className="flex flex-col gap-5 rounded-md bg-white p-5 shadow-md">
       <div className="grid grid-cols-7 gap-4">
         <div className="col-span-2">
           <FormikDropdown
@@ -53,7 +53,6 @@ export function InvoicesCreateUpdateForm() {
             }
             filter
           />
-        
         </div>
 
         <div className="col-span-2">
@@ -68,11 +67,11 @@ export function InvoicesCreateUpdateForm() {
 
       <InvoiceArray />
 
-      <div className="w-full flex justify-end">
-        <FormikSubmitButton  className="border-none bg-primary h-12 rounded-[10px] font-medium text-base px-6 flex gap-2 justify-center">
+      <div className="flex w-full justify-end">
+        <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium">
           <CirclePlusIcon /> Create Invoice
         </FormikSubmitButton>
-     </div>
+      </div>
     </Form>
   );
 }

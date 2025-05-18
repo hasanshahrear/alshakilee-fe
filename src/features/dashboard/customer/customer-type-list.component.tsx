@@ -50,7 +50,7 @@ export function Customer() {
   };
 
   const accept = async () => {
-    await mutateAsync({ isActive: Number(activeStatus) === 0 ? false : true });
+    await mutateAsync({ isActive: Number(activeStatus) !== 0 });
   };
 
   const handleDeleteDialog = () => {
@@ -59,7 +59,7 @@ export function Customer() {
       header: "Confirmation",
       icon: <BsExclamationTriangle />,
       defaultFocus: "accept",
-      accept,
+      accept: () => { accept(); },
     });
   };
 
@@ -92,10 +92,12 @@ export function Customer() {
           {
             field: "isActive",
             header: "Status",
+            align: "center",
           },
           {
             field: "id",
             header: "Actions",
+            align: "center",
             body: ({ id }) => (
               <TableAction
                 handleEdit={() => handleEdit(id)}

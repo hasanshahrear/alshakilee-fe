@@ -175,8 +175,8 @@ export function InvoiceDataTable({
                 return serialNo;
             }}
             />
-          {columns.map(({ field, header }) => (
-            <Column key={field} field={field} header={header} />
+          {columns.map(({ field, header, ...rest }) => (
+            <Column key={field} field={field} header={header} {...rest} />
           ))}
         </DataTable>
 

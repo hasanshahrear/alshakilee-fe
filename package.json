@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.61.0",
+    "@types/luxon": "^3.6.2",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
+    "luxon": "^3.6.1",
     "next": "15.0.3",
     "nextjs-toploader": "^3.8.16",
     "primereact": "^10.8.4",
