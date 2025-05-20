@@ -6,7 +6,7 @@ import AsyncCreatableSelect, {
   AsyncCreatableProps as AsyncCreatableSelectProps,
 } from "react-select/async-creatable";
 import type { GroupBase } from "react-select";
-import { cn } from "@/features/utils";
+import { cn, highlightMatch } from "@/features/utils";
 import { Skeleton } from "primereact/skeleton";
 
 type TOption = {
@@ -89,6 +89,9 @@ export function FormikAsyncCreatableDropdown({
             height: "40px",
           }),
         }}
+        formatOptionLabel={(option, { inputValue }) => (
+          <div>{highlightMatch(option.label, inputValue)}</div>
+        )}
         {...rest}
       />
 
