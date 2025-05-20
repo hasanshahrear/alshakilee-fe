@@ -14,22 +14,6 @@ import { initialItemValue, TInvoicesCreateUpdateType } from "./form.config";
 export function InvoiceArray() {
   const { values } = useFormikContext<TInvoicesCreateUpdateType>();
 
-  const { data: dataButtomTypeList } = useGet<TGetAllButtomType>({
-    url: Api.BottomType,
-    queryKey: QueryKey.GetAllBottomType,
-    queryParams: {
-      status: true,
-    },
-  });
-
-  const { data: dataDesignList } = useGet<TGetAllDesignType>({
-    url: Api.DesignType,
-    queryKey: QueryKey.GetAllDesignType,
-    queryParams: {
-      status: true,
-    },
-  });
-
   return (
     <FieldArray
       name="items"

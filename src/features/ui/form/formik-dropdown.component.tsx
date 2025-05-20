@@ -49,7 +49,7 @@ export function FormikDropdown({
           {...inputProps}
           id={inputId}
           options={inputProps.options}
-          className={cn("w-full h-10 flex items-center", className)}
+          className={cn("flex h-10 w-full items-center", className)}
           optionLabel="name"
           optionValue="value"
         />

@@ -28,10 +28,10 @@ export type TInvoiceItem = {
   length: number;
   shoulder: number;
   hand: number;
-  handLoose: number;
+  handLoose: string;
   neck: number;
-  loose: number;
-  centreLoose: number;
+  chestLoose: number;
+  centreLoose: string;
   downLoose: number;
   open: number;
   button: string;
@@ -43,6 +43,7 @@ export type TInvoiceItem = {
   description: string;
   quantity: number;
   price: number;
+  fabric: string;
   isActive: boolean;
   invoiceId: number;
   createdAt: Date;

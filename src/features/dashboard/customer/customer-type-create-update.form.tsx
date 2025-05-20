@@ -16,11 +16,11 @@ export function CustomerTypeCreateUpdateForm({ id }: Readonly<TProps>) {
         requiredIcon="*"
         keyfilter="pint"
       />
-     <div className="w-full flex justify-end">
-     <FormikSubmitButton className="flex justify-center items-end bg-primary h-12 w-fit border-none">
-        {id ? "Update" : "Save"}
-      </FormikSubmitButton>
-     </div>
+      <div className="flex w-full justify-end">
+        <FormikSubmitButton className="flex h-12 w-fit items-end justify-center border-none bg-primary">
+          {id ? "Update" : "Save"}
+        </FormikSubmitButton>
+      </div>
     </Form>
   );
 }

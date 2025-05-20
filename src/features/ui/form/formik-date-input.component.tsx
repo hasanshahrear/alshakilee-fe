@@ -1,7 +1,8 @@
 import { cn } from "@/features/utils";
 import { useField } from "formik";
 import { Calendar, CalendarProps } from "primereact/calendar";
-import { useId } from "react";
+import { Skeleton } from "primereact/skeleton";
+import { useEffect, useId, useState } from "react";
 
 type TFormikDateProps = {
   name: string;
@@ -22,6 +23,26 @@ export function FormikDateField({
   const inputId = useId();
   const [field, meta] = useField(name);
   const inputProps = { ...rest, ...field };
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted)
+    return (
+      <>
+        <Skeleton
+          width="100%"
+          height="20px"
+          className="mb-2"
+        ></Skeleton>
+        <Skeleton
+          width="100%"
+          height="40px"
+          className=""
+        ></Skeleton>
+      </>
+    );
 
   return (
     <div>
@@ -42,7 +63,7 @@ export function FormikDateField({
         <Calendar
           {...inputProps}
           id={inputId}
-          className={cn("w-full", className)}
+          className={cn("h-10 w-full", className)}
         />
       </div>
 

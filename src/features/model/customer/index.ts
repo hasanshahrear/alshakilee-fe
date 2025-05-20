@@ -23,7 +23,14 @@ export type TCustomerList = {
 
 export type TCustomerData = {
   id: number;
-  name: string;
   mobile: string;
   isActive: boolean;
+};
+
+export type TGetCustomerList = {
+  type: string;
+  status: number;
+  message: string;
+  description: string;
+  data: TCustomerData[];
 };

@@ -1,6 +1,13 @@
 "use client";
 
-import { Api, QueryKey, useGet, usePost, usePut } from "@/features/api";
+import {
+  Api,
+  QueryKey,
+  useGet,
+  useLazyGet,
+  usePost,
+  usePut,
+} from "@/features/api";
 import {
   TGetInvoiceByID,
   TGlobalErrorResponse,
@@ -13,9 +20,11 @@ import { Formik } from "formik";
 import {
   initailValue,
   invoicesCreateUpdateSchema,
+  TInvoiceItemType,
   TInvoicesCreateUpdateType,
 } from "./form.config";
 import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
+import { TInvoiceItem } from "@/features/model/invoice/get-invoice-by-id";
 
 type TPageProps = {
   slug?: string;
@@ -50,9 +59,10 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     await mutateAsync(values);
   };
 
-  const { data: dataGetInvoiceById } = useGet<TGetInvoiceByID>({
+  const { data: dataGetInvoiceById } = useLazyGet<TGetInvoiceByID>({
     url: Api.Invoices + "/" + slug,
     queryKey: QueryKey.GetInvoiceById,
+    trigger: !!slug,
   });
 
   return (
@@ -65,7 +75,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               ),
               customerId: dataGetInvoiceById?.data?.customerId ?? "",
               items: dataGetInvoiceById?.data?.invoiceItems ?? [],
-              id: dataGetInvoiceById?.data.id,
+              id: dataGetInvoiceById?.data?.id,
             }
           : initailValue
       }

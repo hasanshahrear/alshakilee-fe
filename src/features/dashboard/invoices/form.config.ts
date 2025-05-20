@@ -26,6 +26,7 @@ export const invoiceItemSchema = yup.object({
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
 
 export const initialItemValue: TInvoiceItemType = {
+  id: 0,
   length: 0,
   shoulder: 0,
   hand: 0,
@@ -59,6 +60,7 @@ export type TInvoicesCreateUpdateType = yup.InferType<
 >;
 
 export const initailValue: TInvoicesCreateUpdateType = {
+  id: 0,
   customerId: 0,
   deliveryDate: new Date(),
   items: [initialItemValue],
