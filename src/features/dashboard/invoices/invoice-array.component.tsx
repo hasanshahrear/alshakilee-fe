@@ -1,5 +1,3 @@
-import { Api, QueryKey, useGet } from "@/features/api";
-import { TGetAllButtomType, TGetAllDesignType } from "@/features/model";
 import {
   FormikRadioButton,
   FormikTextareaField,

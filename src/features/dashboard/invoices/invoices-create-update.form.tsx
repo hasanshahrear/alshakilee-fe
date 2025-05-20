@@ -3,24 +3,16 @@
 import { Api, QueryKey, useGet, usePost } from "@/features/api";
 import { CirclePlusIcon } from "@/features/icons";
 import {
-  TGetAllCustomer,
   TGetCustomerList,
-  TGetCustomerTypeByID,
   TGlobalErrorResponse,
   TGlobalSuccessResponse,
 } from "@/features/model";
-import {
-  FormikDateField,
-  FormikDropdown,
-  FormikSubmitButton,
-} from "@/features/ui";
+import { FormikDateField, FormikSubmitButton } from "@/features/ui";
 import { Form } from "formik";
-import { AutoCompleteCompleteEvent } from "primereact/autocomplete";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { InvoiceArray } from "./invoice-array.component";
 import { FormikAsyncCreatableDropdown } from "@/features/ui/form/formik-async-creatable-dropdown.component";
 import { OptionsOrGroups, GroupBase } from "react-select";
-import { TCustomer } from "@/features/model/invoice/get-invoice-by-id";
 import { TCustomerCreateUpdateType } from "../customer/form.config";
 import { useQueryClient } from "@tanstack/react-query";
 import { axiosErrorToast, axiosSuccessToast } from "@/features/utils";

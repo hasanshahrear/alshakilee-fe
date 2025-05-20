@@ -10,7 +10,6 @@ import { useState } from "react";
 import { TDataTableRes, TInvoice } from "./type";
 import { Divider } from "primereact/divider";
 import { AiFillDelete, AiFillEdit, AiFillPrinter } from "react-icons/ai";
-import { Tag } from "primereact/tag";
 
 type TProps = {
   columns: ColumnProps[];
