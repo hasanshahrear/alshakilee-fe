@@ -1,1 +1,1 @@
-export { TIMEZONE } from "./constants"
+export { TIMEZONE } from "./constants";

@@ -47,33 +47,33 @@ export function CustomDataTable({
   return (
     <>
       {statusFilter && <ActiveInactiveTab />}
-      <div className="bg-white p-4 rounded-[10px] shadow-sm">
-      <DataTable
-        value={data?.data?.data}
-        loading={isPending}
-        showGridlines
-        size="small"
-      >
-        {columns?.map(({ field, header, ...rest }) => (
-          <Column
-            key={field}
-            field={field}
-            header={header}
-            {...rest}
-          />
-        ))}
-      </DataTable>
+      <div className="rounded-[10px] bg-white p-4 shadow-sm">
+        <DataTable
+          value={data?.data?.data}
+          loading={isPending}
+          showGridlines
+          size="small"
+        >
+          {columns?.map(({ field, header, ...rest }) => (
+            <Column
+              key={field}
+              field={field}
+              header={header}
+              {...rest}
+            />
+          ))}
+        </DataTable>
 
-      {!isPending && (
-        <Paginator
-          first={first}
-          rows={rows}
-          totalRecords={data?.data?.meta.total}
-          rowsPerPageOptions={[10, 20, 30, 50, 100]}
-          onPageChange={onPageChange}
-          className="flex justify-center mt-4"
-        />
-      )}
+        {!isPending && (
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={data?.data?.meta.total}
+            rowsPerPageOptions={[10, 20, 30, 50, 100]}
+            onPageChange={onPageChange}
+            className="mt-4 flex justify-center"
+          />
+        )}
       </div>
     </>
   );

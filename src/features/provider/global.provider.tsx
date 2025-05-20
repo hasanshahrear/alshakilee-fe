@@ -21,7 +21,7 @@ export function GlobalProvider({ children }: Readonly<TProps>) {
         position="top-right"
         closeButton
       />
-       <NextTopLoader />
+      <NextTopLoader />
     </QueryClientProvider>
   );
 }

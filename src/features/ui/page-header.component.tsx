@@ -18,9 +18,9 @@ export function PageHeader({
   buttonClick,
 }: Readonly<TProps>) {
   return (
-    <div className="flex flex-row justify-between items-center gap-4">
+    <div className="flex flex-row items-center justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-medium text-title mb-3">{title}</h1>
+        <h1 className="mb-3 text-2xl font-medium text-title">{title}</h1>
         <BreadCrumb
           model={breadCrumbJson}
           className="h-fit w-fit rounded-none border-none bg-transparent p-0 py-0.5"
@@ -34,14 +34,13 @@ export function PageHeader({
           }}
         />
       </div>
-       <Button
-          className="border-none bg-primary h-12 rounded-[10px] font-medium text-base px-6 flex gap-2 justify-center"
-          size="small"
-          onClick={buttonClick}
-        >
-          <CirclePlusIcon /> {buttonText}
-        </Button>
-      
+      <Button
+        className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium"
+        size="small"
+        onClick={buttonClick}
+      >
+        <CirclePlusIcon /> {buttonText}
+      </Button>
     </div>
   );
 }

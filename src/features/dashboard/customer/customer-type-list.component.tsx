@@ -59,7 +59,9 @@ export function Customer() {
       header: "Confirmation",
       icon: <BsExclamationTriangle />,
       defaultFocus: "accept",
-      accept: () => { accept(); },
+      accept: () => {
+        accept();
+      },
     });
   };
 

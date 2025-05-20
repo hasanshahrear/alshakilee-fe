@@ -23,14 +23,14 @@ export default {
     },
     extend: {
       fontFamily: {
-        title: ['"Space Grotesk"', 'sans-serif'],
+        title: ['"Space Grotesk"', "sans-serif"],
       },
       colors: {
         primary: "#0D99FF",
         bg: "#F1F4FA",
         title: "#161717",
         bodyText: "#637381",
-      }
+      },
     },
   },
   plugins: [],
