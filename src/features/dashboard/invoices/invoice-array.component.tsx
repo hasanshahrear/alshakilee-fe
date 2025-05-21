@@ -16,7 +16,7 @@ export function InvoiceArray() {
     <FieldArray
       name="items"
       render={({ push, remove }) => (
-        <div className="grid grid-cols-1 gap-2 xl:grid-cols-2">
+        <div className="mb-10 grid grid-cols-1 gap-2 xl:grid-cols-2">
           {values?.items?.map((_, i) => (
             <div
               className="relative"
@@ -26,7 +26,7 @@ export function InvoiceArray() {
                 Invoice No: {i + 1}
               </p>
               <div
-                className="grid grid-cols-6 items-start gap-2 rounded-lg bg-gray-100 p-5 xl:grid-cols-12"
+                className="grid grid-cols-6 items-start gap-2 rounded-lg bg-[#f9f9f9] p-5 xl:grid-cols-12"
                 key={i}
               >
                 <div className="col-span-3">
@@ -229,36 +229,28 @@ export function InvoiceArray() {
               {values?.items && values?.items?.length > 1 && (
                 <Button
                   type="button"
-                  icon={<MdClose className="text-xl" />}
+                  icon={<MdClose className="mr-2 text-base" />}
                   severity="danger"
                   onClick={() => remove(i)}
-                  className="absolute right-2 top-1 h-7 w-7 p-0"
+                  className="absolute right-28 top-1 h-7 px-4"
                   size="small"
+                  label="Remove"
                   rounded
                   aria-label="Cancel"
                 />
               )}
+              <Button
+                type="button"
+                icon={<AiOutlinePlus className="mr-2 text-base" />}
+                onClick={() => push(initialItemValue)}
+                className="absolute right-2 top-1 h-7 px-4"
+                size="small"
+                label="Add"
+                rounded
+                aria-label="Add"
+              />
             </div>
           ))}
-          <div className="mx-auto">
-            <Button
-              type="button"
-              label="Add More Size"
-              className="h-10 rounded-full border-none bg-primary font-medium"
-              icon={
-                <AiOutlinePlus
-                  size="20"
-                  className="mr-2"
-                />
-              }
-              onClick={() => push(initialItemValue)}
-              pt={{
-                label: {
-                  className: "font-normal",
-                },
-              }}
-            />
-          </div>
         </div>
       )}
     />

@@ -68,48 +68,48 @@ export function InvoicesCreateUpdateForm() {
   });
 
   return (
-    <Form className="flex flex-col gap-5 rounded-md bg-white p-5 shadow-md">
-      <div className="grid grid-cols-7 gap-4">
-        <div className="col-span-2">
-          <FormikAsyncCreatableDropdown
-            name="customerId"
-            label="Customer Name"
-            requiredIcon="*"
-            placeholder="Select Customer"
-            loadOptions={loadCustomerOptions}
-            options={dataCustomerList?.data?.map((x) => ({
-              label: x?.mobile,
-              value: x?.id,
-            }))}
-            defaultOptions={dataCustomerList?.data?.map((x) => ({
-              label: x?.mobile,
-              value: x?.id,
-            }))}
-            onCreateOption={(inputValue) => {
-              mutateAsync({
-                mobile: inputValue,
-              });
-            }}
-            isClearable
-          />
-        </div>
-
-        <div className="col-span-2">
-          <FormikDateField
-            name="deliveryDate"
-            label="Delivery Date"
-            className="p-inputtext-sm"
-            requiredIcon="*"
-          />
-        </div>
-      </div>
-
+    <Form className="flex flex-col gap-5 rounded-md bg-white p-5">
       <InvoiceArray />
 
-      <div className="flex w-full justify-end">
-        <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium">
-          <CirclePlusIcon /> Create Invoice
-        </FormikSubmitButton>
+      <div className="fixed bottom-1 w-[720px] rounded-lg bg-[#e7f5ff] shadow-lg">
+        <div className="flex items-end justify-center gap-4 p-4">
+          <div className="flex-1">
+            <FormikAsyncCreatableDropdown
+              name="customerId"
+              label="Customer Name"
+              requiredIcon="*"
+              placeholder="Select Customer"
+              loadOptions={loadCustomerOptions}
+              options={dataCustomerList?.data?.map((x) => ({
+                label: x?.mobile,
+                value: x?.id,
+              }))}
+              defaultOptions={dataCustomerList?.data?.map((x) => ({
+                label: x?.mobile,
+                value: x?.id,
+              }))}
+              onCreateOption={(inputValue) => {
+                mutateAsync({
+                  mobile: inputValue,
+                });
+              }}
+              isClearable
+              menuPlacement="top"
+            />
+          </div>
+
+          <div className="flex-1">
+            <FormikDateField
+              name="deliveryDate"
+              label="Delivery Date"
+              className="p-inputtext-sm"
+              requiredIcon="*"
+            />
+          </div>
+          <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium">
+            <CirclePlusIcon /> Create Invoice
+          </FormikSubmitButton>
+        </div>
       </div>
     </Form>
   );

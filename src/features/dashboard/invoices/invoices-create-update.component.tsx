@@ -64,9 +64,10 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               deliveryDate: new Date(
                 dataGetInvoiceById?.data?.deliveryDate ?? "",
               ),
-              customerId: dataGetInvoiceById?.data?.customerId ?? "",
+              customerId: dataGetInvoiceById?.data?.customerId ?? 0,
               items: dataGetInvoiceById?.data?.invoiceItems ?? [],
               id: dataGetInvoiceById?.data?.id,
+              customerInfo: dataGetInvoiceById?.data?.customer,
             }
           : initailValue
       }

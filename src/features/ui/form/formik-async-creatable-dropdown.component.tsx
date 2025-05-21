@@ -1,7 +1,7 @@
 "use client";
 
-import { useField } from "formik";
-import { useEffect, useId, useState } from "react";
+import { useField, useFormikContext } from "formik";
+import { useEffect, useState } from "react";
 import AsyncCreatableSelect, {
   AsyncCreatableProps as AsyncCreatableSelectProps,
 } from "react-select/async-creatable";
@@ -30,6 +30,15 @@ type TFormikAsyncCreatableDropdownProps = {
   "loadOptions"
 >;
 
+type CustomerInfo = {
+  id: number;
+  mobile: string;
+};
+
+type FormValues = {
+  customerInfo?: CustomerInfo;
+};
+
 export function FormikAsyncCreatableDropdown({
   name,
   label,
@@ -39,12 +48,21 @@ export function FormikAsyncCreatableDropdown({
   loadOptions,
   ...rest
 }: TFormikAsyncCreatableDropdownProps) {
+  const { values } = useFormikContext<FormValues>();
   const [mounted, setMounted] = useState<boolean>(false);
   const [field, meta, helpers] = useField(name);
+  const [value, setValue] = useState<TOption | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    setValue({
+      label: String(values?.customerInfo?.mobile),
+      value: Number(values?.customerInfo?.id),
+    });
+  }, [values?.customerInfo]);
 
   if (!mounted)
     return (
@@ -63,7 +81,12 @@ export function FormikAsyncCreatableDropdown({
     );
 
   const handleChange = (selected: TOption | null) => {
-    helpers.setValue(selected);
+    setValue(selected as TOption);
+    if (selected !== null) {
+      helpers.setValue(selected?.value);
+      return;
+    }
+    helpers.setValue(0);
   };
 
   return (
@@ -80,7 +103,7 @@ export function FormikAsyncCreatableDropdown({
       <AsyncCreatableSelect
         loadOptions={loadOptions}
         onChange={handleChange}
-        value={field.value}
+        value={value}
         classNamePrefix="react-select"
         className={cn("h-10 w-full", className)}
         styles={{

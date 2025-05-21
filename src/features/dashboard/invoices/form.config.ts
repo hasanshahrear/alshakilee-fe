@@ -50,7 +50,11 @@ export const initialItemValue: TInvoiceItemType = {
 
 export const invoicesCreateUpdateSchema = yup.object({
   id: yup.number().nonNullable(),
-  customerId: yup.mixed().required().label("Customer is Required"),
+  customerId: yup
+    .number()
+    .required()
+    .label("Select Customer")
+    .positive("Select Customer"),
   deliveryDate: yup.date().required().label("Delivery Date"),
   items: yup.array().of(invoiceItemSchema).min(1),
 });
