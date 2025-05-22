@@ -47,7 +47,7 @@ export function CustomDataTable({
   return (
     <>
       {statusFilter && <ActiveInactiveTab />}
-      <div className="rounded-[10px] bg-white p-4 shadow-sm">
+      <div className="rounded-[10px] bg-white p-1 shadow-sm md:p-4">
         <DataTable
           value={data?.data?.data}
           loading={isPending}
@@ -71,7 +71,18 @@ export function CustomDataTable({
             totalRecords={data?.data?.meta.total}
             rowsPerPageOptions={[10, 20, 30, 50, 100]}
             onPageChange={onPageChange}
-            className="mt-4 flex justify-center"
+            className="mt-4 flex justify-center !p-0"
+            pt={{
+              pageButton: {
+                className: "px-1 py-1 text-xs sm:text-sm",
+              },
+              prevPageButton: {
+                className: "px-1 py-1 text-xs sm:text-sm",
+              },
+              nextPageButton: {
+                className: "px-1 py-1 text-xs sm:text-sm",
+              },
+            }}
           />
         )}
       </div>

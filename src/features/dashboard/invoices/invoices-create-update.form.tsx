@@ -68,11 +68,11 @@ export function InvoicesCreateUpdateForm() {
   });
 
   return (
-    <Form className="flex flex-col gap-5 rounded-md bg-white p-5">
+    <Form className="flex flex-col gap-5 rounded-md bg-white p-2 xxl:p-5">
       <InvoiceArray />
 
-      <div className="fixed bottom-1 w-[720px] rounded-lg bg-[#e7f5ff] shadow-lg">
-        <div className="flex items-end justify-center gap-4 p-4">
+      <div className="bottom-1 w-full rounded-lg bg-[#e7f5ff] shadow-lg md:fixed md:w-[720px]">
+        <div className="flex flex-col justify-center gap-4 p-4 md:flex-row md:items-end">
           <div className="flex-1">
             <FormikAsyncCreatableDropdown
               name="customerId"

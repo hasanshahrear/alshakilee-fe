@@ -58,10 +58,12 @@ export function FormikAsyncCreatableDropdown({
   }, []);
 
   useEffect(() => {
-    setValue({
-      label: String(values?.customerInfo?.mobile),
-      value: Number(values?.customerInfo?.id),
-    });
+    if (values?.customerInfo) {
+      setValue({
+        label: String(values?.customerInfo?.mobile),
+        value: Number(values?.customerInfo?.id),
+      });
+    }
   }, [values?.customerInfo]);
 
   if (!mounted)

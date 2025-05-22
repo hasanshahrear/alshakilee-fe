@@ -3,6 +3,8 @@
 import { DashboardIcon, InvoiceIcon, PeopleIcon } from "@/features/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 
 type TProps = {
   children: React.ReactNode;
@@ -30,28 +32,61 @@ const CustomLink = ({ href, children }: TCustomLinkProps) => {
   );
 };
 
-export default function DashboardLayout({ children }: Readonly<TProps>) {
+const Sidebar = () => {
   return (
-    <div className="flex gap-4 bg-[#F1F4FA] p-12">
-      <div className="h-[calc(100vh-8rem)] w-[280px] rounded-2xl bg-white p-[30px] shadow-md">
-        <h1 className="mb-6 p-2.5 text-center font-title text-3xl font-bold text-primary">
-          Alshakilee
-        </h1>
+    <>
+      <h1 className="mb-6 p-2.5 text-center font-title text-3xl font-bold text-primary">
+        Alshakilee
+      </h1>
 
-        <div className="flex flex-col gap-1">
-          <CustomLink href="/dashboard">
-            <DashboardIcon /> Dashboard
-          </CustomLink>
-          <CustomLink href="/dashboard/invoices">
-            <InvoiceIcon /> Invoices
-          </CustomLink>
-          <CustomLink href="/dashboard/customer">
-            <PeopleIcon /> Customer
-          </CustomLink>
-        </div>
+      <div className="flex flex-col gap-1">
+        <CustomLink href="/dashboard">
+          <DashboardIcon /> Dashboard
+        </CustomLink>
+        <CustomLink href="/dashboard/invoices">
+          <InvoiceIcon /> Invoices
+        </CustomLink>
+        <CustomLink href="/dashboard/customer">
+          <PeopleIcon /> Customer
+        </CustomLink>
+      </div>
+    </>
+  );
+};
+
+export default function DashboardLayout({ children }: Readonly<TProps>) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const pathname = usePathname();
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  return (
+    <div className="flex flex-col gap-4 bg-[#F1F4FA] p-5 lg:flex-row xxl:p-12">
+      <div className="hidden h-[calc(100vh-8rem)] w-[220px] rounded-2xl bg-white p-4 shadow-md lg:block xxl:p-[30px]">
+        <Sidebar />
       </div>
 
-      <div className="w-full p-4 pt-2">{children}</div>
+      <button
+        onClick={toggleSidebar}
+        className="flex items-center justify-end gap-2 rounded-md bg-primary px-3 py-2 font-medium text-white lg:hidden"
+      >
+        <AiOutlineMenu className="text-2xl text-white" />
+        Menu
+      </button>
+
+      {isOpen && (
+        <div className="fixed left-0 top-0 z-50 h-screen w-[220px] rounded-2xl bg-white p-4 shadow-md lg:hidden xxl:p-[30px]">
+          <Sidebar />
+        </div>
+      )}
+
+      <div className="w-full">{children}</div>
     </div>
   );
 }

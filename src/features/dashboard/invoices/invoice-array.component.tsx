@@ -16,20 +16,21 @@ export function InvoiceArray() {
     <FieldArray
       name="items"
       render={({ push, remove }) => (
-        <div className="mb-10 grid grid-cols-1 gap-2 xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 md:mb-20 xl:mb-10 xl:grid-cols-2">
           {values?.items?.map((_, i) => (
             <div
               className="relative"
               key={i}
             >
               <p className="mb-2 rounded bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                Invoice No: {i + 1}
+                <span className="hidden md:inline-block">Invoice No:</span>{" "}
+                {i + 1}
               </p>
               <div
-                className="grid grid-cols-6 items-start gap-2 rounded-lg bg-[#f9f9f9] p-5 xl:grid-cols-12"
+                className="grid grid-cols-12 items-start gap-2 rounded-lg bg-[#f9f9f9] p-2 xxl:p-5"
                 key={i}
               >
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].length`}
                     type="number"
@@ -40,7 +41,7 @@ export function InvoiceArray() {
                   />
                 </div>
 
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].shoulder`}
                     type="number"
@@ -51,7 +52,7 @@ export function InvoiceArray() {
                   />
                 </div>
 
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].hand`}
                     type="number"
@@ -61,7 +62,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].handLoose`}
                     type="text"
@@ -70,7 +71,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].neck`}
                     type="number"
@@ -80,7 +81,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].chestLoose`}
                     type="number"
@@ -90,7 +91,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].centreLoose`}
                     type="text"
@@ -99,7 +100,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].downLoose`}
                     type="number"
@@ -109,7 +110,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].open`}
                     type="number"
@@ -119,7 +120,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3 xl:col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].button`}
                     type="text"
@@ -128,7 +129,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-3 xl:col-span-6">
+                <div className="col-span-12 xl:col-span-6">
                   <FormikTextField
                     name={`items[${i}].design`}
                     type="text"
@@ -146,7 +147,7 @@ export function InvoiceArray() {
                   />
                 </div>
 
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].pocket`}
                     label="Pocket"
@@ -158,7 +159,7 @@ export function InvoiceArray() {
                     className="p-inputtext-sm"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].sewing`}
                     label="Sewing"
@@ -171,7 +172,7 @@ export function InvoiceArray() {
                   />
                 </div>
 
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].pan`}
                     label="Pan"
@@ -183,7 +184,7 @@ export function InvoiceArray() {
                     className="p-inputtext-sm text-xs"
                   />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].sd`}
                     label="SD"
@@ -196,7 +197,7 @@ export function InvoiceArray() {
                     className="p-inputtext-sm"
                   />
                 </div>
-                <div className="col-span-6 xl:col-span-9">
+                <div className="col-span-12 md:col-span-9 xl:col-span-9">
                   <FormikTextareaField
                     name={`items[${i}].description`}
                     label="Description"
@@ -204,7 +205,7 @@ export function InvoiceArray() {
                     rows={3}
                   />
                 </div>
-                <div className="col-span-6 flex flex-col items-end gap-2 xl:col-span-3">
+                <div className="col-span-12 flex flex-row items-end gap-2 md:col-span-3 md:flex-col xl:col-span-3">
                   <div className="">
                     <FormikTextField
                       name={`items[${i}].quantity`}

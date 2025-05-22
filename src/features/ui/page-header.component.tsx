@@ -20,22 +20,24 @@ export function PageHeader({
   return (
     <div className="flex flex-row items-center justify-between gap-4">
       <div>
-        <h1 className="mb-3 text-2xl font-medium text-title">{title}</h1>
+        <h1 className="mb-1 text-base font-medium text-title md:mb-3 md:text-2xl">
+          {title}
+        </h1>
         <BreadCrumb
           model={breadCrumbJson}
           className="h-fit w-fit rounded-none border-none bg-transparent p-0 py-0.5"
           pt={{
             label: {
-              className: "text-bodyText",
+              className: "text-bodyText text-xs md:text-base",
             },
             separator: {
-              className: "text-bodyText",
+              className: "text-bodyText text-xs md:text-base",
             },
           }}
         />
       </div>
       <Button
-        className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium"
+        className="flex justify-center gap-2 rounded-[10px] border-none bg-primary px-4 text-xs font-medium md:h-12 md:px-6 md:text-base"
         size="small"
         onClick={buttonClick}
       >
