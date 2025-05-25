@@ -118,7 +118,7 @@ export function Customer() {
           setVisible(false);
           setId(0);
         }}
-        className="w-1/3"
+        className="m-5 w-full lg:m-0 lg:w-1/3"
       >
         <CustomerTypeCreateUpdate
           id={id}

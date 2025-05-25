@@ -1,7 +1,12 @@
 "use client";
 
 import { Customer } from "@/features/dashboard";
+import { Suspense } from "react";
 
 export default function CustomerPage() {
-  return <Customer />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Customer />
+    </Suspense>
+  );
 }

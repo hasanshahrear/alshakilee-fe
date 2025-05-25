@@ -67,17 +67,17 @@ export default function DashboardLayout({ children }: Readonly<TProps>) {
   }, [pathname]);
 
   return (
-    <div className="flex flex-col gap-4 bg-[#F1F4FA] p-5 lg:flex-row xxl:p-12">
+    <div className="flex flex-col gap-4 bg-[#F1F4FA] p-3 lg:flex-row lg:gap-6 xxl:p-12">
       <div className="hidden h-[calc(100vh-8rem)] w-[220px] rounded-2xl bg-white p-4 shadow-md lg:block xxl:p-[30px]">
         <Sidebar />
       </div>
 
       <button
         onClick={toggleSidebar}
-        className="flex items-center justify-end gap-2 rounded-md bg-primary px-3 py-2 font-medium text-white lg:hidden"
+        className="flex items-center justify-between gap-2 rounded-md bg-primary px-3 py-2 font-medium text-white lg:hidden"
       >
-        <AiOutlineMenu className="text-2xl text-white" />
         Menu
+        <AiOutlineMenu className="text-2xl text-white" />
       </button>
 
       {isOpen && (

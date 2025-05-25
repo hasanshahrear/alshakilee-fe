@@ -50,7 +50,7 @@ export function FormikAsyncCreatableDropdown({
 }: TFormikAsyncCreatableDropdownProps) {
   const { values } = useFormikContext<FormValues>();
   const [mounted, setMounted] = useState<boolean>(false);
-  const [field, meta, helpers] = useField(name);
+  const [, meta, helpers] = useField(name);
   const [value, setValue] = useState<TOption | null>(null);
 
   useEffect(() => {

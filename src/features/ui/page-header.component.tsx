@@ -18,7 +18,7 @@ export function PageHeader({
   buttonClick,
 }: Readonly<TProps>) {
   return (
-    <div className="flex flex-row items-center justify-between gap-4">
+    <div className="flex flex-row items-center justify-between gap-4 md:mt-4">
       <div>
         <h1 className="mb-1 text-base font-medium text-title md:mb-3 md:text-2xl">
           {title}
@@ -37,7 +37,7 @@ export function PageHeader({
         />
       </div>
       <Button
-        className="flex justify-center gap-2 rounded-[10px] border-none bg-primary px-4 text-xs font-medium md:h-12 md:px-6 md:text-base"
+        className="flex justify-center gap-2 rounded-[10px] border-none bg-primary px-4 text-xs font-medium md:text-base xl:h-12 xl:px-6"
         size="small"
         onClick={buttonClick}
       >

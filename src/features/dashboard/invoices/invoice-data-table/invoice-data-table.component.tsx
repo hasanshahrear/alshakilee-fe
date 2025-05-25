@@ -62,13 +62,13 @@ export function InvoiceDataTable({
     rowData.invoiceItems?.length > 0;
 
   const rowExpansionTemplate = (rowData: TInvoice) => (
-    <div className="p-3">
+    <div className="p-1 md:p-3">
       <h5 className="mb-2 font-semibold">Invoice Items</h5>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
         {rowData?.invoiceItems?.map((x, i) => (
           <div
             key={i}
-            className="col-span-1 rounded border p-3"
+            className="col-span-1 max-w-[320px] rounded border p-3 md:w-auto"
           >
             <div className="mb-4 flex items-center gap-4">
               <div>

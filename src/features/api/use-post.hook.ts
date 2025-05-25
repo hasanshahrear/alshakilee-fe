@@ -25,13 +25,11 @@ export function usePost<
   const fetchFunction: MutationFunction<ResponseType, RequestType> = async (
     data: RequestType,
   ) => {
-    try {
-      let response: AxiosResponse<ResponseType>;
-      response = await axios.post(requestUrl, data);
-      return response?.data;
-    } catch (error) {
-      throw error;
-    }
+    const response: AxiosResponse<ResponseType> = await axios.post(
+      requestUrl,
+      data,
+    );
+    return response.data;
   };
 
   return useMutation<

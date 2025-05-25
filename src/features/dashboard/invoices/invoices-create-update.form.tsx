@@ -22,7 +22,7 @@ import { useDebounce } from "primereact/hooks";
 export function InvoicesCreateUpdateForm() {
   const queryClient = useQueryClient();
 
-  const [inputValue, debouncedInputValue, setInputValue] = useDebounce("", 500);
+  const [_, debouncedInputValue, setInputValue] = useDebounce("", 500);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {

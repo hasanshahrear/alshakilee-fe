@@ -37,14 +37,15 @@ export function ActiveInactiveTab() {
   };
 
   return (
-    <div className="mt-5 flex flex-col items-center justify-start gap-2 md:gap-5">
+    <div className="mt-5 flex flex-row items-center justify-between gap-2 md:mt-0 md:gap-5">
       <TabMenu
         model={items}
         activeIndex={activeIndex}
         onTabChange={(e) => setActiveIndex(e.index)}
         pt={{
           menu: {
-            className: "bg-transparent border-none flex gap-2",
+            className:
+              "bg-transparent border-none flex gap-2 text-xs md:text-base",
           },
           menuitem: {
             className: "group pb-2",
@@ -59,7 +60,7 @@ export function ActiveInactiveTab() {
         <div className="relative">
           <InputText
             placeholder="Type to search..."
-            className="p-inputtext-sm h-10 rounded-r-none border-r-0 focus:border-primary focus:ring-0 md:w-[320px]"
+            className="p-inputtext-sm h-10 w-40 rounded-r-none border-r-0 focus:border-primary focus:ring-0 md:w-[320px]"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

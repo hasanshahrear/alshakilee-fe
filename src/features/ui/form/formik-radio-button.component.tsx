@@ -20,7 +20,6 @@ export function FormikRadioButton({
   label,
   requiredIcon,
   helperText,
-  className,
   options,
   ...rest
 }: TFormikRadioButtonProps) {
