@@ -16,6 +16,7 @@ import {
   TInvoicesCreateUpdateType,
 } from "./form.config";
 import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
+import { useRouter } from "nextjs-toploader/app";
 
 type TPageProps = {
   slug?: string;
@@ -23,6 +24,7 @@ type TPageProps = {
 
 export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
   const queryClient = useQueryClient();
+  const { push } = useRouter();
 
   const { mutateAsync } = usePost<TInvoicesCreateUpdateType>({
     url: Api.Invoices,
@@ -31,6 +33,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
         queryKey: [QueryKey.GetAllInvoice],
       });
       axiosSuccessToast(data as TGlobalSuccessResponse);
+      push("/dashboard/invoices");
     },
     onError: (error: AxiosError) => {
       axiosErrorToast(error as TGlobalErrorResponse);
@@ -40,6 +43,16 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
   const { mutateAsync: mutateAsyncUpdateInvoice } =
     usePut<TInvoicesCreateUpdateType>({
       url: Api.Invoices + "/" + slug,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QueryKey.GetAllInvoice],
+        });
+        axiosSuccessToast(data as TGlobalSuccessResponse);
+        push("/dashboard/invoices");
+      },
+      onError: (error: AxiosError) => {
+        axiosErrorToast(error as TGlobalErrorResponse);
+      },
     });
 
   const handleSubmit = async (values: TInvoicesCreateUpdateType) => {
@@ -68,6 +81,9 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               items: dataGetInvoiceById?.data?.invoiceItems ?? [],
               id: dataGetInvoiceById?.data?.id,
               customerInfo: dataGetInvoiceById?.data?.customer,
+              totalPrice: dataGetInvoiceById?.data?.totalPrice ?? 0,
+              advanceAmount: dataGetInvoiceById?.data?.advanceAmount ?? 0,
+              discountAmount: dataGetInvoiceById?.data?.discountAmount ?? 0,
             }
           : initailValue
       }
@@ -75,7 +91,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
       enableReinitialize
       onSubmit={handleSubmit}
     >
-      <InvoicesCreateUpdateForm />
+      <InvoicesCreateUpdateForm slug={slug} />
     </Formik>
   );
 }

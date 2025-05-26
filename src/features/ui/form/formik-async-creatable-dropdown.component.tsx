@@ -94,7 +94,7 @@ export function FormikAsyncCreatableDropdown({
   return (
     <div>
       {label && (
-        <label className="mb-2 block text-sm font-medium">
+        <label className="mb-1 block text-sm font-medium">
           {label}
           {requiredIcon && (
             <span className="ml-1 text-red-600">{requiredIcon}</span>

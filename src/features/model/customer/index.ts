@@ -24,6 +24,7 @@ export type TCustomerList = {
 export type TCustomerData = {
   id: number;
   mobile: string;
+  name: string;
   isActive: boolean;
 };
 

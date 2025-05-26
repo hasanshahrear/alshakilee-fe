@@ -31,6 +31,9 @@ export default {
         title: "#161717",
         bodyText: "#637381",
       },
+      gridTemplateColumns: {
+        16: "repeat(16, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],

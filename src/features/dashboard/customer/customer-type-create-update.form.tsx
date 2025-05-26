@@ -9,6 +9,14 @@ export function CustomerTypeCreateUpdateForm({ id }: Readonly<TProps>) {
   return (
     <Form className="flex flex-col gap-5">
       <FormikTextField
+        name="name"
+        label="Name"
+        placeholder="Enter Name"
+        className="p-inputtext-sm"
+        requiredIcon="*"
+        keyfilter="pint"
+      />
+      <FormikTextField
         name="mobile"
         label="Mobile No"
         placeholder="Enter Mobile No"

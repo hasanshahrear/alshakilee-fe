@@ -9,7 +9,7 @@ export default async function InvoicesUpdatePage({
   const { slug } = await params;
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <InvoicesCreateUpdate slug={slug} />;
+      <InvoicesCreateUpdate slug={slug} />
     </Suspense>
   );
 }

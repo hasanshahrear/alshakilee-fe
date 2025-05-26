@@ -9,7 +9,6 @@ import { Paginator } from "primereact/paginator";
 import { useState } from "react";
 import { TDataTableRes, TInvoice } from "./type";
 import { Divider } from "primereact/divider";
-import { AiFillDelete, AiFillEdit, AiFillPrinter } from "react-icons/ai";
 
 type TProps = {
   columns: ColumnProps[];
@@ -77,7 +76,7 @@ export function InvoiceDataTable({
               <div className="flex-auto">
                 <Divider className="m-0 p-0" />
               </div>
-              <div className="flex items-center gap-1">
+              {/* <div className="flex items-center gap-1">
                 <button className="flex items-center gap-1 rounded bg-violet-700 px-2 py-1 text-xs text-white">
                   <AiFillPrinter />
                   Print
@@ -92,7 +91,7 @@ export function InvoiceDataTable({
                   <AiFillDelete />
                   Delete
                 </button>
-              </div>
+              </div> */}
             </div>
             <div
               key={i}
@@ -170,7 +169,7 @@ export function InvoiceDataTable({
                   <span className="font-semibold">Quantity:</span> {x?.quantity}
                 </p>
                 <p>
-                  <span className="font-semibold">Price:</span> {x?.price}
+                  <span className="font-semibold">Name:</span> {x?.name}
                 </p>
               </GridRowLight>
 

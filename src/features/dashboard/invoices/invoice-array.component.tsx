@@ -30,6 +30,23 @@ export function InvoiceArray() {
                 className="grid grid-cols-12 items-start gap-2 rounded-lg bg-[#f9f9f9] p-2 xxl:p-5"
                 key={i}
               >
+                <div className="col-span-6">
+                  <FormikTextField
+                    name={`items[${i}].name`}
+                    type="text"
+                    label="Name"
+                    className="p-inputtext-sm"
+                  />
+                </div>
+                <div className="col-span-6">
+                  <FormikTextField
+                    name={`items[${i}].quantity`}
+                    type="number"
+                    label="Quantity"
+                    className="p-inputtext-sm text-right"
+                    requiredIcon="*"
+                  />
+                </div>
                 <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].length`}
@@ -153,8 +170,8 @@ export function InvoiceArray() {
                     label="Pocket"
                     requiredIcon="*"
                     options={[
-                      { name: "P2", value: "P2" },
-                      { name: "P2 Bag", value: "P2_Bag" },
+                      { name: "P2 Bag", value: "P2_BAG" },
+                      { name: "P2 Adi", value: "P2_ADI" },
                     ]}
                     className="p-inputtext-sm"
                   />
@@ -165,8 +182,8 @@ export function InvoiceArray() {
                     label="Sewing"
                     requiredIcon="*"
                     options={[
-                      { name: "Chap", value: "CHAP" },
                       { name: "Lock", value: "LOCK" },
+                      { name: "Chap", value: "CHAP" },
                     ]}
                     className="p-inputtext-sm"
                   />
@@ -197,34 +214,13 @@ export function InvoiceArray() {
                     className="p-inputtext-sm"
                   />
                 </div>
-                <div className="col-span-12 md:col-span-9 xl:col-span-9">
+                <div className="col-span-12">
                   <FormikTextareaField
                     name={`items[${i}].description`}
                     label="Description"
                     className="h-[112px] w-full"
                     rows={3}
                   />
-                </div>
-                <div className="col-span-12 flex flex-row items-end gap-2 md:col-span-3 md:flex-col xl:col-span-3">
-                  <div className="">
-                    <FormikTextField
-                      name={`items[${i}].quantity`}
-                      type="number"
-                      label="Quantity"
-                      className="p-inputtext-sm text-right"
-                      requiredIcon="*"
-                    />
-                  </div>
-                  <div className="">
-                    <FormikTextField
-                      name={`items[${i}].price`}
-                      type="number"
-                      keyfilter="pnum"
-                      label="Price"
-                      className="p-inputtext-sm text-right"
-                      requiredIcon="*"
-                    />
-                  </div>
                 </div>
               </div>
               {values?.items && values?.items?.length > 1 && (

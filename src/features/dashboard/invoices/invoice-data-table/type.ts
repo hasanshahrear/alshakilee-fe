@@ -7,6 +7,11 @@ export type TInvoice = {
   deliveryDate: string;
   customerId: number;
   isActive: boolean;
+  totalPrice?: number;
+  advanceAmount?: number;
+  discountAmount?: number;
+  balanceAmount?: number;
+  totalQuantity?: number;
   customer: {
     id: number;
     mobile: string;

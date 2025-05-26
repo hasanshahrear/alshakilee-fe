@@ -12,8 +12,11 @@ export type TInvoiceData = {
   customerId: number;
   invoiceDate: Date;
   deliveryDate: Date;
-  isActive: boolean;
+  status: number;
   customer: TCustomer;
+  totalPrice: number;
+  advanceAmount: number;
+  discountAmount: number;
   invoiceItems: TInvoiceItem[];
 };
 
@@ -42,8 +45,8 @@ export type TInvoiceItem = {
   pan: string;
   description: string;
   quantity: number;
-  price: number;
-  fabric: string;
+  name?: string;
+  fabric?: string;
   isActive: boolean;
   invoiceId: number;
   createdAt: Date;

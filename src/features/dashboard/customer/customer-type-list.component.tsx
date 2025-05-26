@@ -90,6 +90,7 @@ export function Customer() {
         url={Api.Customer}
         queryKey={QueryKey.GetAllCustomer}
         columns={[
+          { field: "name", header: "Name" },
           { field: "mobile", header: "Mobile No" },
           {
             field: "isActive",

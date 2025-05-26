@@ -3,5 +3,6 @@ export enum Api {
   DesignType = "design-type",
   Customer = "customer",
   Invoices = "invoices",
+  InvoicesStatus = "invoices/status",
   GetCustomerByMobile = "customer/mobile",
 }

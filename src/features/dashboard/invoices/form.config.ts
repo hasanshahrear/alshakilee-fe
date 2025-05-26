@@ -7,10 +7,10 @@ export const invoiceItemSchema = yup.object({
   hand: yup.number().required().label("Hand").positive(),
   handLoose: yup.string().required().label("Hand Loose"),
   neck: yup.number().required().label("Neck").positive(),
-  chestLoose: yup.number().required().label("Chest Loose"),
-  centreLoose: yup.string().required().label("Centre Loose"),
-  downLoose: yup.number().required().label("Bottom"),
-  open: yup.number().required().label("Open"),
+  chestLoose: yup.number().required().label("Chest Loose").positive(),
+  centreLoose: yup.string().required().label("Centre Loose").min(1),
+  downLoose: yup.number().required().label("Bottom").positive(),
+  open: yup.number().required().label("Open").positive(),
   button: yup.string().required().label("Button"),
   design: yup.string().required().label("Design"),
   pocket: yup.string().required().label("Pocket"),
@@ -19,8 +19,8 @@ export const invoiceItemSchema = yup.object({
   pan: yup.string().nullable().label("Pan"),
   description: yup.string().nullable().label("Description"),
   quantity: yup.number().required().label("Quantity").positive(),
-  price: yup.number().required().label("Price").positive(),
   fabric: yup.string().notRequired().label("Fabric"),
+  name: yup.string().notRequired().label("Name"),
 });
 
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
@@ -38,14 +38,14 @@ export const initialItemValue: TInvoiceItemType = {
   open: 0,
   button: "",
   design: "",
-  pocket: "P2",
-  sewing: "CHAP",
+  pocket: "P2_BAG",
+  sewing: "LOCK",
   sd: "SD",
   pan: "NO_PAN",
   description: "",
   quantity: 1,
-  price: 0,
   fabric: "",
+  name: "",
 };
 
 export const invoicesCreateUpdateSchema = yup.object({
@@ -56,6 +56,9 @@ export const invoicesCreateUpdateSchema = yup.object({
     .label("Select Customer")
     .positive("Select Customer"),
   deliveryDate: yup.date().required().label("Delivery Date"),
+  totalPrice: yup.number().notRequired().label("Total Price"),
+  advanceAmount: yup.number().notRequired().label("Advance Amount"),
+  discountAmount: yup.number().notRequired().label("Discount Amount"),
   items: yup.array().of(invoiceItemSchema).min(1),
 });
 
@@ -67,5 +70,8 @@ export const initailValue: TInvoicesCreateUpdateType = {
   id: 0,
   customerId: 0,
   deliveryDate: new Date(),
+  totalPrice: 0,
+  advanceAmount: 0,
+  discountAmount: 0,
   items: [initialItemValue],
 };

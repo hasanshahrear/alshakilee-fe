@@ -1,14 +1,17 @@
 "use client";
 
 import { Api, QueryKey, useGet, usePost } from "@/features/api";
-import { CirclePlusIcon } from "@/features/icons";
 import {
   TGetCustomerList,
   TGlobalErrorResponse,
   TGlobalSuccessResponse,
 } from "@/features/model";
-import { FormikDateField, FormikSubmitButton } from "@/features/ui";
-import { Form } from "formik";
+import {
+  FormikDateField,
+  FormikSubmitButton,
+  FormikTextField,
+} from "@/features/ui";
+import { Form, useFormikContext } from "formik";
 import { useEffect, useState } from "react";
 import { InvoiceArray } from "./invoice-array.component";
 import { FormikAsyncCreatableDropdown } from "@/features/ui/form/formik-async-creatable-dropdown.component";
@@ -18,11 +21,18 @@ import { useQueryClient } from "@tanstack/react-query";
 import { axiosErrorToast, axiosSuccessToast } from "@/features/utils";
 import { AxiosError } from "axios";
 import { useDebounce } from "primereact/hooks";
+import { AiOutlinePlus } from "react-icons/ai";
+import { TInvoicesCreateUpdateType } from "./form.config";
 
-export function InvoicesCreateUpdateForm() {
+type TProps = {
+  slug?: string;
+};
+
+export function InvoicesCreateUpdateForm({ slug }: TProps) {
   const queryClient = useQueryClient();
+  const { values } = useFormikContext<TInvoicesCreateUpdateType>();
 
-  const [_, debouncedInputValue, setInputValue] = useDebounce("", 500);
+  const [inputValue, debouncedInputValue, setInputValue] = useDebounce("", 500);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
@@ -45,10 +55,11 @@ export function InvoicesCreateUpdateForm() {
       GroupBase<{ label: string; value: string }>
     >
   > => {
-    setInputValue(inputValue);
+    const [mobile, _] = inputValue.split(/[-/+.]/);
+    setInputValue(mobile?.trim());
 
     const options = dataCustomerList?.data?.map((x) => ({
-      label: x?.mobile,
+      label: `${x?.mobile} - ${x?.name}`,
       value: x?.id,
     })) as [];
     return options;
@@ -69,48 +80,89 @@ export function InvoicesCreateUpdateForm() {
 
   return (
     <Form className="flex flex-col gap-5 rounded-md bg-white p-2 xxl:p-5">
-      <InvoiceArray />
+      <div className="grid grid-cols-12 gap-2 rounded-lg bg-primary/10 p-4">
+        <div className="col-span-4">
+          <FormikAsyncCreatableDropdown
+            name="customerId"
+            label="Customer Name"
+            requiredIcon="*"
+            placeholder="Select Customer"
+            loadOptions={loadCustomerOptions}
+            options={dataCustomerList?.data?.map((x) => ({
+              label: `${x?.mobile} - ${x?.name}`,
+              value: x?.id,
+            }))}
+            defaultOptions={dataCustomerList?.data?.map((x) => ({
+              label: `${x?.mobile} - ${x?.name}`,
+              value: x?.id,
+            }))}
+            onCreateOption={(inputValue) => {
+              const [mobile, name] = inputValue.split(/[-/+.]/);
 
-      <div className="bottom-1 w-full rounded-lg bg-[#e7f5ff] shadow-lg md:fixed md:w-[720px]">
-        <div className="flex flex-col justify-center gap-4 p-4 md:flex-row md:items-end">
-          <div className="flex-1">
-            <FormikAsyncCreatableDropdown
-              name="customerId"
-              label="Customer Name"
+              mutateAsync({
+                mobile: mobile?.trim(),
+                name: name?.trim() || "",
+              });
+            }}
+            isClearable
+          />
+        </div>
+
+        <div className="col-span-2">
+          <FormikDateField
+            name="deliveryDate"
+            label="Delivery Date"
+            className="p-inputtext-sm"
+            requiredIcon="*"
+          />
+        </div>
+        <div className="col-span-6 flex gap-2">
+          <div className="w-1/4">
+            <FormikTextField
+              name="totalPrice"
+              type="number"
+              label="Total Price"
+              className="p-inputtext-sm text-right"
               requiredIcon="*"
-              placeholder="Select Customer"
-              loadOptions={loadCustomerOptions}
-              options={dataCustomerList?.data?.map((x) => ({
-                label: x?.mobile,
-                value: x?.id,
-              }))}
-              defaultOptions={dataCustomerList?.data?.map((x) => ({
-                label: x?.mobile,
-                value: x?.id,
-              }))}
-              onCreateOption={(inputValue) => {
-                mutateAsync({
-                  mobile: inputValue,
-                });
-              }}
-              isClearable
-              menuPlacement="top"
             />
           </div>
-
-          <div className="flex-1">
-            <FormikDateField
-              name="deliveryDate"
-              label="Delivery Date"
-              className="p-inputtext-sm"
+          <div className="w-1/4">
+            <FormikTextField
+              name="advanceAmount"
+              type="number"
+              label="Advance"
+              className="p-inputtext-sm text-right"
               requiredIcon="*"
             />
           </div>
-          <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-6 text-base font-medium">
-            <CirclePlusIcon /> Create Invoice
+          <div className="w-1/4">
+            <FormikTextField
+              name="discountAmount"
+              type="number"
+              label="Discount"
+              className="p-inputtext-sm text-right"
+              requiredIcon="*"
+            />
+          </div>
+          <div className="w-1/4">
+            <p className="mb-1 text-sm font-medium">Due:</p>
+            <p className="flex h-10 items-center justify-end rounded-md border border-[#d1d5db] bg-white px-2">
+              {(
+                (values.totalPrice ?? 0) -
+                (values.advanceAmount ?? 0) -
+                (values.discountAmount ?? 0)
+              ).toFixed(2)}
+            </p>
+          </div>
+        </div>
+
+        <div className="col-span-12 flex h-full items-center justify-end">
+          <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-4 text-base font-medium">
+            <AiOutlinePlus /> {slug ? "Update" : "Create"} Invoice
           </FormikSubmitButton>
         </div>
       </div>
+      <InvoiceArray />
     </Form>
   );
 }
