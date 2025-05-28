@@ -10,7 +10,7 @@ import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 
 export function InvoiceActiveInactiveTab() {
   const { push } = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number>(1);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
@@ -23,7 +23,8 @@ export function InvoiceActiveInactiveTab() {
 
   const handleSearchClick = () => {
     if (search) {
-      push(`?status=${activeIndex}&search=${search}`);
+      push(`?status=${0}&search=${search}`);
+      setActiveIndex(0);
     } else {
       push(`?status=${activeIndex}`);
     }
@@ -35,6 +36,7 @@ export function InvoiceActiveInactiveTab() {
   };
 
   const tabColors = [
+    "bg-gray-100 text-gray-700 group-[.p-highlight]:bg-gray-500 group-[.p-highlight]:text-white hover:bg-gray-500 hover:text-white",
     "bg-yellow-100 text-yellow-700 group-[.p-highlight]:bg-yellow-500 group-[.p-highlight]:text-white hover:bg-yellow-500 hover:text-white",
     "bg-blue-100 text-blue-700 group-[.p-highlight]:bg-blue-500 group-[.p-highlight]:text-white hover:bg-blue-500 hover:text-white",
     "bg-purple-100 text-purple-700 group-[.p-highlight]:bg-purple-500 group-[.p-highlight]:text-white hover:bg-purple-500 hover:text-white",
@@ -43,6 +45,7 @@ export function InvoiceActiveInactiveTab() {
   ];
 
   const items: MenuItem[] = [
+    { label: "All" },
     { label: "Pending" },
     { label: "Processing" },
     { label: "ReadyToDeliver" },
@@ -64,8 +67,8 @@ export function InvoiceActiveInactiveTab() {
     <div className="mt-5 flex flex-row items-center justify-between gap-2 md:mt-0 md:gap-5">
       <TabMenu
         model={items}
-        activeIndex={activeIndex - 1}
-        onTabChange={(e) => setActiveIndex(e.index + 1)}
+        activeIndex={activeIndex}
+        onTabChange={(e) => setActiveIndex(e.index)}
         pt={{
           menu: {
             className:

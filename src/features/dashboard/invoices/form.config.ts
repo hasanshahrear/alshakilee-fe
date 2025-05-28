@@ -59,6 +59,7 @@ export const invoicesCreateUpdateSchema = yup.object({
   totalPrice: yup.number().notRequired().label("Total Price"),
   advanceAmount: yup.number().notRequired().label("Advance Amount"),
   discountAmount: yup.number().notRequired().label("Discount Amount"),
+  status: yup.number().notRequired(),
   items: yup.array().of(invoiceItemSchema).min(1),
 });
 
@@ -73,5 +74,6 @@ export const initailValue: TInvoicesCreateUpdateType = {
   totalPrice: 0,
   advanceAmount: 0,
   discountAmount: 0,
+  status: 1,
   items: [initialItemValue],
 };

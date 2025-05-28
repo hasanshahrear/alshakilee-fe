@@ -1,6 +1,6 @@
 "use client";
 
-import { Api, QueryKey, useGet, usePost } from "@/features/api";
+import { Api, EStatus, QueryKey, useGet, usePost } from "@/features/api";
 import {
   TGetCustomerList,
   TGlobalErrorResponse,
@@ -8,6 +8,7 @@ import {
 } from "@/features/model";
 import {
   FormikDateField,
+  FormikDropdown,
   FormikSubmitButton,
   FormikTextField,
 } from "@/features/ui";
@@ -156,7 +157,18 @@ export function InvoicesCreateUpdateForm({ slug }: TProps) {
           </div>
         </div>
 
-        <div className="col-span-12 flex h-full items-center justify-end">
+        <div className="col-span-12 flex h-full items-center justify-end gap-4">
+          <div className="flex items-center gap-2">
+            <p>Status: </p>
+            <FormikDropdown
+              name="status"
+              className="w-40"
+              options={Object.entries(EStatus).map(([key, value]) => ({
+                name: String(value),
+                value: Number(key),
+              }))}
+            />
+          </div>
           <FormikSubmitButton className="flex h-12 justify-center gap-2 rounded-[10px] border-none bg-primary px-4 text-base font-medium">
             <AiOutlinePlus /> {slug ? "Update" : "Create"} Invoice
           </FormikSubmitButton>

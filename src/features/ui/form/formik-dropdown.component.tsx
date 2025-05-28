@@ -35,7 +35,7 @@ export function FormikDropdown({
         {label && (
           <label
             htmlFor={inputId}
-            className="mb-2 block text-sm font-medium"
+            className="mb-1 block text-sm font-medium"
           >
             {label}
             {requiredIcon && (

@@ -84,6 +84,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               totalPrice: dataGetInvoiceById?.data?.totalPrice ?? 0,
               advanceAmount: dataGetInvoiceById?.data?.advanceAmount ?? 0,
               discountAmount: dataGetInvoiceById?.data?.discountAmount ?? 0,
+              status: dataGetInvoiceById?.data?.status,
             }
           : initailValue
       }
