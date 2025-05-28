@@ -1,7 +1,7 @@
 "use client";
 
 import { useGet } from "@/features/api";
-import { ActiveInactiveTab } from "@/features/ui";
+import { InvoiceActiveInactiveTab } from "./invoice-active-inactive-tab.component";
 import { useSearchParams } from "next/navigation";
 import { Column, ColumnProps } from "primereact/column";
 import { DataTable, DataTableExpandedRows } from "primereact/datatable";
@@ -46,6 +46,7 @@ export function InvoiceDataTable({
 
   const searchParams = useSearchParams();
   const activeStatus = searchParams.get("status");
+  const search = searchParams.get("search");
 
   const { data, isPending } = useGet<TDataTableRes>({
     url,
@@ -53,7 +54,8 @@ export function InvoiceDataTable({
     queryParams: {
       page: page + 1,
       limit: rows,
-      status: activeStatus === "0" ? "true" : "false",
+      status: activeStatus,
+      queryString: search,
     },
   });
 
@@ -200,7 +202,7 @@ export function InvoiceDataTable({
 
   return (
     <>
-      {statusFilter && <ActiveInactiveTab />}
+      {statusFilter && <InvoiceActiveInactiveTab />}
       <div className="rounded-[10px] bg-white p-1 shadow-sm md:p-4">
         <DataTable
           value={data?.data?.data}

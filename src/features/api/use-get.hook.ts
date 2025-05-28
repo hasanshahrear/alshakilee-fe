@@ -29,6 +29,8 @@ export function useGet<ResponseType = Record<string, unknown>>({
     queryKey: [queryKey, params],
     queryFn: fetchFunction,
     enabled,
+    retry: 2,
+    refetchOnWindowFocus: false,
     ...rest,
   });
 }

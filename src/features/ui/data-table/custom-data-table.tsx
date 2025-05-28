@@ -6,8 +6,8 @@ import { Column, ColumnProps } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import { useState } from "react";
-import { ActiveInactiveTab } from "./active-inactive-tab.component";
 import { TDataTableRes } from "./data-table.model";
+import { ActiveInactiveTab } from "./active-inactive-tab.component";
 
 type TProps = {
   columns: ColumnProps[];
@@ -27,6 +27,7 @@ export function CustomDataTable({
 
   const searchParams = useSearchParams();
   const activeStatus = searchParams.get("status");
+  const search = searchParams.get("search");
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
@@ -41,6 +42,7 @@ export function CustomDataTable({
       page: page + 1,
       limit: rows,
       status: activeStatus === "0" ? "true" : "false",
+      queryString: search,
     },
   });
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Api, EStatus, QueryKey, usePatch } from "@/features/api";
-import { PageHeader, TableAction } from "@/features/ui";
+import { PageHeader } from "@/features/ui";
 import { useSearchParams } from "next/navigation";
 import { invoicesBreadcrumb } from "./data";
 import { InvoiceDataTable } from "./invoice-data-table";
@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { TGlobalErrorResponse, TGlobalSuccessResponse } from "@/features/model";
 import { useRouter } from "nextjs-toploader/app";
+import { InvoiceTableAction } from "./invoice-data-table/invoice-table-actions";
 
 type TPatchInvoices = {
   status: number;
@@ -46,21 +47,9 @@ export function Invoices() {
       axiosErrorToast(error as TGlobalErrorResponse);
     },
   });
-  const { mutateAsync: mutateStatus } = usePatch<TPatchInvoices>({
-    url: Api.InvoicesStatus + "/" + id,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKey.GetAllInvoice],
-      });
-      axiosSuccessToast(data as TGlobalSuccessResponse);
-    },
-    onError: (error) => {
-      axiosErrorToast(error as TGlobalErrorResponse);
-    },
-  });
 
   const accept = async () => {
-    await mutateAsync({ status: Number(activeStatus) !== 0 });
+    await mutateAsync({ status: EStatus.Cancelled });
   };
 
   const handleDeleteDialog = () => {
@@ -75,128 +64,104 @@ export function Invoices() {
     });
   };
 
-  const statusColorMap: Record<EStatus, string> = {
-    [EStatus.Pending]: "bg-blue-500 hover:bg-blue-600",
-    [EStatus.Processing]: "bg-green-500 hover:bg-green-600",
-    [EStatus.ReadyToDeliver]: "bg-orange-500 hover:bg-orange-600",
-    [EStatus.Delivered]: "bg-red-500 hover:bg-red-600",
-    [EStatus.Cancelled]: "bg-slate-500 hover:bg-slate-600",
+  const statusMap: {
+    [key: number]: {
+      label: string;
+      className: string;
+    };
+  } = {
+    1: { label: "Pending", className: "bg-yellow-500 hover:bg-yellow-600" },
+    2: { label: "Processing", className: "bg-blue-500 hover:bg-blue-600" },
+    3: {
+      label: "RTD",
+      className: "bg-purple-500 hover:bg-purple-600",
+    },
+    4: { label: "Delivered", className: "bg-green-500 hover:bg-green-600" },
+    5: { label: "Cancelled", className: "bg-red-500 hover:bg-red-600" },
   };
 
-  const nextStatus =
-    id < EStatus.Cancelled ? ((id + 1) as EStatus) : EStatus.Cancelled;
-  const prevStatus =
-    id > EStatus.Pending ? ((id - 1) as EStatus) : EStatus.Pending;
-
-  const statusLabel = EStatus[id];
-
-  const nextStatusLabel = EStatus[nextStatus];
-
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <ConfirmDialog
         pt={{
           acceptButton: {
-            className: `${Number(activeStatus) === 0 ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"} border-none shadow-none`,
+            className: `${Number(activeStatus) === 0 ? "bg-red-500 hover:bg-red-600" : "bg-red-500 hover:bg-red-600"} border-none shadow-none`,
           },
           rejectButton: {
             className: "text-gray-600 border-none shadow-none",
           },
         }}
       />
-      <PageHeader
-        breadCrumbJson={invoicesBreadcrumb}
-        title="Invoices"
-        buttonText="Create Invoice"
-        buttonClick={() => {
-          push("invoices/create");
-        }}
-      />
-      <InvoiceDataTable
-        url={Api.Invoices}
-        queryKey={QueryKey.GetAllInvoice}
-        columns={[
-          {
-            field: "status",
-            header: "Invoice Date",
-            body: ({ status, id }) => {
-              return (
-                <div className="flex gap-2">
-                  <button
-                    className={`rounded px-2 py-1 text-white ${statusColorMap[status]}`}
-                    onClick={async (e) => {
-                      e.stopPropagation();
-                      setId(id);
-                      await mutateStatus({ status: nextStatus });
-                    }}
-                    disabled={status >= EStatus.Cancelled}
+      <div className="flex flex-col gap-4">
+        <PageHeader
+          breadCrumbJson={invoicesBreadcrumb}
+          title="Invoices"
+          buttonText="Create Invoice"
+          buttonClick={() => {
+            push("invoices/create");
+          }}
+        />
+        <InvoiceDataTable
+          url={Api.Invoices}
+          queryKey={QueryKey.GetAllInvoice}
+          columns={[
+            {
+              field: "status",
+              header: "Status",
+              align: "center",
+              body: ({ status }) => {
+                const statusInfo = statusMap[status];
+                return (
+                  <span
+                    className={`rounded px-2 py-1 text-xs text-white disabled:opacity-50 ${statusInfo?.className ?? "bg-gray-400"}`}
                   >
-                    {statusLabel}
-                  </button>
-
-                  <button
-                    className={`rounded px-2 py-1 text-white ${statusColorMap[prevStatus]}`}
-                    onClick={async (e) => {
-                      e.stopPropagation();
-                      setId(id);
-                      await mutateStatus({ status: prevStatus });
-                    }}
-                    disabled={status <= EStatus.Pending}
-                  >
-                    {nextStatusLabel}
-                  </button>
-                </div>
-              );
+                    {statusInfo?.label ?? "Unknown"}
+                  </span>
+                );
+              },
             },
-          },
-          { field: "customer.mobile", header: "Customer Phone" },
-          { field: "invoiceNumber", header: "Invoice No" },
-          {
-            field: "invoiceDate",
-            header: "Invoice Date",
-            body: ({ invoiceDate }) => dateFromISO(invoiceDate),
-          },
-          {
-            field: "deliveryDate",
-            header: "Delivery Date",
-            body: ({ deliveryDate }) => dateFromISO(deliveryDate),
-          },
-          {
-            field: "totalPrice",
-            header: "Payments",
-            body: ({
-              totalPrice,
-              advanceAmount,
-              discountAmount,
-              balanceAmount,
-              totalQuantity,
-            }) => {
-              return (
-                <div className="text-sm">
-                  <p> QTY: {totalQuantity}</p>
-                  <p> Price: {totalPrice}</p>
-                  <p> Advance: {advanceAmount}</p>
-                  <p> Discount: {discountAmount}</p>
-                  <p> Balance: {balanceAmount}</p>
-                </div>
-              );
+            { field: "customer.mobile", header: "Phone" },
+            { field: "invoiceNumber", header: "Invoice No" },
+            {
+              field: "invoiceDate",
+              header: "Invoice Date",
+              body: ({ invoiceDate }) => dateFromISO(invoiceDate),
             },
-          },
-          {
-            field: "id",
-            header: "Actions",
-            align: "center",
-            body: ({ id }) => (
-              <TableAction
-                handleEdit={() => {
-                  push(`invoices/update/${id}`);
-                }}
-                handleDelete={() => handleDelete(id)}
-              />
-            ),
-          },
-        ]}
-      />
-    </div>
+            {
+              field: "deliveryDate",
+              header: "Delivery Date",
+              body: ({ deliveryDate }) => dateFromISO(deliveryDate),
+            },
+            {
+              field: "totalPrice",
+              header: "Due",
+              align: "center",
+              body: ({ balanceAmount }) => {
+                return (
+                  <div className="text-sm">
+                    <p> {balanceAmount}</p>
+                  </div>
+                );
+              },
+            },
+            {
+              field: "id",
+              header: "Actions",
+              align: "center",
+              body: ({ id, status }) => (
+                <InvoiceTableAction
+                  handleEdit={() => {
+                    push(`invoices/update/${id}`);
+                  }}
+                  handleDelete={() => handleDelete(id)}
+                  status={status}
+                  id={id}
+                />
+              ),
+            },
+          ]}
+        />
+      </div>
+    </>
   );
 }

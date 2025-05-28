@@ -8,9 +8,9 @@ import { TabMenu } from "primereact/tabmenu";
 import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 
-export function ActiveInactiveTab() {
+export function InvoiceActiveInactiveTab() {
   const { push } = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
@@ -20,8 +20,6 @@ export function ActiveInactiveTab() {
       push(`?status=${activeIndex}`);
     }
   }, [activeIndex]);
-
-  const items: MenuItem[] = [{ label: "Active" }, { label: "Inactive" }];
 
   const handleSearchClick = () => {
     if (search) {
@@ -36,26 +34,52 @@ export function ActiveInactiveTab() {
     push(`?status=${activeIndex}`);
   };
 
+  const tabColors = [
+    "bg-yellow-100 text-yellow-700 group-[.p-highlight]:bg-yellow-500 group-[.p-highlight]:text-white hover:bg-yellow-500 hover:text-white",
+    "bg-blue-100 text-blue-700 group-[.p-highlight]:bg-blue-500 group-[.p-highlight]:text-white hover:bg-blue-500 hover:text-white",
+    "bg-purple-100 text-purple-700 group-[.p-highlight]:bg-purple-500 group-[.p-highlight]:text-white hover:bg-purple-500 hover:text-white",
+    "bg-green-100 text-green-700 group-[.p-highlight]:bg-green-500 group-[.p-highlight]:text-white hover:bg-green-500 hover:text-white",
+    "bg-red-100 text-red-700 group-[.p-highlight]:bg-red-500 group-[.p-highlight]:text-white hover:bg-red-500 hover:text-white",
+  ];
+
+  const items: MenuItem[] = [
+    { label: "Pending" },
+    { label: "Processing" },
+    { label: "ReadyToDeliver" },
+    { label: "Delivered" },
+    { label: "Cancelled" },
+  ].map((item, index) => ({
+    ...item,
+    pt: {
+      action: {
+        className: [
+          "px-3 py-2 rounded-full border-none font-normal",
+          tabColors[index],
+        ].join(" "),
+      },
+    },
+  }));
+
   return (
     <div className="mt-5 flex flex-row items-center justify-between gap-2 md:mt-0 md:gap-5">
       <TabMenu
         model={items}
-        activeIndex={activeIndex}
-        onTabChange={(e) => setActiveIndex(e.index)}
+        activeIndex={activeIndex - 1}
+        onTabChange={(e) => setActiveIndex(e.index + 1)}
         pt={{
           menu: {
             className:
-              "bg-transparent border-none flex gap-2 text-xs md:text-base",
+              "bg-transparent border-none flex gap-2 text-xs md:text-base custom-tabmenu",
           },
           menuitem: {
-            className: "group pb-2",
+            className: "group pb-2 custom-tab",
           },
           action: {
-            className:
-              "px-3 py-2 rounded-full border-none text-primary font-normal bg-primary/10 group-[.p-highlight]:bg-primary group-[.p-highlight]:text-white group-[.p-highlight]:border-none hover:bg-primary hover:text-white hover:border-none",
+            className: "px-3 py-2 rounded-full border-none font-normal",
           },
         }}
       />
+
       <div className="flex flex-row">
         <div className="relative">
           <InputText
