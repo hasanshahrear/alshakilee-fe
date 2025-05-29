@@ -50,8 +50,7 @@ export function InvoiceArray() {
                 <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].length`}
-                    type="number"
-                    keyfilter="pnum"
+                    type="text"
                     label="Length"
                     className="p-inputtext-sm"
                     requiredIcon="*"
@@ -146,7 +145,7 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-12 xl:col-span-6">
+                <div className="col-span-6 xl:col-span-3">
                   <FormikTextField
                     name={`items[${i}].design`}
                     type="text"
@@ -155,40 +154,29 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-12">
+                <div className="col-span-6 xl:col-span-3">
                   <FormikTextField
-                    name={`items[${i}].fabric`}
+                    name={`items[${i}].phul`}
                     type="text"
-                    label="Fabric"
+                    label="Phul"
                     className="p-inputtext-sm"
+                    requiredIcon=""
                   />
                 </div>
 
                 <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
-                    name={`items[${i}].pocket`}
-                    label="Pocket"
+                    name={`items[${i}].sd`}
+                    label="SD"
                     requiredIcon="*"
                     options={[
-                      { name: "P2 Bag", value: "P2_BAG" },
-                      { name: "P2 Adi", value: "P2_ADI" },
+                      { name: "SD", value: "SD" },
+                      { name: "No SD", value: "NO_SD" },
+                      { name: "KT", value: "KT" },
                     ]}
                     className="p-inputtext-sm"
                   />
                 </div>
-                <div className="col-span-6 md:col-span-3">
-                  <FormikRadioButton
-                    name={`items[${i}].sewing`}
-                    label="Sewing"
-                    requiredIcon="*"
-                    options={[
-                      { name: "Lock", value: "LOCK" },
-                      { name: "Chap", value: "CHAP" },
-                    ]}
-                    className="p-inputtext-sm"
-                  />
-                </div>
-
                 <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].pan`}
@@ -203,23 +191,43 @@ export function InvoiceArray() {
                 </div>
                 <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
-                    name={`items[${i}].sd`}
-                    label="SD"
+                    name={`items[${i}].sewing`}
+                    label="Sewing"
                     requiredIcon="*"
                     options={[
-                      { name: "SD", value: "SD" },
-                      { name: "No SD", value: "NO_SD" },
-                      { name: "KT", value: "KT" },
+                      { name: "Lock", value: "LOCK" },
+                      { name: "Chap", value: "CHAP" },
                     ]}
                     className="p-inputtext-sm"
                   />
                 </div>
+                <div className="col-span-6 md:col-span-3">
+                  <FormikRadioButton
+                    name={`items[${i}].pocket`}
+                    label="Pocket"
+                    requiredIcon="*"
+                    options={[
+                      { name: "P2 Bag", value: "P2_BAG" },
+                      { name: "P2 Adi", value: "P2_ADI" },
+                    ]}
+                    className="p-inputtext-sm"
+                  />
+                </div>
+
                 <div className="col-span-12">
                   <FormikTextareaField
                     name={`items[${i}].description`}
                     label="Description"
                     className="h-[112px] w-full"
                     rows={3}
+                  />
+                </div>
+                <div className="col-span-12">
+                  <FormikTextField
+                    name={`items[${i}].fabric`}
+                    type="text"
+                    label="Fabric"
+                    className="p-inputtext-sm"
                   />
                 </div>
               </div>

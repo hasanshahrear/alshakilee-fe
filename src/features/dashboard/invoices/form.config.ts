@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const invoiceItemSchema = yup.object({
   id: yup.number().nullable(),
-  length: yup.number().required().label("Length").positive(),
+  length: yup.string().required().label("Length"),
   shoulder: yup.number().required().label("Shoulder").positive(),
   hand: yup.number().required().label("Hand").positive(),
   handLoose: yup.string().required().label("Hand Loose"),
@@ -21,13 +21,14 @@ export const invoiceItemSchema = yup.object({
   quantity: yup.number().required().label("Quantity").positive(),
   fabric: yup.string().notRequired().label("Fabric"),
   name: yup.string().notRequired().label("Name"),
+  phul: yup.string().notRequired().label("Phul"),
 });
 
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
 
 export const initialItemValue: TInvoiceItemType = {
   id: 0,
-  length: 0,
+  length: "",
   shoulder: 0,
   hand: 0,
   handLoose: "",
@@ -46,6 +47,7 @@ export const initialItemValue: TInvoiceItemType = {
   quantity: 1,
   fabric: "",
   name: "",
+  phul: "",
 };
 
 export const invoicesCreateUpdateSchema = yup.object({

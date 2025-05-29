@@ -6,9 +6,12 @@ import { useSearchParams } from "next/navigation";
 import { Column, ColumnProps } from "primereact/column";
 import { DataTable, DataTableExpandedRows } from "primereact/datatable";
 import { Paginator } from "primereact/paginator";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TDataTableRes, TInvoice } from "./type";
 import { Divider } from "primereact/divider";
+import { AiOutlineCheck } from "react-icons/ai";
+import { InvoiceContext } from "@/features/provider";
+import { TInvoiceItem } from "@/features/model";
 
 type TProps = {
   columns: ColumnProps[];
@@ -43,6 +46,9 @@ export function InvoiceDataTable({
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
+  const [disabledItems, setDisabledItems] = useState<string[]>([]);
+
+  const { setSelectedItems } = useContext(InvoiceContext);
 
   const searchParams = useSearchParams();
   const activeStatus = searchParams.get("status");
@@ -78,13 +84,29 @@ export function InvoiceDataTable({
               <div className="flex-auto">
                 <Divider className="m-0 p-0" />
               </div>
-              {/* <div className="flex items-center gap-1">
-                <button className="flex items-center gap-1 rounded bg-violet-700 px-2 py-1 text-xs text-white">
-                  <AiFillPrinter />
-                  Print
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => {
+                    setSelectedItems((prev) => [...prev, x] as TInvoiceItem[]);
+                    setDisabledItems((prev) => [
+                      ...prev,
+                      `${rowData?.id}-${i}`,
+                    ]);
+                  }}
+                  disabled={disabledItems.includes(`${rowData?.id}-${i}`)}
+                  className={`flex items-center gap-1 rounded px-2 py-1 text-xs text-white ${
+                    disabledItems.includes(`${rowData?.id}-${i}`)
+                      ? "cursor-not-allowed bg-green-500"
+                      : "bg-violet-700"
+                  }`}
+                >
+                  <AiOutlineCheck />
+                  {disabledItems.includes(`${rowData?.id}-${i}`)
+                    ? "Selected"
+                    : "Select"}
                 </button>
 
-                <button className="flex items-center gap-1 rounded bg-primary px-2 py-1 text-xs text-white">
+                {/* <button className="flex items-center gap-1 rounded bg-primary px-2 py-1 text-xs text-white">
                   <AiFillEdit />
                   Edit
                 </button>
@@ -92,8 +114,8 @@ export function InvoiceDataTable({
                 <button className="flex items-center gap-1 rounded bg-red-500 px-2 py-1 text-xs text-white">
                   <AiFillDelete />
                   Delete
-                </button>
-              </div> */}
+                </button> */}
+              </div>
             </div>
             <div
               key={i}
@@ -101,14 +123,23 @@ export function InvoiceDataTable({
             >
               <GridRowDark>
                 <p>
+                  <span className="font-semibold">Name:</span> {x?.name}
+                </p>
+                <p>
+                  <span className="font-semibold">Quantity:</span> {x?.quantity}
+                </p>
+              </GridRowDark>
+
+              <GridRowLight>
+                <p>
                   <span className="font-semibold">Length:</span> {x?.length}
                 </p>
                 <p>
                   <span className="font-semibold">Shoulder:</span> {x?.shoulder}
                 </p>
-              </GridRowDark>
+              </GridRowLight>
 
-              <GridRowLight>
+              <GridRowDark>
                 <p>
                   <span className="font-semibold">Hand:</span> {x?.hand}
                 </p>
@@ -116,9 +147,9 @@ export function InvoiceDataTable({
                   <span className="font-semibold">Hand Loose:</span>{" "}
                   {x?.handLoose}
                 </p>
-              </GridRowLight>
+              </GridRowDark>
 
-              <GridRowDark>
+              <GridRowLight>
                 <p>
                   <span className="font-semibold">Neck:</span> {x?.neck}
                 </p>
@@ -126,9 +157,9 @@ export function InvoiceDataTable({
                   <span className="font-semibold">Chest Loose:</span>{" "}
                   {x?.chestLoose}
                 </p>
-              </GridRowDark>
+              </GridRowLight>
 
-              <GridRowLight>
+              <GridRowDark>
                 <p>
                   <span className="font-semibold">Centre Loose:</span>{" "}
                   {x?.centreLoose}
@@ -137,47 +168,41 @@ export function InvoiceDataTable({
                   <span className="font-semibold">Down Loose:</span>{" "}
                   {x?.downLoose}
                 </p>
-              </GridRowLight>
+              </GridRowDark>
 
-              <GridRowDark>
+              <GridRowLight>
                 <p>
                   <span className="font-semibold">Open:</span> {x?.open}
                 </p>
                 <p>
                   <span className="font-semibold">Button:</span> {x?.button}
                 </p>
-              </GridRowDark>
-
-              <GridRowLight>
-                <p>
-                  <span className="font-semibold">Pocket:</span> {x?.pocket}
-                </p>
-                <p>
-                  <span className="font-semibold">Sewing:</span> {x?.sewing}
-                </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Pan:</span> {x?.pan}
+                  <span className="font-semibold">Design:</span> {x?.design}
                 </p>
+                <p>
+                  <span className="font-semibold">Phul:</span> {x?.phul}
+                </p>
+              </GridRowDark>
+
+              <GridRowLight>
                 <p>
                   <span className="font-semibold">SD:</span> {x?.sd}
                 </p>
-              </GridRowDark>
-
-              <GridRowLight>
                 <p>
-                  <span className="font-semibold">Quantity:</span> {x?.quantity}
-                </p>
-                <p>
-                  <span className="font-semibold">Name:</span> {x?.name}
+                  <span className="font-semibold">Pan:</span> {x?.pan}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
-                <p className="col-span-2">
-                  <span className="font-semibold">Design:</span> {x?.design}
+                <p>
+                  <span className="font-semibold">Sewing:</span> {x?.sewing}
+                </p>
+                <p>
+                  <span className="font-semibold">Pocket:</span> {x?.pocket}
                 </p>
               </GridRowDark>
 

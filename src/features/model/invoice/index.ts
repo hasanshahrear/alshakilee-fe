@@ -1,1 +1,1 @@
-export type { TGetInvoiceByID } from "./get-invoice-by-id";
+export * from "./get-invoice-by-id";

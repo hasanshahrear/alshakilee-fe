@@ -28,7 +28,7 @@ export type TCustomer = {
 
 export type TInvoiceItem = {
   id: number;
-  length: number;
+  length: string;
   shoulder: number;
   hand: number;
   handLoose: string;
@@ -51,4 +51,5 @@ export type TInvoiceItem = {
   invoiceId: number;
   createdAt: Date;
   updatedAt: Date;
+  phul: string;
 };

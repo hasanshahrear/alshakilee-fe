@@ -1,4 +1,4 @@
-import { GlobalProvider } from "@/features/provider/global.provider";
+import { GlobalProvider } from "@/features/provider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

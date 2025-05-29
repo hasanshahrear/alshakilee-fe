@@ -13,10 +13,13 @@ import { Formik } from "formik";
 import {
   initailValue,
   invoicesCreateUpdateSchema,
+  TInvoiceItemType,
   TInvoicesCreateUpdateType,
 } from "./form.config";
 import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
 import { useRouter } from "nextjs-toploader/app";
+import { useContext } from "react";
+import { InvoiceContext } from "@/features/provider";
 
 type TPageProps = {
   slug?: string;
@@ -25,6 +28,7 @@ type TPageProps = {
 export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
   const queryClient = useQueryClient();
   const { push } = useRouter();
+  const { selectedItems, setSelectedItems } = useContext(InvoiceContext);
 
   const { mutateAsync } = usePost<TInvoicesCreateUpdateType>({
     url: Api.Invoices,
@@ -32,6 +36,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.GetAllInvoice],
       });
+      setSelectedItems([]);
       axiosSuccessToast(data as TGlobalSuccessResponse);
       push("/dashboard/invoices");
     },
@@ -78,7 +83,9 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
                 dataGetInvoiceById?.data?.deliveryDate ?? "",
               ),
               customerId: dataGetInvoiceById?.data?.customerId ?? 0,
-              items: dataGetInvoiceById?.data?.invoiceItems ?? [],
+              items:
+                (dataGetInvoiceById?.data
+                  ?.invoiceItems as TInvoiceItemType[]) ?? [],
               id: dataGetInvoiceById?.data?.id,
               customerInfo: dataGetInvoiceById?.data?.customer,
               totalPrice: dataGetInvoiceById?.data?.totalPrice ?? 0,
@@ -86,7 +93,22 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               discountAmount: dataGetInvoiceById?.data?.discountAmount ?? 0,
               status: dataGetInvoiceById?.data?.status,
             }
-          : initailValue
+          : selectedItems?.length > 0
+            ? {
+                ...initailValue,
+                items: selectedItems?.map((x) => {
+                  const {
+                    id,
+                    invoiceId,
+                    createdAt,
+                    updatedAt,
+                    isActive,
+                    ...rest
+                  } = x;
+                  return { ...rest };
+                }),
+              }
+            : initailValue
       }
       validationSchema={invoicesCreateUpdateSchema}
       enableReinitialize
