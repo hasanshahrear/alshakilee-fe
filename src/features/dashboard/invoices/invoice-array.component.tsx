@@ -145,22 +145,22 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-6 xl:col-span-3">
-                  <FormikTextField
-                    name={`items[${i}].design`}
-                    type="text"
-                    label="Design"
-                    className="p-inputtext-sm"
-                    requiredIcon="*"
-                  />
-                </div>
-                <div className="col-span-6 xl:col-span-3">
+                <div className="col-span-6">
                   <FormikTextField
                     name={`items[${i}].phul`}
                     type="text"
                     label="Phul"
                     className="p-inputtext-sm"
                     requiredIcon=""
+                  />
+                </div>
+                <div className="col-span-12">
+                  <FormikTextField
+                    name={`items[${i}].design`}
+                    type="text"
+                    label="Design"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
                   />
                 </div>
 
