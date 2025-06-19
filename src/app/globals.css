@@ -63,3 +63,9 @@ body {
 .custom-tabmenu .custom-tab.p-highlight:nth-child(6) .p-menuitem-link {
   @apply bg-red-500 text-white;
 }
+
+@media print {
+  .break-page {
+    page-break-before: always;
+  }
+}

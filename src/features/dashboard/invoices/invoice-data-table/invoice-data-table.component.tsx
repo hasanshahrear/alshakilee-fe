@@ -20,15 +20,19 @@ type TProps = {
   statusFilter?: boolean;
 };
 
-function GridRowDark({ children }: Readonly<{ children: React.ReactNode }>) {
+export function GridRowDark({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="col-span-2 grid grid-cols-2 border bg-primary/5 px-2 py-1.5">
+    <div className="col-span-2 grid grid-cols-2 border bg-primary/5 px-2 py-1.5 print:py-0.5">
       {children}
     </div>
   );
 }
 
-function GridRowLight({ children }: Readonly<{ children: React.ReactNode }>) {
+export function GridRowLight({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="col-span-2 grid grid-cols-2 border-l border-r bg-white px-2 py-1.5">
       {children}
@@ -105,16 +109,6 @@ export function InvoiceDataTable({
                     ? "Selected"
                     : "Select"}
                 </button>
-
-                {/* <button className="flex items-center gap-1 rounded bg-primary px-2 py-1 text-xs text-white">
-                  <AiFillEdit />
-                  Edit
-                </button>
-
-                <button className="flex items-center gap-1 rounded bg-red-500 px-2 py-1 text-xs text-white">
-                  <AiFillDelete />
-                  Delete
-                </button> */}
               </div>
             </div>
             <div

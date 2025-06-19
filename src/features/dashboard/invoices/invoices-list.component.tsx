@@ -8,13 +8,17 @@ import { InvoiceDataTable } from "./invoice-data-table";
 import {
   axiosErrorToast,
   axiosSuccessToast,
-  dateFromISO,
+  dateTimeFromISO,
 } from "@/features/utils";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { TGlobalErrorResponse, TGlobalSuccessResponse } from "@/features/model";
+import {
+  TGlobalErrorResponse,
+  TGlobalSuccessResponse,
+  TInvoiceData,
+} from "@/features/model";
 import { useRouter } from "nextjs-toploader/app";
 import { InvoiceTableAction } from "./invoice-data-table/invoice-table-actions";
 
@@ -125,12 +129,12 @@ export function Invoices() {
             {
               field: "invoiceDate",
               header: "Invoice Date",
-              body: ({ invoiceDate }) => dateFromISO(invoiceDate),
+              body: ({ invoiceDate }) => dateTimeFromISO(invoiceDate),
             },
             {
               field: "deliveryDate",
               header: "Delivery Date",
-              body: ({ deliveryDate }) => dateFromISO(deliveryDate),
+              body: ({ deliveryDate }) => dateTimeFromISO(deliveryDate),
             },
             {
               field: "totalPrice",
@@ -148,16 +152,19 @@ export function Invoices() {
               field: "id",
               header: "Actions",
               align: "center",
-              body: ({ id, status }) => (
-                <InvoiceTableAction
-                  handleEdit={() => {
-                    push(`invoices/update/${id}`);
-                  }}
-                  handleDelete={() => handleDelete(id)}
-                  status={status}
-                  id={id}
-                />
-              ),
+              body: (data: TInvoiceData) => {
+                return (
+                  <InvoiceTableAction
+                    handleEdit={() => {
+                      push(`invoices/update/${data?.id}`);
+                    }}
+                    handleDelete={() => handleDelete(data?.id)}
+                    status={data?.status}
+                    id={data?.id}
+                    printData={data}
+                  />
+                );
+              },
             },
           ]}
         />

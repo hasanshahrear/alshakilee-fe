@@ -12,18 +12,29 @@ export type TInvoiceData = {
   customerId: number;
   invoiceDate: Date;
   deliveryDate: Date;
+  totalQuantity: number;
+  totalPrice: number;
+  discountAmount: number;
+  advanceAmount: number;
+  balanceAmount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
   status: number;
   customer: TCustomer;
-  totalPrice: number;
-  advanceAmount: number;
-  discountAmount: number;
   invoiceItems: TInvoiceItem[];
 };
 
 export type TCustomer = {
   id: number;
   mobile: string;
+  name: string;
   isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
 };
 
 export type TInvoiceItem = {
