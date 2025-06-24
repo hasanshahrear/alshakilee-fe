@@ -113,144 +113,196 @@ export function InvoiceTableAction({
           className="break-page m-3"
           ref={contentRef}
         >
-          <div className="flex gap-2">
-            <div className="w-32/12 text-xs">
+          <div className="flex gap-1">
+            <div className="w-4/12 text-[12px]">
               <p>C.R. No: 24875</p>
               <p>Shop: 24809393</p>
               <p>Hashem: 98714922</p>
               <p>Mohammed Ali: 99875538</p>
               <p>Shop: 313</p>
             </div>
-            <div className="w-6/12 text-center text-sm">
+            <div className="w-4/12 text-center text-xs">
               <h1 className="font-bold uppercase">Al-Shakilee Tailoring</h1>
-              <h3 className="text-sm font-bold uppercase">Cash Memo</h3>
-              <p>Gents Tailoring & Readymade Garments</p>
+              <h1 className="font-bold uppercase">محلات الشكيلي للخياطة</h1>
+              <h3 className="m-1 rounded border p-1 text-sm font-medium uppercase">
+                Cash Memo
+              </h3>
+              <p>Gents Tailoring</p>
               <p>Front of Seblath, Muttrah</p>
-              <p>Invoice No: {printData?.invoiceNumber}</p>
-              <p>
-                Invoice Date:{" "}
-                {printData?.invoiceDate
-                  ? dateFromISO(new Date(printData.invoiceDate).toISOString())
-                  : ""}
-              </p>
-              <p>
-                Delivery Date:{" "}
+            </div>
+            <div className="w-4/12 text-right text-[12px]">
+              <p>س.ت.: ٢٤٨٧٥</p>
+              <p>محل: ٢٤٨٠٩٣٩٣</p>
+              <p>هاشم: ٩٨٧١٤٩٢٢</p>
+              <p>محمد علي: ٩٩٨٧٥٥٣٨</p>
+              <p>محل رقم: ٣١٣</p>
+            </div>
+          </div>
+
+          <hr className="mb-1 mt-4" />
+          <div className="flex justify-between">
+            <p>
+              Date:{" "}
+              {printData?.invoiceDate
+                ? dateFromISO(new Date(printData.invoiceDate).toISOString())
+                : ""}
+            </p>
+            <p>
+              Delivery Date:{" "}
+              <span className="font-semibold">
                 {printData?.deliveryDate
                   ? dateFromISO(new Date(printData.deliveryDate).toISOString())
                   : ""}
+              </span>
+            </p>
+          </div>
+          <hr className="mb-4 mt-1" />
+          <div className="grid grid-cols-2 text-sm">
+            <div>
+              <p>
+                Invoice No:{" "}
+                <span className="font-semibold">
+                  {printData?.invoiceNumber}
+                </span>
               </p>
+              <p>Name: {printData?.customer?.name}</p>
+              <p>Mobile: {printData?.customer?.mobile}</p>
             </div>
-            <div className="w-3/12">3</div>
+            <div className="text-right">
+              <p>Total Price: {printData?.totalPrice}</p>
+              <p>Advance: {printData?.advanceAmount}</p>
+              <p>Balance: {printData?.balanceAmount}</p>
+            </div>
           </div>
-          <div className="flex justify-between gap-3 text-xs">
-            <p>Name: {printData?.customer?.name}</p>
-            <p>Mobile: {printData?.customer?.mobile}</p>
-          </div>
+          <hr className="my-6 border-dashed" />
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2 print:grid-cols-2">
             {printData?.invoiceItems?.map((x, i) => (
               <div
                 key={i}
                 className={`col-span-1 max-w-[320px] md:w-auto ${
-                  i === 2 || (i > 2 && (i - 2) % 4 === 0) ? "break-page" : ""
+                  i !== 0 && i % 2 === 0 ? "break-page" : ""
                 }`}
               >
-                <div className="grid grid-cols-2 text-[10px]">
+                <div className="grid grid-cols-2 text-base">
                   <GridRowDark>
-                    <p>
-                      <span className="font-semibold">Name:</span> {x?.name}
+                    <div className="col-span-2">
+                      <p>
+                        Invoice No:{" "}
+                        <span className="font-medium">
+                          {printData?.invoiceNumber}
+                        </span>
+                      </p>
+                    </div>
+                  </GridRowDark>
+                  <GridRowLight>
+                    <div className="col-span-2">
+                      <p>
+                        Delivery Date:{" "}
+                        <span className="font-medium">
+                          {printData?.deliveryDate
+                            ? dateFromISO(
+                                new Date(printData.deliveryDate).toISOString(),
+                              )
+                            : ""}{" "}
+                        </span>
+                      </p>
+                    </div>
+                  </GridRowLight>
+                  <GridRowDark>
+                    <p className="font-semibold">
+                      <span className="font-normal">Name:</span> {x?.name}
                     </p>
-                    <p>
-                      <span className="font-semibold">Quantity:</span>{" "}
-                      {x?.quantity}
+                    <p className="font-semibold">
+                      <span className="font-normal">Qty:</span> {x?.quantity}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p>
-                      <span className="font-semibold">Length:</span> {x?.length}
+                    <p className="font-semibold">
+                      <span className="font-normal">Length:</span> {x?.length}
                     </p>
-                    <p>
-                      <span className="font-semibold">Shoulder:</span>{" "}
+                    <p className="font-semibold">
+                      <span className="font-normal">Shoulder:</span>{" "}
                       {x?.shoulder}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p>
-                      <span className="font-semibold">Hand:</span> {x?.hand}
+                    <p className="font-semibold">
+                      <span className="font-normal">Hand:</span> {x?.hand}
                     </p>
-                    <p>
-                      <span className="font-semibold">Hand Loose:</span>{" "}
+                    <p className="font-semibold">
+                      <span className="font-normal">Hand Loose:</span>{" "}
                       {x?.handLoose}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p>
-                      <span className="font-semibold">Neck:</span> {x?.neck}
+                    <p className="font-semibold">
+                      <span className="font-normal">Neck:</span> {x?.neck}
                     </p>
-                    <p>
-                      <span className="font-semibold">Chest Loose:</span>{" "}
+                    <p className="font-semibold">
+                      <span className="font-normal">Chest Loose:</span>{" "}
                       {x?.chestLoose}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p>
-                      <span className="font-semibold">Centre Loose:</span>{" "}
+                    <p className="font-semibold">
+                      <span className="font-normal">Centre Loose:</span>{" "}
                       {x?.centreLoose}
                     </p>
-                    <p>
-                      <span className="font-semibold">Down Loose:</span>{" "}
+                    <p className="font-semibold">
+                      <span className="font-normal">Down Loose:</span>{" "}
                       {x?.downLoose}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p>
-                      <span className="font-semibold">Open:</span> {x?.open}
+                    <p className="font-semibold">
+                      <span className="font-normal">Open:</span> {x?.open}
                     </p>
-                    <p>
-                      <span className="font-semibold">Button:</span> {x?.button}
+                    <p className="font-semibold">
+                      <span className="font-normal">Button:</span> {x?.button}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p>
-                      <span className="font-semibold">Design:</span> {x?.design}
+                    <p className="font-semibold">
+                      <span className="font-normal">Design:</span> {x?.design}
                     </p>
-                    <p>
-                      <span className="font-semibold">Phul:</span> {x?.phul}
+                    <p className="font-semibold">
+                      <span className="font-normal">Phul:</span> {x?.phul}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p>
-                      <span className="font-semibold">SD:</span> {x?.sd}
+                    <p className="font-semibold">
+                      <span className="font-normal">SD:</span> {x?.sd}
                     </p>
-                    <p>
-                      <span className="font-semibold">Pan:</span> {x?.pan}
+                    <p className="font-semibold">
+                      <span className="font-normal">Pan:</span> {x?.pan}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p>
-                      <span className="font-semibold">Sewing:</span> {x?.sewing}
+                    <p className="font-semibold">
+                      <span className="font-normal">Sewing:</span> {x?.sewing}
                     </p>
-                    <p>
-                      <span className="font-semibold">Pocket:</span> {x?.pocket}
+                    <p className="font-semibold">
+                      <span className="font-normal">Pocket:</span> {x?.pocket}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
                     <p className="col-span-2">
-                      <span className="font-semibold">Fabric:</span> {x?.fabric}
+                      <span className="font-normal">Fabric:</span> {x?.fabric}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
                     <p className="col-span-2">
-                      <span className="font-semibold">Description:</span>{" "}
+                      <span className="font-normal">Description:</span>{" "}
                       {x?.description}
                     </p>
                   </GridRowDark>
