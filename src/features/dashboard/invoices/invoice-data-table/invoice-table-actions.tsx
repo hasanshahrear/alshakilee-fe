@@ -122,7 +122,7 @@ export function InvoiceTableAction({
               <p>Shop: 313</p>
             </div>
             <div className="w-4/12 text-center text-xs">
-              <h1 className="text-sm font-bold uppercase">
+              <h1 className="text-base font-bold uppercase">
                 محلات الشكيلي للخياطة
               </h1>
               <h1 className="font-bold uppercase">Al-Shakilee Tailoring</h1>
