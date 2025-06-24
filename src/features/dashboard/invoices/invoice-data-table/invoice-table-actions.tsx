@@ -110,7 +110,7 @@ export function InvoiceTableAction({
         }}
       >
         <div
-          className="break-page m-3"
+          className="break-page m-6"
           ref={contentRef}
         >
           <div className="flex gap-1">
@@ -122,8 +122,10 @@ export function InvoiceTableAction({
               <p>Shop: 313</p>
             </div>
             <div className="w-4/12 text-center text-xs">
+              <h1 className="text-sm font-bold uppercase">
+                محلات الشكيلي للخياطة
+              </h1>
               <h1 className="font-bold uppercase">Al-Shakilee Tailoring</h1>
-              <h1 className="font-bold uppercase">محلات الشكيلي للخياطة</h1>
               <h3 className="m-1 rounded border p-1 text-sm font-medium uppercase">
                 Cash Memo
               </h3>
