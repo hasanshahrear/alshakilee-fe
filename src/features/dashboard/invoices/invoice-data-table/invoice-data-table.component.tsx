@@ -24,7 +24,7 @@ export function GridRowDark({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="col-span-2 grid grid-cols-2 border bg-primary/5 px-2 py-1.5 print:py-0.5">
+    <div className="col-span-2 grid grid-cols-2 border bg-primary/5 px-2 py-1.5 text-sm print:py-0.5">
       {children}
     </div>
   );
@@ -34,7 +34,7 @@ export function GridRowLight({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="col-span-2 grid grid-cols-2 border-l border-r bg-white px-2 py-1.5">
+    <div className="col-span-2 grid grid-cols-2 border-l border-r bg-white px-2 py-1.5 text-sm">
       {children}
     </div>
   );
@@ -74,7 +74,7 @@ export function InvoiceDataTable({
 
   const rowExpansionTemplate = (rowData: TInvoice) => (
     <div className="p-1 md:p-3">
-      <h5 className="mb-2 font-semibold">Invoice Items</h5>
+      <h5 className="mb-2 font-medium">Invoice Items</h5>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
         {rowData?.invoiceItems?.map((x, i) => (
           <div
@@ -83,7 +83,7 @@ export function InvoiceDataTable({
           >
             <div className="mb-4 flex items-center gap-4">
               <div>
-                <p className="font-semibold">S/N: {i + 1}</p>
+                <p className="font-medium">S/N: {i + 1}</p>
               </div>
               <div className="flex-auto">
                 <Divider className="m-0 p-0" />
@@ -113,102 +113,102 @@ export function InvoiceDataTable({
             </div>
             <div
               key={i}
-              className="grid grid-cols-2 text-sm"
+              className="grid grid-cols-2 text-xs"
             >
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Name:</span> {x?.name}
+                  <span className="font-medium">Name:</span> {x?.name}
                 </p>
                 <p>
-                  <span className="font-semibold">Quantity:</span> {x?.quantity}
+                  <span className="font-medium">Quantity:</span> {x?.quantity}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p>
-                  <span className="font-semibold">Length:</span> {x?.length}
+                  <span className="font-medium">Length:</span> {x?.length}
                 </p>
                 <p>
-                  <span className="font-semibold">Shoulder:</span> {x?.shoulder}
+                  <span className="font-medium">Shoulder:</span> {x?.shoulder}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Hand:</span> {x?.hand}
+                  <span className="font-medium">Hand:</span> {x?.hand}
                 </p>
                 <p>
-                  <span className="font-semibold">Hand Loose:</span>{" "}
+                  <span className="font-medium">Hand Loose:</span>{" "}
                   {x?.handLoose}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p>
-                  <span className="font-semibold">Neck:</span> {x?.neck}
+                  <span className="font-medium">Neck:</span> {x?.neck}
                 </p>
                 <p>
-                  <span className="font-semibold">Chest Loose:</span>{" "}
+                  <span className="font-medium">Chest Loose:</span>{" "}
                   {x?.chestLoose}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Centre Loose:</span>{" "}
+                  <span className="font-medium">Centre Loose:</span>{" "}
                   {x?.centreLoose}
                 </p>
                 <p>
-                  <span className="font-semibold">Down Loose:</span>{" "}
+                  <span className="font-medium">Down Loose:</span>{" "}
                   {x?.downLoose}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p>
-                  <span className="font-semibold">Open:</span> {x?.open}
+                  <span className="font-medium">Open:</span> {x?.open}
                 </p>
                 <p>
-                  <span className="font-semibold">Button:</span> {x?.button}
+                  <span className="font-medium">Button:</span> {x?.button}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Design:</span> {x?.design}
+                  <span className="font-medium">Design:</span> {x?.design}
                 </p>
                 <p>
-                  <span className="font-semibold">Phul:</span> {x?.phul}
+                  <span className="font-medium">Phul:</span> {x?.phul}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p>
-                  <span className="font-semibold">SD:</span> {x?.sd}
+                  <span className="font-medium">SD:</span> {x?.sd}
                 </p>
                 <p>
-                  <span className="font-semibold">Pan:</span> {x?.pan}
+                  <span className="font-medium">Pan:</span> {x?.pan}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-semibold">Sewing:</span> {x?.sewing}
+                  <span className="font-medium">Sewing:</span> {x?.sewing}
                 </p>
                 <p>
-                  <span className="font-semibold">Pocket:</span> {x?.pocket}
+                  <span className="font-medium">Pocket:</span> {x?.pocket}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p className="col-span-2">
-                  <span className="font-semibold">Fabric:</span> {x?.fabric}
+                  <span className="font-medium">Fabric:</span> {x?.fabric}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p className="col-span-2">
-                  <span className="font-semibold">Description:</span>{" "}
+                  <span className="font-medium">Description:</span>{" "}
                   {x?.description}
                 </p>
               </GridRowDark>

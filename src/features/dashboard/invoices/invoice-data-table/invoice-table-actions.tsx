@@ -140,7 +140,7 @@ export function InvoiceTableAction({
           </div>
 
           <hr className="mb-1 mt-4" />
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm">
             <p>
               Date:{" "}
               {printData?.invoiceDate
@@ -156,7 +156,7 @@ export function InvoiceTableAction({
               </span>
             </p>
           </div>
-          <hr className="mb-4 mt-1" />
+          <hr className="mb-2 mt-1" />
           <div className="grid grid-cols-2 text-sm">
             <div>
               <p>
@@ -174,7 +174,7 @@ export function InvoiceTableAction({
               <p>Balance: {printData?.balanceAmount}</p>
             </div>
           </div>
-          <hr className="my-6 border-dashed" />
+          <hr className="my-3 border-dashed" />
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2 print:grid-cols-2">
             {printData?.invoiceItems?.map((x, i) => (
               <div
