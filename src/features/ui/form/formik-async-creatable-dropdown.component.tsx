@@ -33,6 +33,7 @@ type TFormikAsyncCreatableDropdownProps = {
 type CustomerInfo = {
   id: number;
   mobile: string;
+  name: string;
 };
 
 type FormValues = {
@@ -60,7 +61,9 @@ export function FormikAsyncCreatableDropdown({
   useEffect(() => {
     if (values?.customerInfo) {
       setValue({
-        label: String(values?.customerInfo?.mobile),
+        label: String(
+          `${values?.customerInfo?.mobile} - ${values?.customerInfo?.name}`,
+        ),
         value: Number(values?.customerInfo?.id),
       });
     }
