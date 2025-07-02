@@ -24,7 +24,7 @@ export function GridRowDark({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="col-span-2 grid grid-cols-2 border bg-primary/5 px-2 py-1.5 text-sm print:py-0.5">
+    <div className="col-span-2 grid grid-cols-2 border-l border-r bg-primary/5 px-2 py-1.5 text-sm print:py-0.5">
       {children}
     </div>
   );
@@ -34,7 +34,7 @@ export function GridRowLight({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="col-span-2 grid grid-cols-2 border-l border-r bg-white px-2 py-1.5 text-sm">
+    <div className="col-span-2 grid grid-cols-2 border bg-white px-2 py-1.5 text-sm">
       {children}
     </div>
   );
@@ -138,8 +138,7 @@ export function InvoiceDataTable({
                   <span className="font-medium">Hand:</span> {x?.hand}
                 </p>
                 <p>
-                  <span className="font-medium">Hand Loose:</span>{" "}
-                  {x?.handLoose}
+                  <span className="font-medium">Hand L:</span> {x?.handLoose}
                 </p>
               </GridRowDark>
 
@@ -148,19 +147,17 @@ export function InvoiceDataTable({
                   <span className="font-medium">Neck:</span> {x?.neck}
                 </p>
                 <p>
-                  <span className="font-medium">Chest Loose:</span>{" "}
-                  {x?.chestLoose}
+                  <span className="font-medium">Chest L:</span> {x?.chestLoose}
                 </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p>
-                  <span className="font-medium">Centre Loose:</span>{" "}
+                  <span className="font-medium">Centre L:</span>{" "}
                   {x?.centreLoose}
                 </p>
                 <p>
-                  <span className="font-medium">Down Loose:</span>{" "}
-                  {x?.downLoose}
+                  <span className="font-medium">Down L:</span> {x?.downLoose}
                 </p>
               </GridRowDark>
 
@@ -175,43 +172,46 @@ export function InvoiceDataTable({
 
               <GridRowDark>
                 <p>
-                  <span className="font-medium">Design:</span> {x?.design}
-                </p>
-                <p>
                   <span className="font-medium">Phul:</span> {x?.phul}
                 </p>
               </GridRowDark>
 
               <GridRowLight>
                 <p>
+                  <span className="font-medium">Design:</span> {x?.design}
+                </p>
+              </GridRowLight>
+
+              <GridRowDark>
+                <p>
                   <span className="font-medium">SD:</span> {x?.sd}
                 </p>
                 <p>
                   <span className="font-medium">Pan:</span> {x?.pan}
                 </p>
-              </GridRowLight>
+              </GridRowDark>
 
-              <GridRowDark>
+              <GridRowLight>
                 <p>
                   <span className="font-medium">Sewing:</span> {x?.sewing}
                 </p>
                 <p>
                   <span className="font-medium">Pocket:</span> {x?.pocket}
                 </p>
-              </GridRowDark>
-
-              <GridRowLight>
-                <p className="col-span-2">
-                  <span className="font-medium">Fabric:</span> {x?.fabric}
-                </p>
               </GridRowLight>
 
               <GridRowDark>
                 <p className="col-span-2">
+                  <span className="font-medium">Fabric:</span> {x?.fabric}
+                </p>
+              </GridRowDark>
+
+              <GridRowLight>
+                <p className="col-span-2">
                   <span className="font-medium">Description:</span>{" "}
                   {x?.description}
                 </p>
-              </GridRowDark>
+              </GridRowLight>
             </div>
           </div>
         ))}

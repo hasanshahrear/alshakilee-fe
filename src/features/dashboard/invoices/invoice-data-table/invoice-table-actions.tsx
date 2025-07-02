@@ -43,6 +43,7 @@ export function InvoiceTableAction({
   printData,
 }: Readonly<TProps>) {
   const [visible, setVisible] = useState<boolean>(false);
+  const [posVisible, setPosVisible] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
 
@@ -81,12 +82,25 @@ export function InvoiceTableAction({
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
 
+  const posContentRef = useRef<HTMLDivElement>(null);
+  const posReactToPrintFn = useReactToPrint({ contentRef: posContentRef });
+
   const footerContent = (
     <div>
       <Button
         label="Print"
         icon={<AiFillPrinter className="mr-2" />}
         onClick={reactToPrintFn}
+        autoFocus
+      />
+    </div>
+  );
+  const posFooterContent = (
+    <div>
+      <Button
+        label="Print"
+        icon={<AiFillPrinter className="mr-2" />}
+        onClick={posReactToPrintFn}
         autoFocus
       />
     </div>
@@ -113,7 +127,7 @@ export function InvoiceTableAction({
           className="break-page m-6"
           ref={contentRef}
         >
-          <div className="flex gap-1">
+          {/* <div className="flex gap-1">
             <div className="w-4/12 text-[12px]">
               <p>C.R. No: 24875</p>
               <p>Shop: 24809393</p>
@@ -139,9 +153,9 @@ export function InvoiceTableAction({
               <p>محمد علي: ٩٩٨٧٥٥٣٨</p>
               <p>محل رقم: ٣١٣</p>
             </div>
-          </div>
+          </div> */}
 
-          <hr className="mb-1 mt-2" />
+          {/* <hr className="mb-1 mt-2" />
           <div className="flex justify-between text-xs">
             <p>
               Date:{" "}
@@ -158,8 +172,8 @@ export function InvoiceTableAction({
               </span>
             </p>
           </div>
-          <hr className="my-1" />
-          <div className="grid grid-cols-2 text-xs">
+          <hr className="my-1" /> */}
+          {/* <div className="grid grid-cols-2 text-xs">
             <div>
               <p>
                 Invoice No:{" "}
@@ -175,8 +189,8 @@ export function InvoiceTableAction({
               <p>Advance: {printData?.advanceAmount}</p>
               <p>Balance: {printData?.balanceAmount}</p>
             </div>
-          </div>
-          <hr className="my-2 border-dashed" />
+          </div> */}
+          {/* <hr className="my-2 border-dashed" /> */}
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2 print:grid-cols-2">
             {printData?.invoiceItems?.map((x, i) => (
               <div
@@ -234,7 +248,7 @@ export function InvoiceTableAction({
                       <span className="font-normal">Hand:</span> {x?.hand}
                     </p>
                     <p className="font-semibold">
-                      <span className="font-normal">Hand Loose:</span>{" "}
+                      <span className="font-normal">Hand L:</span>{" "}
                       {x?.handLoose}
                     </p>
                   </GridRowDark>
@@ -244,18 +258,18 @@ export function InvoiceTableAction({
                       <span className="font-normal">Neck:</span> {x?.neck}
                     </p>
                     <p className="font-semibold">
-                      <span className="font-normal">Chest Loose:</span>{" "}
+                      <span className="font-normal">Chest L:</span>{" "}
                       {x?.chestLoose}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
                     <p className="font-semibold">
-                      <span className="font-normal">Centre Loose:</span>{" "}
+                      <span className="font-normal">Centre L:</span>{" "}
                       {x?.centreLoose}
                     </p>
                     <p className="font-semibold">
-                      <span className="font-normal">Down Loose:</span>{" "}
+                      <span className="font-normal">Down L:</span>{" "}
                       {x?.downLoose}
                     </p>
                   </GridRowDark>
@@ -270,47 +284,148 @@ export function InvoiceTableAction({
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p className="font-semibold">
-                      <span className="font-normal">Design:</span> {x?.design}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Phul:</span> {x?.phul}
+                    <p>
+                      <span className="font-medium">Phul:</span> {x?.phul}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p className="font-semibold">
-                      <span className="font-normal">SD:</span> {x?.sd}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Pan:</span> {x?.pan}
+                    <p>
+                      <span className="font-medium">Design:</span> {x?.design}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
-                    <p className="font-semibold">
-                      <span className="font-normal">Sewing:</span> {x?.sewing}
+                    <p>
+                      <span className="font-medium">SD:</span> {x?.sd}
                     </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Pocket:</span> {x?.pocket}
+                    <p>
+                      <span className="font-medium">Pan:</span> {x?.pan}
                     </p>
                   </GridRowDark>
 
                   <GridRowLight>
-                    <p className="col-span-2">
-                      <span className="font-normal">Fabric:</span> {x?.fabric}
+                    <p>
+                      <span className="font-medium">Sewing:</span> {x?.sewing}
+                    </p>
+                    <p>
+                      <span className="font-medium">Pocket:</span> {x?.pocket}
                     </p>
                   </GridRowLight>
 
                   <GridRowDark>
                     <p className="col-span-2">
-                      <span className="font-normal">Description:</span>{" "}
+                      <span className="font-medium">Fabric:</span> {x?.fabric}
+                    </p>
+                  </GridRowDark>
+
+                  <GridRowLight>
+                    <p className="col-span-2">
+                      <span className="font-medium">Description:</span>{" "}
                       {x?.description}
                     </p>
-                  </GridRowDark>
+                  </GridRowLight>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </Dialog>
+      <Dialog
+        header="Print Preview"
+        visible={posVisible}
+        onHide={() => {
+          if (!posVisible) return;
+          setPosVisible(false);
+        }}
+        footer={posFooterContent}
+        pt={{
+          content: {
+            className: "h-[794px] w-[400px]",
+          },
+        }}
+      >
+        <div
+          className="break-page m-6"
+          ref={posContentRef}
+        >
+          <div style={{ width: 280, fontFamily: "monospace", fontSize: 12 }}>
+            <div style={{ textAlign: "center", marginBottom: 8 }}>
+              <div style={{ fontWeight: "bold", fontSize: 14 }}>
+                محلات الشكيلي للخياطة
+              </div>
+              <div style={{ fontWeight: "bold" }}>AL-SHAKILEE TAILORING</div>
+              <div
+                style={{
+                  border: "1px solid #000",
+                  display: "inline-block",
+                  padding: "2px 6px",
+                  margin: "4px 0",
+                }}
+              >
+                CASH MEMO
+              </div>
+              <div>Gents Tailoring</div>
+              <div>Front of Seblath, Muttrah</div>
+            </div>
+
+            <hr />
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ textAlign: "left" }}>
+                <p>C.R. No: 24875</p>
+                <p>Shop: 24809393</p>
+                <p>Hashem: 98714922</p>
+                <p>Mohammed Ali: 99875538</p>
+                <p>Shop: 313</p>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <p>س.ت.: ٢٤٨٧٥</p>
+                <p>محل: ٢٤٨٠٩٣٩٣</p>
+                <p>هاشم: ٩٨٧١٤٩٢٢</p>
+                <p>محمد علي: ٩٩٨٧٥٥٣٨</p>
+                <p>محل رقم: ٣١٣</p>
+              </div>
+            </div>
+
+            <hr style={{ margin: "4px 0" }} />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "4px 0",
+              }}
+            >
+              <div>
+                Date:{" "}
+                {printData?.invoiceDate
+                  ? dateFromISO(new Date(printData.invoiceDate).toISOString())
+                  : ""}
+              </div>
+              <strong>
+                Delivery:{" "}
+                {printData?.deliveryDate
+                  ? dateFromISO(new Date(printData.deliveryDate).toISOString())
+                  : ""}{" "}
+              </strong>
+            </div>
+
+            <hr style={{ margin: "4px 0" }} />
+
+            <div>
+              <p>
+                Invoice No: <strong>{printData?.invoiceNumber}</strong>
+              </p>
+              <p>Name: {printData?.customer?.name}</p>
+              <p>Mobile: {printData?.customer?.mobile}</p>
+            </div>
+
+            <div style={{ textAlign: "right", marginTop: 4 }}>
+              <p>Total Price: {printData?.totalPrice}</p>
+              <p>Advance: {printData?.advanceAmount}</p>
+              <p>Balance: {printData?.balanceAmount}</p>
+            </div>
           </div>
         </div>
       </Dialog>
@@ -393,12 +508,23 @@ export function InvoiceTableAction({
 
             <MenuItem>
               <button
+                className="flex items-center justify-center gap-2 rounded bg-primary px-2 py-1 text-white disabled:opacity-50"
+                onClick={() => {
+                  setPosVisible(true);
+                }}
+              >
+                <AiFillPrinter /> Customer Copy
+              </button>
+            </MenuItem>
+
+            <MenuItem>
+              <button
                 className="flex items-center justify-center gap-2 rounded bg-gray-400 px-2 py-1 text-white disabled:opacity-50"
                 onClick={() => {
                   setVisible(true);
                 }}
               >
-                <AiFillPrinter /> Print
+                <AiFillPrinter /> Shop Copy
               </button>
             </MenuItem>
           </MenuItems>
