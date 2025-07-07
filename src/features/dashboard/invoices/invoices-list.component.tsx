@@ -143,7 +143,7 @@ export function Invoices() {
               body: ({ balanceAmount }) => {
                 return (
                   <div className="text-sm">
-                    <p> {balanceAmount}</p>
+                    <p> {Number(balanceAmount).toFixed(2)}</p>
                   </div>
                 );
               },

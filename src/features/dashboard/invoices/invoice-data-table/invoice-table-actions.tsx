@@ -190,13 +190,13 @@ export function InvoiceTableAction({
             {printData?.invoiceItems?.map((x, i) => (
               <div
                 key={i}
-                className={`col-span-8 text-sm ${i !== 0 && i % 2 === 0 ? "break-page" : ""}`}
+                className={`col-span-8 text-sm ${i !== 0 && i % 2 === 0 ? "break-page mt-10" : ""}`}
               >
-                <table className="mb-14 w-full border-collapse border border-black">
+                <table className="new mb-14 w-full border-collapse border">
                   <tbody>
                     <tr>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={4}
                       >
                         <p className="font-semibold">
@@ -204,7 +204,7 @@ export function InvoiceTableAction({
                         </p>
                       </td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={4}
                       >
                         <p className="font-semibold">
@@ -213,74 +213,74 @@ export function InvoiceTableAction({
                         </p>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="border border-black">Length</td>
-                      <td className="border border-black">Shoulder</td>
-                      <td className="border border-black">Hand</td>
-                      <td className="border border-black">H-L</td>
-                      <td className="border border-black">Neck</td>
-                      <td className="border border-black">Loose</td>
-                      <td className="border border-black">C-L</td>
-                      <td className="border border-black">D-L</td>
+                    <tr className="border-y">
+                      <td className="new">Length</td>
+                      <td className="new">Shoulder</td>
+                      <td className="new">Hand</td>
+                      <td className="new">H-L</td>
+                      <td className="new">Neck</td>
+                      <td className="new">Loose</td>
+                      <td className="new">C-L</td>
+                      <td className="new">D-L</td>
                     </tr>
-                    <tr>
-                      <td className="border border-black">{x?.length}</td>
-                      <td className="border border-black">{x?.shoulder}</td>
-                      <td className="border border-black">{x?.hand}</td>
-                      <td className="border border-black">{x?.handLoose}</td>
-                      <td className="border border-black">{x?.neck}</td>
-                      <td className="border border-black">{x?.chestLoose}</td>
-                      <td className="border border-black">{x?.centreLoose}</td>
-                      <td className="border border-black">{x?.downLoose}</td>
+                    <tr className="font-semibold">
+                      <td className="new">{x?.length}</td>
+                      <td className="new">{x?.shoulder}</td>
+                      <td className="new">{x?.hand}</td>
+                      <td className="new">{x?.handLoose}</td>
+                      <td className="new">{x?.neck}</td>
+                      <td className="new">{x?.chestLoose}</td>
+                      <td className="new">{x?.centreLoose}</td>
+                      <td className="new">{x?.downLoose}</td>
                     </tr>
-                    <tr>
-                      <td className="border border-black">Open</td>
+                    <tr className="border-y">
+                      <td className="new">Open</td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={2}
                       >
                         Button
                       </td>
-                      <td className="border border-black">Phul</td>
-                      <td className="border border-black">SD</td>
-                      <td className="border border-black">PAN</td>
-                      <td className="border border-black">Sewing</td>
-                      <td className="border border-black">Pocket</td>
+                      <td className="new">Phul</td>
+                      <td className="new">SD</td>
+                      <td className="new">PAN</td>
+                      <td className="new">Sewing</td>
+                      <td className="new">Pocket</td>
                     </tr>
-                    <tr>
-                      <td className="border border-black">{x?.open}</td>
+                    <tr className="font-semibold">
+                      <td className="new">{x?.open}</td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={2}
                       >
                         {x?.button}
                       </td>
-                      <td className="border border-black">{x?.phul}</td>
-                      <td className="border border-black">{x?.sd}</td>
-                      <td className="border border-black">{x?.pan}</td>
-                      <td className="border border-black">{x?.sewing}</td>
-                      <td className="border border-black">{x?.pocket}</td>
+                      <td className="new">{x?.phul}</td>
+                      <td className="new">{x?.sd}</td>
+                      <td className="new">{x?.pan}</td>
+                      <td className="new">{x?.sewing}</td>
+                      <td className="new">{x?.pocket}</td>
                     </tr>
-                    <tr>
-                      <td className="border border-black">Tatreez</td>
+                    <tr className="border-y">
+                      <td className="new">Tatreez:</td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={7}
                       >
                         {x?.design}
                       </td>
                     </tr>
                     <tr>
-                      <td className="border border-black">Description</td>
+                      <td className="new">Description:</td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={3}
                       >
                         {x?.description}
                       </td>
-                      <td className="border border-black">Fabric</td>
+                      <td className="new">Fabric:</td>
                       <td
-                        className="border border-black"
+                        className="new"
                         colSpan={3}
                       >
                         {x?.fabric}
@@ -341,7 +341,7 @@ export function InvoiceTableAction({
                 <p>Mohammed Ali: 99875538</p>
                 <p>Shop: 313</p>
               </div>
-              <div style={{ textAlign: "right" }}>
+              <div style={{ textAlign: "right", marginRight: "4px" }}>
                 <p>س.ت.: ٢٤٨٧٥</p>
                 <p>محل: ٢٤٨٠٩٣٩٣</p>
                 <p>هاشم: ٩٨٧١٤٩٢٢</p>
@@ -383,10 +383,27 @@ export function InvoiceTableAction({
               <p>Mobile: {printData?.customer?.mobile}</p>
             </div>
 
-            <div style={{ textAlign: "right", marginTop: 4 }}>
-              <p>Total Price: {printData?.totalPrice}</p>
-              <p>Advance: {printData?.advanceAmount}</p>
-              <p>Balance: {printData?.balanceAmount}</p>
+            <div
+              style={{ textAlign: "right", marginTop: 4, marginBottom: "16px" }}
+            >
+              <p>
+                Total Price:{" "}
+                {printData?.totalPrice != null
+                  ? Number(printData.totalPrice).toFixed(2)
+                  : ""}
+              </p>
+              <p>
+                Advance:{" "}
+                {printData?.advanceAmount != null
+                  ? Number(printData.advanceAmount).toFixed(2)
+                  : ""}
+              </p>
+              <p>
+                Balance:{" "}
+                {printData?.balanceAmount != null
+                  ? Number(printData.balanceAmount).toFixed(2)
+                  : ""}
+              </p>
             </div>
           </div>
         </div>
