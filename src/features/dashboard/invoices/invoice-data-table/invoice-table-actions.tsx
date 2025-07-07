@@ -127,35 +127,47 @@ export function InvoiceTableAction({
           className="break-page m-6"
           ref={contentRef}
         >
-          {/* <div className="flex gap-1">
+          <div className="flex gap-1">
             <div className="w-4/12 text-[12px]">
-              <p>C.R. No: 24875</p>
-              <p>Shop: 24809393</p>
-              <p>Hashem: 98714922</p>
-              <p>Mohammed Ali: 99875538</p>
-              <p>Shop: 313</p>
+              <p>
+                Name:{" "}
+                <span className="font-semibold">
+                  {printData?.customer?.name}
+                </span>
+              </p>
+
+              <p>
+                Mobile:{" "}
+                <span className="font-semibold">
+                  {printData?.customer?.mobile}
+                </span>
+              </p>
+
+              <p className="whitespace-nowrap">
+                Invoice No:{" "}
+                <span className="font-semibold">
+                  {printData?.invoiceNumber}
+                </span>
+              </p>
             </div>
             <div className="w-4/12 text-center text-xs">
-              <h1 className="text-base font-bold uppercase">
-                محلات الشكيلي للخياطة
-              </h1>
               <h1 className="font-bold uppercase">Al-Shakilee Tailoring</h1>
-              <h3 className="m-1 rounded border p-1 text-sm font-medium uppercase">
-                Cash Memo
-              </h3>
-              <p>Gents Tailoring</p>
-              <p>Front of Seblath, Muttrah</p>
+              <p>Shop: 313</p>
+              <div className="">
+                <p className="mx-auto mt-1 w-fit border-2 border-black px-3 py-1.5 font-bold uppercase">
+                  Shop Copy
+                </p>
+              </div>
             </div>
             <div className="w-4/12 text-right text-[12px]">
-              <p>س.ت.: ٢٤٨٧٥</p>
-              <p>محل: ٢٤٨٠٩٣٩٣</p>
-              <p>هاشم: ٩٨٧١٤٩٢٢</p>
-              <p>محمد علي: ٩٩٨٧٥٥٣٨</p>
-              <p>محل رقم: ٣١٣</p>
+              <p>
+                Tel:
+                <span className="font-semibold"> 24809393 </span>
+              </p>
             </div>
-          </div> */}
+          </div>
 
-          {/* <hr className="mb-1 mt-2" />
+          <hr className="my-2 border-black" />
           <div className="flex justify-between text-xs">
             <p>
               Date:{" "}
@@ -172,160 +184,110 @@ export function InvoiceTableAction({
               </span>
             </p>
           </div>
-          <hr className="my-1" /> */}
-          {/* <div className="grid grid-cols-2 text-xs">
-            <div>
-              <p>
-                Invoice No:{" "}
-                <span className="font-semibold">
-                  {printData?.invoiceNumber}
-                </span>
-              </p>
-              <p>Name: {printData?.customer?.name}</p>
-              <p>Mobile: {printData?.customer?.mobile}</p>
-            </div>
-            <div className="text-right">
-              <p>Total Price: {printData?.totalPrice}</p>
-              <p>Advance: {printData?.advanceAmount}</p>
-              <p>Balance: {printData?.balanceAmount}</p>
-            </div>
-          </div> */}
-          {/* <hr className="my-2 border-dashed" /> */}
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2 print:grid-cols-2">
+          <hr className="my-2 border-black" />
+
+          <div className="grid grid-cols-8 gap-2 print:grid-cols-8">
             {printData?.invoiceItems?.map((x, i) => (
               <div
                 key={i}
-                className={`col-span-1 max-w-[320px] md:w-auto ${
-                  i !== 0 && i % 2 === 0 ? "break-page" : ""
-                }`}
+                className={`col-span-8 text-sm ${i !== 0 && i % 2 === 0 ? "break-page" : ""}`}
               >
-                <div className="grid grid-cols-2 text-base">
-                  <GridRowDark>
-                    <div className="col-span-2">
-                      <p>
-                        Invoice No:{" "}
-                        <span className="font-medium">
-                          {printData?.invoiceNumber}
-                        </span>
-                      </p>
-                    </div>
-                  </GridRowDark>
-                  <GridRowLight>
-                    <div className="col-span-2">
-                      <p>
-                        Delivery Date:{" "}
-                        <span className="font-medium">
-                          {printData?.deliveryDate
-                            ? dateFromISO(
-                                new Date(printData.deliveryDate).toISOString(),
-                              )
-                            : ""}{" "}
-                        </span>
-                      </p>
-                    </div>
-                  </GridRowLight>
-                  <GridRowDark>
-                    <p className="font-semibold">
-                      <span className="font-normal">Name:</span> {x?.name}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Qty:</span> {x?.quantity}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p className="font-semibold">
-                      <span className="font-normal">Length:</span> {x?.length}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Shoulder:</span>{" "}
-                      {x?.shoulder}
-                    </p>
-                  </GridRowLight>
-
-                  <GridRowDark>
-                    <p className="font-semibold">
-                      <span className="font-normal">Hand:</span> {x?.hand}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Hand L:</span>{" "}
-                      {x?.handLoose}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p className="font-semibold">
-                      <span className="font-normal">Neck:</span> {x?.neck}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Chest L:</span>{" "}
-                      {x?.chestLoose}
-                    </p>
-                  </GridRowLight>
-
-                  <GridRowDark>
-                    <p className="font-semibold">
-                      <span className="font-normal">Centre L:</span>{" "}
-                      {x?.centreLoose}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Down L:</span>{" "}
-                      {x?.downLoose}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p className="font-semibold">
-                      <span className="font-normal">Open:</span> {x?.open}
-                    </p>
-                    <p className="font-semibold">
-                      <span className="font-normal">Button:</span> {x?.button}
-                    </p>
-                  </GridRowLight>
-
-                  <GridRowDark>
-                    <p>
-                      <span className="font-medium">Phul:</span> {x?.phul}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p>
-                      <span className="font-medium">Design:</span> {x?.design}
-                    </p>
-                  </GridRowLight>
-
-                  <GridRowDark>
-                    <p>
-                      <span className="font-medium">SD:</span> {x?.sd}
-                    </p>
-                    <p>
-                      <span className="font-medium">Pan:</span> {x?.pan}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p>
-                      <span className="font-medium">Sewing:</span> {x?.sewing}
-                    </p>
-                    <p>
-                      <span className="font-medium">Pocket:</span> {x?.pocket}
-                    </p>
-                  </GridRowLight>
-
-                  <GridRowDark>
-                    <p className="col-span-2">
-                      <span className="font-medium">Fabric:</span> {x?.fabric}
-                    </p>
-                  </GridRowDark>
-
-                  <GridRowLight>
-                    <p className="col-span-2">
-                      <span className="font-medium">Description:</span>{" "}
-                      {x?.description}
-                    </p>
-                  </GridRowLight>
-                </div>
+                <table className="mb-14 w-full border-collapse border border-black">
+                  <tbody>
+                    <tr>
+                      <td
+                        className="border border-black"
+                        colSpan={4}
+                      >
+                        <p className="font-semibold">
+                          <span className="font-normal">Name:</span> {x?.name}
+                        </p>
+                      </td>
+                      <td
+                        className="border border-black"
+                        colSpan={4}
+                      >
+                        <p className="font-semibold">
+                          <span className="font-normal">Qty:</span>{" "}
+                          {x?.quantity}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">Length</td>
+                      <td className="border border-black">Shoulder</td>
+                      <td className="border border-black">Hand</td>
+                      <td className="border border-black">H-L</td>
+                      <td className="border border-black">Neck</td>
+                      <td className="border border-black">Loose</td>
+                      <td className="border border-black">C-L</td>
+                      <td className="border border-black">D-L</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">{x?.length}</td>
+                      <td className="border border-black">{x?.shoulder}</td>
+                      <td className="border border-black">{x?.hand}</td>
+                      <td className="border border-black">{x?.handLoose}</td>
+                      <td className="border border-black">{x?.neck}</td>
+                      <td className="border border-black">{x?.chestLoose}</td>
+                      <td className="border border-black">{x?.centreLoose}</td>
+                      <td className="border border-black">{x?.downLoose}</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">Open</td>
+                      <td
+                        className="border border-black"
+                        colSpan={2}
+                      >
+                        Button
+                      </td>
+                      <td className="border border-black">Phul</td>
+                      <td className="border border-black">SD</td>
+                      <td className="border border-black">PAN</td>
+                      <td className="border border-black">Sewing</td>
+                      <td className="border border-black">Pocket</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">{x?.open}</td>
+                      <td
+                        className="border border-black"
+                        colSpan={2}
+                      >
+                        {x?.button}
+                      </td>
+                      <td className="border border-black">{x?.phul}</td>
+                      <td className="border border-black">{x?.sd}</td>
+                      <td className="border border-black">{x?.pan}</td>
+                      <td className="border border-black">{x?.sewing}</td>
+                      <td className="border border-black">{x?.pocket}</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">Design</td>
+                      <td
+                        className="border border-black"
+                        colSpan={7}
+                      >
+                        {x?.design}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border border-black">Description</td>
+                      <td
+                        className="border border-black"
+                        colSpan={3}
+                      >
+                        {x?.description}
+                      </td>
+                      <td className="border border-black">Fabric</td>
+                      <td
+                        className="border border-black"
+                        colSpan={3}
+                      >
+                        {x?.fabric}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             ))}
           </div>
