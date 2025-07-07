@@ -262,7 +262,7 @@ export function InvoiceTableAction({
                       <td className="border border-black">{x?.pocket}</td>
                     </tr>
                     <tr>
-                      <td className="border border-black">Design</td>
+                      <td className="border border-black">Tatreez</td>
                       <td
                         className="border border-black"
                         colSpan={7}
