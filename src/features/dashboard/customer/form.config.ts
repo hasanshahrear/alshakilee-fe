@@ -5,7 +5,7 @@ export const customerCreateUpdateSchema = yup.object({
   mobile: yup
     .string()
     .required()
-    .min(10, "Mobile No must be at least 10 characters")
+    .min(8, "Mobile No must be at least 10 characters")
     .max(15, "Mobile No must be at most 15 characters")
     .label("Mobile No"),
 });
