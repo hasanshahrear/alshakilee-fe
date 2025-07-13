@@ -1,10 +1,13 @@
 "use client";
 
 import { DashboardIcon, InvoiceIcon, PeopleIcon } from "@/features/icons";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
+import { signOut } from "next-auth/react";
+import { CgLogOut } from "react-icons/cg";
 
 type TProps = {
   children: React.ReactNode;
@@ -33,8 +36,14 @@ const CustomLink = ({ href, children }: TCustomLinkProps) => {
 };
 
 const Sidebar = () => {
+  const { data } = useSession();
+  const handleLogout = async () => {
+    await signOut().then(() => {
+      window.location.href = "/login";
+    });
+  };
   return (
-    <>
+    <div className="flex h-full flex-col justify-between">
       <h1 className="mb-6 p-2.5 text-center font-title text-3xl font-bold text-primary">
         Alshakilee
       </h1>
@@ -50,7 +59,20 @@ const Sidebar = () => {
           <PeopleIcon /> Customer
         </CustomLink>
       </div>
-    </>
+      <div className="flex-grow" />
+      <div className="mt-6 flex flex-col items-center gap-2">
+        <p className="flex items-center gap-2 text-base">
+          <AiOutlineUser className="text-lg" />
+          {data?.user?.name}
+        </p>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 text-primary"
+        >
+          <CgLogOut /> Logout
+        </button>
+      </div>
+    </div>
   );
 };
 
