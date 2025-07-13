@@ -124,6 +124,7 @@ export function Invoices() {
                 );
               },
             },
+            { field: "customer.name", header: "Name" },
             { field: "customer.mobile", header: "Phone" },
             { field: "invoiceNumber", header: "Invoice No" },
             {
