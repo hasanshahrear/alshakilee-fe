@@ -6,6 +6,7 @@ import {
   useMutation,
 } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { useSession } from "next-auth/react";
 
 type TProps<RequestType, ResponseType> = {
   url: string;
@@ -21,6 +22,7 @@ export function usePut<
   ResponseType = Record<string, unknown>,
 >({ url, ...rest }: TProps<RequestType, ResponseType>) {
   const requestUrl = process.env.NEXT_PUBLIC_API_URL + "/" + url;
+  const { data: session } = useSession();
 
   const fetchFunction: MutationFunction<ResponseType, RequestType> = async (
     data: RequestType,
@@ -28,6 +30,11 @@ export function usePut<
     const response: AxiosResponse<ResponseType> = await axios.put(
       requestUrl,
       data,
+      {
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+      },
     );
     return response.data;
   };

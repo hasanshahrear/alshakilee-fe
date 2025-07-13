@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { useSession } from "next-auth/react";
+import { headers } from "next/headers";
 
 type TProps = {
   url: string;
@@ -15,10 +17,15 @@ export function useGet<ResponseType = Record<string, unknown>>({
   enabled = true,
   ...rest
 }: TProps) {
+  const { data } = useSession();
+
   const fetchFunction = async () => {
     const response: AxiosResponse<ResponseType> = await axios.get(
       process.env.NEXT_PUBLIC_API_URL + "/" + url,
       {
+        headers: {
+          Authorization: `Bearer ${data?.accessToken}`,
+        },
         params,
       },
     );
@@ -28,7 +35,7 @@ export function useGet<ResponseType = Record<string, unknown>>({
   return useQuery({
     queryKey: [queryKey, params],
     queryFn: fetchFunction,
-    enabled,
+    enabled: !!data,
     retry: 2,
     refetchOnWindowFocus: false,
     ...rest,

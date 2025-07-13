@@ -14,7 +14,7 @@ export type TCustomerCreateUpdateType = yup.InferType<
   typeof customerCreateUpdateSchema
 >;
 
-export const initailValue: TCustomerCreateUpdateType = {
+export const initialValue: TCustomerCreateUpdateType = {
   name: "",
   mobile: "",
 };

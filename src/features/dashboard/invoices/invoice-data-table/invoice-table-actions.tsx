@@ -111,7 +111,6 @@ export function InvoiceTableAction({
       <Dialog
         header="Print Preview"
         visible={visible}
-        // className="h-[794px] w-[600px]"
         onHide={() => {
           if (!visible) return;
           setVisible(false);
@@ -154,7 +153,7 @@ export function InvoiceTableAction({
               <h1 className="font-bold uppercase">Al-Shakilee Tailoring</h1>
               <p>Shop: 313</p>
               <div className="">
-                <p className="mx-auto mt-1 w-fit border-2 border-black px-3 py-1.5 font-bold uppercase">
+                <p className="mx-auto mt-1 w-fit border-2 border-gray-200 px-3 py-1.5 font-bold uppercase">
                   Shop Copy
                 </p>
               </div>
