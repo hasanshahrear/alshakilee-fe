@@ -1,6 +1,8 @@
 import { Api } from "@/features/api";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import jwt from "jsonwebtoken";
+import { JWT } from "next-auth/jwt";
 
 export const AuthOptions: NextAuthOptions = {
   providers: [
@@ -29,7 +31,6 @@ export const AuthOptions: NextAuthOptions = {
           });
 
           const data = await response.json();
-          console.log("API Response:", data);
 
           if (!response.ok) {
             throw new Error(data.message || "Authentication failed");
@@ -60,9 +61,15 @@ export const AuthOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
+      if (user?.accessToken) {
+        const decoded = jwt.decode(user.accessToken) as JWT;
+
         token.accessToken = user.accessToken;
         token.user = user;
+        if (decoded?.exp) {
+          token.exp = decoded.exp;
+          token.backendExp = decoded?.exp;
+        }
       }
       return token;
     },
@@ -74,6 +81,7 @@ export const AuthOptions: NextAuthOptions = {
         role: string;
       };
       session.accessToken = token.accessToken as string;
+      (session as any).expiresAt = Number(token.backendExp);
       return session;
     },
   },

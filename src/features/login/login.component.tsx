@@ -14,7 +14,6 @@ export function Login() {
   useEffect(() => {
     if (status === "authenticated") {
       router.push("/dashboard");
-      console.log("first");
     }
   }, [status]);
 

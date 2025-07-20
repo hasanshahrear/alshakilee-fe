@@ -19,3 +19,15 @@ declare module "next-auth" {
     accessToken: string;
   }
 }
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    name: string;
+    phone: string;
+    role: string;
+    accessToken: string;
+    exp: number;
+    backendExp: number;
+  }
+}
