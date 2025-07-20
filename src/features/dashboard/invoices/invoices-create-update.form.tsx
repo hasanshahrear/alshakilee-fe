@@ -125,6 +125,7 @@ export function InvoicesCreateUpdateForm({ slug }: TProps) {
               label="Total Price"
               className="p-inputtext-sm text-right"
               requiredIcon="*"
+              disabled
             />
           </div>
           <div className="w-1/4">

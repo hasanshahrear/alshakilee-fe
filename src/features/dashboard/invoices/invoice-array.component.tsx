@@ -8,9 +8,19 @@ import { Button } from "primereact/button";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { initialItemValue, TInvoicesCreateUpdateType } from "./form.config";
+import { useEffect } from "react";
 
 export function InvoiceArray() {
-  const { values } = useFormikContext<TInvoicesCreateUpdateType>();
+  const { values, setFieldValue } =
+    useFormikContext<TInvoicesCreateUpdateType>();
+
+  useEffect(() => {
+    const totalPrice = values?.items?.reduce((acc, item) => {
+      return acc + (item.price || 0) * (item.quantity || 1);
+    }, 0);
+
+    setFieldValue("totalPrice", Number(totalPrice?.toFixed(2)));
+  }, [values]);
 
   return (
     <FieldArray
@@ -56,7 +66,6 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-
                 <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].shoulder`}
@@ -67,7 +76,6 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-
                 <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].hand`}
@@ -145,13 +153,22 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-6">
+                <div className="col-span-6 md:col-span-3">
                   <FormikTextField
                     name={`items[${i}].phul`}
                     type="text"
                     label="Phul"
                     className="p-inputtext-sm"
                     requiredIcon=""
+                  />
+                </div>{" "}
+                <div className="col-span-6 md:col-span-3">
+                  <FormikTextField
+                    name={`items[${i}].price`}
+                    type="number"
+                    label="Price"
+                    className="p-inputtext-sm"
+                    requiredIcon="*"
                   />
                 </div>
                 <div className="col-span-12">
@@ -163,7 +180,6 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-
                 <div className="col-span-6 md:col-span-3">
                   <FormikRadioButton
                     name={`items[${i}].sd`}
@@ -213,7 +229,6 @@ export function InvoiceArray() {
                     className="p-inputtext-sm"
                   />
                 </div>
-
                 <div className="col-span-12">
                   <FormikTextareaField
                     name={`items[${i}].description`}

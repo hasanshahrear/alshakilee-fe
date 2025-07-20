@@ -196,6 +196,17 @@ export function InvoiceTableAction({
                     <tr>
                       <td
                         className="new"
+                        colSpan={8}
+                      >
+                        <p className="font-semibold">
+                          <span className="font-normal">Invoice No:</span>{" "}
+                          {printData?.invoiceNumber}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr className="border-y">
+                      <td
+                        className="new"
                         colSpan={4}
                       >
                         <p className="font-semibold">
@@ -310,9 +321,11 @@ export function InvoiceTableAction({
           className="break-page m-6"
           ref={posContentRef}
         >
-          <div style={{ width: 280, fontFamily: "monospace", fontSize: 12 }}>
+          <div
+            style={{ width: 280, fontFamily: "monospace", fontSize: "16px" }}
+          >
             <div style={{ textAlign: "center", marginBottom: 8 }}>
-              <div style={{ fontWeight: "bold", fontSize: 14 }}>
+              <div style={{ fontWeight: "bold", fontSize: "20px" }}>
                 محلات الشكيلي للخياطة
               </div>
               <div style={{ fontWeight: "bold" }}>AL-SHAKILEE TAILORING</div>
@@ -330,17 +343,23 @@ export function InvoiceTableAction({
               <div>Front of Seblath, Muttrah</div>
             </div>
 
-            <hr />
+            <hr style={{ margin: "12  px 0" }} />
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ textAlign: "left" }}>
+              <div style={{ textAlign: "left", fontSize: "14px" }}>
                 <p>C.R. No: 24875</p>
                 <p>Shop: 24809393</p>
                 <p>Hashem: 98714922</p>
                 <p>Mohammed Ali: 99875538</p>
                 <p>Shop: 313</p>
               </div>
-              <div style={{ textAlign: "right", marginRight: "4px" }}>
+              <div
+                style={{
+                  textAlign: "right",
+                  marginRight: "4px",
+                  fontSize: "14px",
+                }}
+              >
                 <p>س.ت.: ٢٤٨٧٥</p>
                 <p>محل: ٢٤٨٠٩٣٩٣</p>
                 <p>هاشم: ٩٨٧١٤٩٢٢</p>
@@ -349,13 +368,14 @@ export function InvoiceTableAction({
               </div>
             </div>
 
-            <hr style={{ margin: "4px 0" }} />
+            <hr style={{ margin: "12px 0" }} />
 
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 margin: "4px 0",
+                fontSize: "12px",
               }}
             >
               <div>
@@ -364,6 +384,7 @@ export function InvoiceTableAction({
                   ? dateFromISO(new Date(printData.invoiceDate).toISOString())
                   : ""}
               </div>
+              <p style={{ border: "1px solid gray" }}></p>
               <strong>
                 Delivery:{" "}
                 {printData?.deliveryDate
@@ -372,7 +393,7 @@ export function InvoiceTableAction({
               </strong>
             </div>
 
-            <hr style={{ margin: "4px 0" }} />
+            <hr style={{ margin: "12px 0" }} />
 
             <div>
               <p>
@@ -381,6 +402,27 @@ export function InvoiceTableAction({
               <p>Name: {printData?.customer?.name}</p>
               <p>Mobile: {printData?.customer?.mobile}</p>
             </div>
+
+            <hr style={{ margin: "12px 0" }} />
+
+            <div>
+              {printData?.invoiceItems?.map((item, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      borderBottom: "1px dotted gray",
+                    }}
+                  >
+                    <span>{item.quantity} pics</span>
+                    <span>{item?.price?.toFixed(2)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p style={{ padding: "12px 0" }} />
 
             <div
               style={{ textAlign: "right", marginTop: 4, marginBottom: "16px" }}
@@ -403,6 +445,16 @@ export function InvoiceTableAction({
                   ? Number(printData.balanceAmount).toFixed(2)
                   : ""}
               </p>
+            </div>
+
+            <hr style={{ margin: "12px 0 50px" }} />
+            <div style={{ textAlign: "center", fontSize: "12px" }}>
+              <p style={{ fontWeight: "bold" }}>
+                Note: Collect your order within 6 months. No complaints will be
+                accepted after that.
+              </p>
+              <p>For any inquiries, please contact us.</p>
+              <p>Thank you for visiting our shop!</p>
             </div>
           </div>
         </div>
