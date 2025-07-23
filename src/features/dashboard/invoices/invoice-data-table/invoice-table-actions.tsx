@@ -405,7 +405,7 @@ export function InvoiceTableAction({
 
             <hr style={{ margin: "12px 0" }} />
 
-            <div>
+            {/* <div>
               {printData?.invoiceItems?.map((item, index) => (
                 <div key={index}>
                   <div
@@ -420,7 +420,7 @@ export function InvoiceTableAction({
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <p style={{ padding: "12px 0" }} />
 
@@ -447,22 +447,13 @@ export function InvoiceTableAction({
               </p>
             </div>
 
-            <hr style={{ margin: "12px 0 50px" }} />
+            <hr style={{ margin: "12px 0 20px" }} />
             <div style={{ textAlign: "center", fontSize: "12px" }}>
-              {/* <p style={{ fontWeight: "bold" }}>
-                Note: Collect your order within 6 months. No complaints will be
-                accepted after that.
-              </p> */}
-
               <p>
                 جو العلم أنه في حال عدم استلام الطلب خلال 6 أشهر، فإن المحل
                 يُخلي مسؤوليته تمامًا تجاهه
               </p>
-              <p>
-                Please note that if the order is not collected within 6 months,
-                the shop holds no responsibility for it
-              </p>
-              <p>For any inquiries, please contact us.</p>
+
               <p>Thank you for visiting our shop!</p>
             </div>
           </div>

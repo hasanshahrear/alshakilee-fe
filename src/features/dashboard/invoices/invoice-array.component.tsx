@@ -11,16 +11,7 @@ import { initialItemValue, TInvoicesCreateUpdateType } from "./form.config";
 import { useEffect } from "react";
 
 export function InvoiceArray() {
-  const { values, setFieldValue } =
-    useFormikContext<TInvoicesCreateUpdateType>();
-
-  useEffect(() => {
-    const totalPrice = values?.items?.reduce((acc, item) => {
-      return acc + (item.price || 0) * (item.quantity || 1);
-    }, 0);
-
-    setFieldValue("totalPrice", Number(totalPrice?.toFixed(2)));
-  }, [values]);
+  const { values } = useFormikContext<TInvoicesCreateUpdateType>();
 
   return (
     <FieldArray
@@ -153,22 +144,13 @@ export function InvoiceArray() {
                     requiredIcon="*"
                   />
                 </div>
-                <div className="col-span-6 md:col-span-3">
+                <div className="col-span-6">
                   <FormikTextField
                     name={`items[${i}].phul`}
                     type="text"
                     label="Phul"
                     className="p-inputtext-sm"
                     requiredIcon=""
-                  />
-                </div>{" "}
-                <div className="col-span-6 md:col-span-3">
-                  <FormikTextField
-                    name={`items[${i}].price`}
-                    type="number"
-                    label="Price"
-                    className="p-inputtext-sm"
-                    requiredIcon="*"
                   />
                 </div>
                 <div className="col-span-12">
