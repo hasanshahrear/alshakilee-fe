@@ -7,7 +7,7 @@ export default withAuth(
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     if (token && token.backendExp && Date.now() >= token.backendExp * 1000) {
-      const signInUrl = new URL("/login", req.url);
+      const signInUrl = new URL("/auth/signin", req.url);
       signInUrl.searchParams.set("callbackUrl", req.url);
 
       // Optionally clear session cookies
