@@ -449,9 +449,18 @@ export function InvoiceTableAction({
 
             <hr style={{ margin: "12px 0 50px" }} />
             <div style={{ textAlign: "center", fontSize: "12px" }}>
-              <p style={{ fontWeight: "bold" }}>
+              {/* <p style={{ fontWeight: "bold" }}>
                 Note: Collect your order within 6 months. No complaints will be
                 accepted after that.
+              </p> */}
+
+              <p>
+                جو العلم أنه في حال عدم استلام الطلب خلال 6 أشهر، فإن المحل
+                يُخلي مسؤوليته تمامًا تجاهه
+              </p>
+              <p>
+                Please note that if the order is not collected within 6 months,
+                the shop holds no responsibility for it
               </p>
               <p>For any inquiries, please contact us.</p>
               <p>Thank you for visiting our shop!</p>
