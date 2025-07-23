@@ -7,6 +7,7 @@ import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Toaster } from "sonner";
 import { SelectInvoiceProvider } from "./select-invoice.provider";
+import AuthProvider from "./auth.provider";
 
 type TProps = {
   children: React.ReactNode;
@@ -17,7 +18,9 @@ export function GlobalProvider({ children }: Readonly<TProps>) {
   return (
     <QueryClientProvider client={queryClient}>
       <PrimeReactProvider>
-        <SelectInvoiceProvider>{children}</SelectInvoiceProvider>
+        <AuthProvider>
+          <SelectInvoiceProvider>{children}</SelectInvoiceProvider>
+        </AuthProvider>
       </PrimeReactProvider>
       <Toaster
         richColors

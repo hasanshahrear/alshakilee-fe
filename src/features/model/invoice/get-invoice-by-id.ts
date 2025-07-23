@@ -63,4 +63,5 @@ export type TInvoiceItem = {
   createdAt: Date;
   updatedAt: Date;
   phul: string;
+  price: number;
 };

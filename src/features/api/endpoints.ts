@@ -5,4 +5,5 @@ export enum Api {
   Invoices = "invoices",
   InvoicesStatus = "invoices/status",
   GetCustomerByMobile = "customer/mobile",
+  Login = "auth/login",
 }

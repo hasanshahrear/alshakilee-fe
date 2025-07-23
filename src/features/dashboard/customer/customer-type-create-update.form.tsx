@@ -14,7 +14,6 @@ export function CustomerTypeCreateUpdateForm({ id }: Readonly<TProps>) {
         placeholder="Enter Name"
         className="p-inputtext-sm"
         requiredIcon="*"
-        keyfilter="pint"
       />
       <FormikTextField
         name="mobile"

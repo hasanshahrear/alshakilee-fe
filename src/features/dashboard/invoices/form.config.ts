@@ -22,6 +22,7 @@ export const invoiceItemSchema = yup.object({
   fabric: yup.string().notRequired().label("Fabric"),
   name: yup.string().notRequired().label("Name"),
   phul: yup.string().notRequired().label("Phul"),
+  price: yup.number().required().label("Price").positive(),
 });
 
 export type TInvoiceItemType = yup.InferType<typeof invoiceItemSchema>;
@@ -48,6 +49,7 @@ export const initialItemValue: TInvoiceItemType = {
   fabric: "",
   name: "",
   phul: "",
+  price: 0,
 };
 
 export const invoicesCreateUpdateSchema = yup.object({

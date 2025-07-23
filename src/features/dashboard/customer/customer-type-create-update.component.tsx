@@ -14,7 +14,7 @@ import { Dispatch, SetStateAction } from "react";
 import { CustomerTypeCreateUpdateForm } from "./customer-type-create-update.form";
 import {
   customerCreateUpdateSchema,
-  initailValue,
+  initialValue,
   TCustomerCreateUpdateType,
 } from "./form.config";
 
@@ -73,7 +73,7 @@ export function CustomerTypeCreateUpdate({ id, setVisible }: Readonly<TProps>) {
               mobile: dataGetById?.data?.mobile as string,
               name: dataGetById?.data?.name as string,
             }
-          : initailValue
+          : initialValue
       }
       validationSchema={customerCreateUpdateSchema}
       enableReinitialize
