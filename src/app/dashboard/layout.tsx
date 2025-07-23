@@ -39,7 +39,7 @@ const Sidebar = () => {
   const { data } = useSession();
   const handleLogout = async () => {
     await signOut().then(() => {
-      window.location.href = "/login";
+      window.location.href = "/api/auth/signin";
     });
   };
   return (
