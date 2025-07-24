@@ -50,6 +50,20 @@ export const initialItemValue: TInvoiceItemType = {
   phul: "",
 };
 
+export const invoiceItemPriceSchema = yup.object({
+  quantity: yup.number().label("Quantity").positive(),
+  price: yup.number().label("Price").positive(),
+});
+
+export type TInvoiceItemPriceType = yup.InferType<
+  typeof invoiceItemPriceSchema
+>;
+
+export const invoiceItemPriceInitialValue: TInvoiceItemPriceType = {
+  quantity: 1,
+  price: 0,
+};
+
 export const invoicesCreateUpdateSchema = yup.object({
   id: yup.number().nonNullable(),
   customerId: yup
@@ -63,6 +77,11 @@ export const invoicesCreateUpdateSchema = yup.object({
   discountAmount: yup.number().notRequired().label("Discount Amount"),
   status: yup.number().notRequired(),
   items: yup.array().of(invoiceItemSchema).min(1),
+  priceDetails: yup
+    .array()
+    .of(invoiceItemPriceSchema)
+    .notRequired()
+    .label("Price Details"),
 });
 
 export type TInvoicesCreateUpdateType = yup.InferType<
@@ -78,4 +97,5 @@ export const initailValue: TInvoicesCreateUpdateType = {
   discountAmount: 0,
   status: 1,
   items: [initialItemValue],
+  priceDetails: [invoiceItemPriceInitialValue],
 };

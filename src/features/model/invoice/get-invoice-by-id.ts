@@ -1,3 +1,5 @@
+import { TInvoiceItemPriceType } from "@/features/dashboard/invoices/form.config";
+
 export type TGetInvoiceByID = {
   type: string;
   status: number;
@@ -24,6 +26,7 @@ export type TInvoiceData = {
   status: number;
   customer: TCustomer;
   invoiceItems: TInvoiceItem[];
+  priceDetails: string;
 };
 
 export type TCustomer = {

@@ -22,6 +22,7 @@ import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "primereact/button";
 import { GridRowDark, GridRowLight } from "./invoice-data-table.component";
+import { TInvoiceItemPriceType } from "../form.config";
 
 type TProps = {
   handleEdit?: () => void;
@@ -193,17 +194,37 @@ export function InvoiceTableAction({
               >
                 <table className="new mb-14 w-full border-collapse border">
                   <tbody>
-                    <tr>
-                      <td
-                        className="new"
-                        colSpan={8}
-                      >
-                        <p className="font-semibold">
-                          <span className="font-normal">Invoice No:</span>{" "}
-                          {printData?.invoiceNumber}
-                        </p>
-                      </td>
-                    </tr>
+                    {i > 1 && (
+                      <tr>
+                        <td
+                          className="new"
+                          colSpan={4}
+                        >
+                          <p className="font-semibold">
+                            <span className="font-normal">Invoice No:</span>{" "}
+                            {printData?.invoiceNumber}
+                          </p>
+                        </td>
+                        <td
+                          className="new"
+                          colSpan={4}
+                        >
+                          <p className="font-semibold">
+                            <span className="font-normal">Delivery Date:</span>{" "}
+                            <span className="font-semibold">
+                              {printData?.deliveryDate
+                                ? dateFromISO(
+                                    new Date(
+                                      printData.deliveryDate,
+                                    ).toISOString(),
+                                  )
+                                : ""}
+                            </span>
+                          </p>
+                        </td>
+                      </tr>
+                    )}
+
                     <tr className="border-y">
                       <td
                         className="new"
@@ -218,8 +239,8 @@ export function InvoiceTableAction({
                         colSpan={4}
                       >
                         <p className="font-semibold">
-                          <span className="font-normal">Qty:</span>{" "}
-                          {x?.quantity}
+                          <span className="font-normal">Quantity:</span>{" "}
+                          {x?.quantity} pics
                         </p>
                       </td>
                     </tr>
@@ -343,7 +364,9 @@ export function InvoiceTableAction({
               <div>Front of Seblath, Muttrah</div>
             </div>
 
-            <hr style={{ margin: "12  px 0" }} />
+            <hr
+              style={{ margin: "12px 0", borderBottom: "1px solid #161717" }}
+            />
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ textAlign: "left", fontSize: "14px" }}>
@@ -368,32 +391,39 @@ export function InvoiceTableAction({
               </div>
             </div>
 
-            <hr style={{ margin: "12px 0" }} />
+            <hr
+              style={{ margin: "12px 0", borderBottom: "1px solid #161717" }}
+            />
 
             <div
               style={{
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "space-between",
                 margin: "4px 0",
-                fontSize: "12px",
+                fontSize: "16px",
               }}
             >
               <div>
-                Date:{" "}
+                Invoice Date:{" "}
                 {printData?.invoiceDate
                   ? dateFromISO(new Date(printData.invoiceDate).toISOString())
                   : ""}
               </div>
-              <p style={{ border: "1px solid gray" }}></p>
+              <hr
+                style={{ margin: "6px 0", borderBottom: "1px solid #161717" }}
+              />
               <strong>
-                Delivery:{" "}
+                Delivery Date:{" "}
                 {printData?.deliveryDate
                   ? dateFromISO(new Date(printData.deliveryDate).toISOString())
                   : ""}{" "}
               </strong>
             </div>
 
-            <hr style={{ margin: "12px 0" }} />
+            <hr
+              style={{ margin: "12px 0", borderBottom: "1px solid #161717" }}
+            />
 
             <div>
               <p>
@@ -403,26 +433,47 @@ export function InvoiceTableAction({
               <p>Mobile: {printData?.customer?.mobile}</p>
             </div>
 
-            <hr style={{ margin: "12px 0" }} />
+            <hr
+              style={{ margin: "12px 0", borderBottom: "1px solid #161717" }}
+            />
 
-            {/* <div>
-              {printData?.invoiceItems?.map((item, index) => (
-                <div key={index}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px dotted gray",
-                    }}
-                  >
-                    <span>{item.quantity} pics</span>
-                    <span>{item?.price?.toFixed(2)}</span>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
-            <p style={{ padding: "12px 0" }} />
+            <div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                  borderBottom: "1px dotted gray",
+                }}
+              >
+                <p>Qty</p>
+                <p>Price</p>
+                <p style={{ textAlign: "right" }}>Subtotal</p>
+              </div>
+              {printData &&
+                printData?.priceDetails &&
+                JSON.parse(printData?.priceDetails)?.map(
+                  (item: TInvoiceItemPriceType, index: number) => (
+                    <div key={index}>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr 1fr 1fr",
+                          borderBottom: "1px dotted gray",
+                          padding: "4px 0",
+                        }}
+                      >
+                        <p>{item?.quantity} x</p>
+                        <p>{item?.price?.toFixed(3)}</p>
+                        <p style={{ textAlign: "right" }}>
+                          {(
+                            Number(item?.quantity) * Number(item?.price)
+                          ).toFixed(3)}
+                        </p>
+                      </div>
+                    </div>
+                  ),
+                )}
+            </div>
 
             <div
               style={{ textAlign: "right", marginTop: 4, marginBottom: "16px" }}
@@ -430,30 +481,46 @@ export function InvoiceTableAction({
               <p>
                 Total Price:{" "}
                 {printData?.totalPrice != null
-                  ? Number(printData.totalPrice).toFixed(2)
+                  ? Number(printData.totalPrice).toFixed(3)
                   : ""}
               </p>
               <p>
                 Advance:{" "}
                 {printData?.advanceAmount != null
-                  ? Number(printData.advanceAmount).toFixed(2)
+                  ? Number(printData.advanceAmount).toFixed(3)
                   : ""}
               </p>
+              {printData && printData?.discountAmount > 0 ? (
+                <p>
+                  Discount:{" "}
+                  {printData?.discountAmount != null
+                    ? Number(printData.discountAmount).toFixed(3)
+                    : ""}
+                </p>
+              ) : null}
+
               <p>
                 Balance:{" "}
                 {printData?.balanceAmount != null
-                  ? Number(printData.balanceAmount).toFixed(2)
+                  ? Number(printData.balanceAmount).toFixed(3)
                   : ""}
               </p>
             </div>
 
-            <hr style={{ margin: "12px 0 20px" }} />
+            <hr
+              style={{
+                margin: "12px 0 20px",
+                borderBottom: "1px solid #161717",
+              }}
+            />
             <div style={{ textAlign: "center", fontSize: "12px" }}>
               <p>
                 جو العلم أنه في حال عدم استلام الطلب خلال 6 أشهر، فإن المحل
                 يُخلي مسؤوليته تمامًا تجاهه
               </p>
-
+              <hr
+                style={{ margin: "12px 0", borderBottom: "1px solid #161717" }}
+              />
               <p>Thank you for visiting our shop!</p>
             </div>
           </div>

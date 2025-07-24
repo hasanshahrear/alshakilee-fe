@@ -45,27 +45,35 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     },
   });
 
-  const { mutateAsync: mutateAsyncUpdateInvoice } =
-    usePut<TInvoicesCreateUpdateType>({
-      url: Api.Invoices + "/" + slug,
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: [QueryKey.GetAllInvoice],
-        });
-        axiosSuccessToast(data as TGlobalSuccessResponse);
-        push("/dashboard/invoices");
-      },
-      onError: (error: AxiosError) => {
-        axiosErrorToast(error as TGlobalErrorResponse);
-      },
-    });
+  const { mutateAsync: mutateAsyncUpdateInvoice } = usePut<TInvoicePayload>({
+    url: Api.Invoices + "/" + slug,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.GetAllInvoice],
+      });
+      axiosSuccessToast(data as TGlobalSuccessResponse);
+      push("/dashboard/invoices");
+    },
+    onError: (error: AxiosError) => {
+      axiosErrorToast(error as TGlobalErrorResponse);
+    },
+  });
+
+  type TInvoicePayload = TInvoicesCreateUpdateType &
+    Omit<TInvoiceItemType, "priceDetails"> & {
+      priceDetails?: string;
+    };
 
   const handleSubmit = async (values: TInvoicesCreateUpdateType) => {
+    const payload = {
+      ...values,
+      priceDetails: JSON.stringify(values?.priceDetails),
+    };
     if (slug) {
-      mutateAsyncUpdateInvoice(values);
+      mutateAsyncUpdateInvoice(payload as TInvoicePayload);
       return;
     }
-    await mutateAsync(values);
+    await mutateAsync(payload as TInvoicePayload);
   };
 
   const { data: dataGetInvoiceById } = useLazyGet<TGetInvoiceByID>({
@@ -78,7 +86,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     <Formik
       initialValues={
         slug
-          ? {
+          ? ({
               deliveryDate: new Date(
                 dataGetInvoiceById?.data?.deliveryDate ?? "",
               ),
@@ -92,7 +100,11 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               advanceAmount: dataGetInvoiceById?.data?.advanceAmount ?? 0,
               discountAmount: dataGetInvoiceById?.data?.discountAmount ?? 0,
               status: dataGetInvoiceById?.data?.status,
-            }
+              priceDetails:
+                dataGetInvoiceById?.data &&
+                dataGetInvoiceById?.data?.priceDetails &&
+                JSON.parse(dataGetInvoiceById?.data?.priceDetails ?? ""),
+            } as TInvoicesCreateUpdateType)
           : selectedItems?.length > 0
             ? {
                 ...initailValue,

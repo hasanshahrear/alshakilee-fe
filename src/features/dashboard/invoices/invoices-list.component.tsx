@@ -139,12 +139,36 @@ export function Invoices() {
             },
             {
               field: "totalPrice",
+              header: "Total Price",
+              align: "center",
+              body: ({ totalPrice }) => {
+                return (
+                  <div className="text-sm">
+                    <p> {Number(totalPrice).toFixed(3)}</p>
+                  </div>
+                );
+              },
+            },
+            {
+              field: "advanceAmount",
+              header: "Advance",
+              align: "center",
+              body: ({ advanceAmount }) => {
+                return (
+                  <div className="text-sm">
+                    <p> {Number(advanceAmount).toFixed(3)}</p>
+                  </div>
+                );
+              },
+            },
+            {
+              field: "balanceAmount",
               header: "Due",
               align: "center",
               body: ({ balanceAmount }) => {
                 return (
                   <div className="text-sm">
-                    <p> {Number(balanceAmount).toFixed(2)}</p>
+                    <p> {Number(balanceAmount).toFixed(3)}</p>
                   </div>
                 );
               },
