@@ -107,6 +107,11 @@ export function InvoiceTableAction({
     </div>
   );
 
+  const parsedPriceDetails =
+    typeof printData?.priceDetails === "string"
+      ? JSON.parse(printData.priceDetails)
+      : printData?.priceDetails;
+
   return (
     <>
       <Dialog
@@ -449,30 +454,28 @@ export function InvoiceTableAction({
                 <p>Price</p>
                 <p style={{ textAlign: "right" }}>Subtotal</p>
               </div>
-              {printData &&
-                printData?.priceDetails &&
-                JSON.parse(printData?.priceDetails)?.map(
-                  (item: TInvoiceItemPriceType, index: number) => (
-                    <div key={index}>
-                      <div
-                        style={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr 1fr",
-                          borderBottom: "1px dotted gray",
-                          padding: "4px 0",
-                        }}
-                      >
-                        <p>{item?.quantity} x</p>
-                        <p>{item?.price?.toFixed(3)}</p>
-                        <p style={{ textAlign: "right" }}>
-                          {(
-                            Number(item?.quantity) * Number(item?.price)
-                          ).toFixed(3)}
-                        </p>
-                      </div>
+              {parsedPriceDetails?.map(
+                (item: TInvoiceItemPriceType, index: number) => (
+                  <div key={index}>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr",
+                        borderBottom: "1px dotted gray",
+                        padding: "4px 0",
+                      }}
+                    >
+                      <p>{item?.quantity} x</p>
+                      <p>{item?.price?.toFixed(3)}</p>
+                      <p style={{ textAlign: "right" }}>
+                        {(Number(item?.quantity) * Number(item?.price)).toFixed(
+                          3,
+                        )}
+                      </p>
                     </div>
-                  ),
-                )}
+                  </div>
+                ),
+              )}
             </div>
 
             <div
