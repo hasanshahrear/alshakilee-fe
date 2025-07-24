@@ -443,17 +443,20 @@ export function InvoiceTableAction({
             />
 
             <div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  borderBottom: "1px dotted gray",
-                }}
-              >
-                <p>Qty</p>
-                <p>Price</p>
-                <p style={{ textAlign: "right" }}>Subtotal</p>
-              </div>
+              {parsedPriceDetails?.length > 0 && (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr",
+                    borderBottom: "1px dotted gray",
+                  }}
+                >
+                  <p>Qty</p>
+                  <p>Price</p>
+                  <p style={{ textAlign: "right" }}>Subtotal</p>
+                </div>
+              )}
+
               {parsedPriceDetails?.map(
                 (item: TInvoiceItemPriceType, index: number) => (
                   <div key={index}>

@@ -82,6 +82,11 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     trigger: !!slug,
   });
 
+  const parsedPriceDetails =
+    typeof dataGetInvoiceById?.data?.priceDetails === "string"
+      ? JSON.parse(dataGetInvoiceById?.data?.priceDetails)
+      : dataGetInvoiceById?.data?.priceDetails;
+
   return (
     <Formik
       initialValues={
@@ -100,10 +105,7 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
               advanceAmount: dataGetInvoiceById?.data?.advanceAmount ?? 0,
               discountAmount: dataGetInvoiceById?.data?.discountAmount ?? 0,
               status: dataGetInvoiceById?.data?.status,
-              priceDetails:
-                dataGetInvoiceById?.data &&
-                dataGetInvoiceById?.data?.priceDetails &&
-                JSON.parse(dataGetInvoiceById?.data?.priceDetails ?? ""),
+              priceDetails: parsedPriceDetails,
             } as TInvoicesCreateUpdateType)
           : selectedItems?.length > 0
             ? {
