@@ -51,13 +51,13 @@ export function InvoicesCreateUpdateForm({ slug }: TProps) {
   const { customerId, customerInfo } = useContext(InvoiceContext);
 
   useEffect(() => {
-    if (customerId) {
+    if (customerId > 0) {
       setFieldValue("customerId", customerId);
     }
   }, [customerId]);
 
   useEffect(() => {
-    if (customerInfo) {
+    if (customerInfo?.mobile) {
       setFieldValue("customerInfo", customerInfo);
     }
   }, [customerInfo]);

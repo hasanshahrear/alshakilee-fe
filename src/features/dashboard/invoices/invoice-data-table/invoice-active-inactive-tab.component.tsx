@@ -86,6 +86,8 @@ export function InvoiceActiveInactiveTab() {
       <div className="flex flex-row">
         <div className="relative">
           <InputText
+            type="phone"
+            name="phone"
             placeholder="Type to search..."
             className="p-inputtext-sm h-10 w-40 rounded-r-none border-r-0 focus:border-primary focus:ring-0 md:w-[320px]"
             value={search}
