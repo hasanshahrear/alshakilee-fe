@@ -32,7 +32,8 @@ export function Login() {
 
       if (result?.ok) {
         toast.success("Login successful!");
-        router.push(url);
+        // router.push(url);
+        window.location.href = url;
       } else {
         setError(true);
       }
