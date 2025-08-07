@@ -15,6 +15,7 @@ export type TInvoice = {
   customer: {
     id: number;
     mobile: string;
+    name?: string;
     isActive: boolean;
   };
   invoiceItems: TInvoiceItemType[];

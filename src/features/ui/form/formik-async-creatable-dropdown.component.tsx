@@ -30,7 +30,7 @@ type TFormikAsyncCreatableDropdownProps = {
   "loadOptions"
 >;
 
-type CustomerInfo = {
+export type CustomerInfo = {
   id: number;
   mobile: string;
   name: string;

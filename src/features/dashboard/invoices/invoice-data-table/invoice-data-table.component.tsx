@@ -52,7 +52,8 @@ export function InvoiceDataTable({
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [disabledItems, setDisabledItems] = useState<string[]>([]);
 
-  const { setSelectedItems } = useContext(InvoiceContext);
+  const { setSelectedItems, setCustomerId, setCustomerInfo } =
+    useContext(InvoiceContext);
 
   const searchParams = useSearchParams();
   const activeStatus = searchParams.get("status");
@@ -96,6 +97,12 @@ export function InvoiceDataTable({
                       ...prev,
                       `${rowData?.id}-${i}`,
                     ]);
+                    setCustomerId(rowData?.customerId);
+                    setCustomerInfo({
+                      id: rowData?.customer?.id,
+                      name: rowData?.customer?.name ?? "",
+                      mobile: rowData?.customer?.mobile,
+                    });
                   }}
                   disabled={disabledItems.includes(`${rowData?.id}-${i}`)}
                   className={`flex items-center gap-1 rounded px-2 py-1 text-xs text-white ${

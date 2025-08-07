@@ -13,7 +13,7 @@ import {
   FormikTextField,
 } from "@/features/ui";
 import { Form, useFormikContext } from "formik";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InvoiceArray } from "./invoice-array.component";
 import { FormikAsyncCreatableDropdown } from "@/features/ui/form/formik-async-creatable-dropdown.component";
 import { OptionsOrGroups, GroupBase } from "react-select";
@@ -34,6 +34,7 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { InvoicePriceDetailsArray } from "./invoice-price-details-array.component";
+import { InvoiceContext } from "@/features/provider";
 
 type TProps = {
   slug?: string;
@@ -41,10 +42,25 @@ type TProps = {
 
 export function InvoicesCreateUpdateForm({ slug }: TProps) {
   const queryClient = useQueryClient();
-  const { values } = useFormikContext<TInvoicesCreateUpdateType>();
+  const { values, setFieldValue } =
+    useFormikContext<TInvoicesCreateUpdateType>();
 
   const [inputValue, debouncedInputValue, setInputValue] = useDebounce("", 500);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const { customerId, customerInfo } = useContext(InvoiceContext);
+
+  useEffect(() => {
+    if (customerId) {
+      setFieldValue("customerId", customerId);
+    }
+  }, [customerId]);
+
+  useEffect(() => {
+    if (customerInfo) {
+      setFieldValue("customerInfo", customerInfo);
+    }
+  }, [customerInfo]);
 
   useEffect(() => {
     if (debouncedInputValue) {

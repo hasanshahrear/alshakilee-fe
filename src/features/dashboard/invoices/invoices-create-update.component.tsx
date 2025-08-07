@@ -18,8 +18,9 @@ import {
 } from "./form.config";
 import { InvoicesCreateUpdateForm } from "./invoices-create-update.form";
 import { useRouter } from "nextjs-toploader/app";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InvoiceContext } from "@/features/provider";
+import { CustomerInfo } from "@/features/ui/form/formik-async-creatable-dropdown.component";
 
 type TPageProps = {
   slug?: string;
@@ -28,7 +29,8 @@ type TPageProps = {
 export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  const { selectedItems, setSelectedItems } = useContext(InvoiceContext);
+  const { selectedItems, setSelectedItems, setCustomerId, setCustomerInfo } =
+    useContext(InvoiceContext);
 
   const { mutateAsync } = usePost<TInvoicesCreateUpdateType>({
     url: Api.Invoices,
@@ -37,6 +39,8 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
         queryKey: [QueryKey.GetAllInvoice],
       });
       setSelectedItems([]);
+      setCustomerId(0);
+      setCustomerInfo({} as CustomerInfo);
       axiosSuccessToast(data as TGlobalSuccessResponse);
       push("/dashboard/invoices");
     },
