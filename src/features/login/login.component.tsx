@@ -2,18 +2,23 @@
 
 import { Formik } from "formik";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoginForm } from "./login.form.component";
 import { initialValue, loginSchema, TLoginType } from "./form.config";
+import { toast } from "sonner";
 
 export function Login() {
   const { status } = useSession();
   const router = useRouter();
 
+  const [error, setError] = useState<boolean>(false);
+
+  const url = "/dashboard";
+
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/dashboard");
+      router.push(url);
     }
   }, [status]);
 
@@ -26,7 +31,10 @@ export function Login() {
       });
 
       if (result?.ok) {
-        router.replace("/dashboard");
+        toast.success("Login successful!");
+        router.push(url);
+      } else {
+        setError(true);
       }
     } catch (error) {
       console.warn("Something went wrong. Please try again.");
@@ -34,12 +42,14 @@ export function Login() {
   };
 
   return (
-    <Formik
-      initialValues={initialValue}
-      onSubmit={handleSubmit}
-      validationSchema={loginSchema}
-    >
-      <LoginForm />
-    </Formik>
+    <>
+      <Formik
+        initialValues={initialValue}
+        onSubmit={handleSubmit}
+        validationSchema={loginSchema}
+      >
+        <LoginForm error={error} />
+      </Formik>
+    </>
   );
 }
