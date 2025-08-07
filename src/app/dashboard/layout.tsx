@@ -89,8 +89,8 @@ export default function DashboardLayout({ children }: Readonly<TProps>) {
   }, [pathname]);
 
   return (
-    <div className="flex flex-col gap-4 bg-[#F1F4FA] p-3 lg:flex-row lg:gap-6 xxl:p-12">
-      <div className="hidden h-[calc(100vh-8rem)] w-[220px] rounded-2xl bg-white p-4 shadow-md lg:block xxl:p-[30px]">
+    <div className="flex flex-col gap-4 bg-[#F1F4FA] lg:flex-row">
+      <div className="hidden h-screen w-[220px] bg-white p-4 shadow-md lg:block xxl:p-[30px]">
         <Sidebar />
       </div>
 
@@ -108,7 +108,7 @@ export default function DashboardLayout({ children }: Readonly<TProps>) {
         </div>
       )}
 
-      <div className="w-full">{children}</div>
+      <div className="h-screen w-full overflow-scroll pr-3">{children}</div>
     </div>
   );
 }
