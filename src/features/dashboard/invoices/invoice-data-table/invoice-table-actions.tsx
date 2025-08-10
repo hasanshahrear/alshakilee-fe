@@ -21,11 +21,7 @@ import { Dialog } from "primereact/dialog";
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "primereact/button";
-import { GridRowDark, GridRowLight } from "./invoice-data-table.component";
-import {
-  TInvoiceItemPriceType,
-  TInvoicesCreateUpdateType,
-} from "../form.config";
+import { TInvoiceItemPriceType } from "../form.config";
 import { toast } from "sonner";
 
 type TProps = {
@@ -67,7 +63,7 @@ export function InvoiceTableAction({
     const shopContactNumber = "99875538";
 
     const message = encodeURIComponent(
-      `مرحباً ${customerName}
+      `مرحباً
       معك ${shopOwner} من ${shopName}
 
       طلبك رقم ${orderId} جاهز الآن للتسليم
@@ -80,7 +76,7 @@ export function InvoiceTableAction({
       - ${shopContactNumber}`,
     );
 
-    const url = `https://wa.me/88${phoneNumber}?text=${message}`;
+    const url = `https://wa.me/968${phoneNumber}?text=${message}`;
 
     window.open(url, "_blank");
   };
