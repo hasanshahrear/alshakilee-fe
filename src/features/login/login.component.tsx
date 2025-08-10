@@ -2,7 +2,7 @@
 
 import { Formik } from "formik";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoginForm } from "./login.form.component";
 import { initialValue, loginSchema, TLoginType } from "./form.config";
@@ -32,7 +32,6 @@ export function Login() {
 
       if (result?.ok) {
         toast.success("Login successful!");
-        // router.push(url);
         window.location.href = url;
       } else {
         setError(true);
@@ -43,14 +42,12 @@ export function Login() {
   };
 
   return (
-    <>
-      <Formik
-        initialValues={initialValue}
-        onSubmit={handleSubmit}
-        validationSchema={loginSchema}
-      >
-        <LoginForm error={error} />
-      </Formik>
-    </>
+    <Formik
+      initialValues={initialValue}
+      onSubmit={handleSubmit}
+      validationSchema={loginSchema}
+    >
+      <LoginForm error={error} />
+    </Formik>
   );
 }

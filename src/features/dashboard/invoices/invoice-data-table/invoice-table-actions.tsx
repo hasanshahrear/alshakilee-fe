@@ -22,7 +22,11 @@ import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "primereact/button";
 import { GridRowDark, GridRowLight } from "./invoice-data-table.component";
-import { TInvoiceItemPriceType } from "../form.config";
+import {
+  TInvoiceItemPriceType,
+  TInvoicesCreateUpdateType,
+} from "../form.config";
+import { toast } from "sonner";
 
 type TProps = {
   handleEdit?: () => void;
@@ -34,6 +38,10 @@ type TProps = {
 
 type TPatchInvoices = {
   status: number;
+};
+
+type TPatchDeliveryDate = {
+  deliveryDate: Date;
 };
 
 export function InvoiceTableAction({
@@ -48,13 +56,63 @@ export function InvoiceTableAction({
 
   const queryClient = useQueryClient();
 
+  const handleWhatsAppClick = (
+    phoneNumber: string,
+    customerName: string,
+    orderId: string,
+  ) => {
+    const shopOwner = "محمد علي";
+    const shopName = "مشغل الشكيلي للخياطة";
+
+    const shopContactNumber = "99875538";
+
+    const message = encodeURIComponent(
+      `مرحباً ${customerName}
+      معك ${shopOwner} من ${shopName}
+
+      طلبك رقم ${orderId} جاهز الآن للتسليم
+      نحن متحمسون لتسلمه لك
+
+      إذا كان لديك أي استفسار ما عليك سوى الرد على هذه الرسالة
+
+      شكراً لاختيارك ${shopName}
+      – ${shopOwner}
+      - ${shopContactNumber}`,
+    );
+
+    const url = `https://wa.me/88${phoneNumber}?text=${message}`;
+
+    window.open(url, "_blank");
+  };
+
   const { mutateAsync: mutateStatus } = usePatch<TPatchInvoices>({
     url: Api.InvoicesStatus + "/" + id,
     onSuccess: (data) => {
+      const invoiceData = data?.data as TInvoiceData;
+
       queryClient.invalidateQueries({
         queryKey: [QueryKey.GetAllInvoice],
       });
+
       axiosSuccessToast(data as TGlobalSuccessResponse);
+
+      if (status === 2) {
+        handleWhatsAppClick(
+          invoiceData?.customer?.mobile,
+          invoiceData?.customer?.name,
+          invoiceData?.invoiceNumber,
+        );
+      }
+    },
+    onError: (error) => {
+      axiosErrorToast(error as TGlobalErrorResponse);
+    },
+  });
+
+  const { mutateAsync: mutateDeliveryDate } = usePatch<TPatchDeliveryDate>({
+    url: Api.InvoiceDeliveryDateUpdate + "/" + id,
+    onSuccess: () => {
+      toast.success("Delivery Date Updated");
     },
     onError: (error) => {
       axiosErrorToast(error as TGlobalErrorResponse);
@@ -339,7 +397,7 @@ export function InvoiceTableAction({
         footer={posFooterContent}
         pt={{
           content: {
-            className: "h-[794px] w-[400px]",
+            className: "h-[794px] w-full",
           },
         }}
       >
@@ -348,7 +406,12 @@ export function InvoiceTableAction({
           ref={posContentRef}
         >
           <div
-            style={{ width: 280, fontFamily: "monospace", fontSize: "16px" }}
+            style={{
+              width: "270px",
+              fontFamily: "monospace",
+              fontSize: "16px",
+              padding: "0 8px",
+            }}
           >
             <div style={{ textAlign: "center", marginBottom: 8 }}>
               <div style={{ fontWeight: "bold", fontSize: "20px" }}>
@@ -601,6 +664,9 @@ export function InvoiceTableAction({
                   className={`rounded px-2 py-1 text-white disabled:opacity-50 ${nextStatusInfo?.className ?? "bg-gray-400"}`}
                   onClick={async (e) => {
                     e.stopPropagation();
+                    if (status === 3) {
+                      await mutateDeliveryDate({ deliveryDate: new Date() });
+                    }
                     await mutateStatus({ status: status + 1 });
                   }}
                 >

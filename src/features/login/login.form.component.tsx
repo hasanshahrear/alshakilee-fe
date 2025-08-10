@@ -24,6 +24,7 @@ export function LoginForm({ error }: { error: boolean }) {
           />
           <FormikTextField
             name="password"
+            type="password"
             label="Password"
             className="p-inputtext-sm"
             requiredIcon="*"

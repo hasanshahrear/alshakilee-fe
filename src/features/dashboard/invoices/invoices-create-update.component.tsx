@@ -21,6 +21,7 @@ import { useRouter } from "nextjs-toploader/app";
 import { useContext, useEffect, useState } from "react";
 import { InvoiceContext } from "@/features/provider";
 import { CustomerInfo } from "@/features/ui/form/formik-async-creatable-dropdown.component";
+import { toast } from "sonner";
 
 type TPageProps = {
   slug?: string;
@@ -69,6 +70,11 @@ export function InvoicesCreateUpdate({ slug }: Readonly<TPageProps>) {
     };
 
   const handleSubmit = async (values: TInvoicesCreateUpdateType) => {
+    const today = new Date();
+    if (!slug && values?.deliveryDate <= today) {
+      toast.error("Enter the delivery date");
+      return;
+    }
     const payload = {
       ...values,
       priceDetails: JSON.stringify(values?.priceDetails),
