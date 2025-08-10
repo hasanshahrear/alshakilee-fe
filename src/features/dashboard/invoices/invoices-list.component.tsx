@@ -26,6 +26,22 @@ type TPatchInvoices = {
   status: number;
 };
 
+export const statusMap: {
+  [key: number]: {
+    label: string;
+    className: string;
+  };
+} = {
+  1: { label: "Pending", className: "bg-yellow-500 hover:bg-yellow-600" },
+  2: { label: "Processing", className: "bg-blue-500 hover:bg-blue-600" },
+  3: {
+    label: "RTD",
+    className: "bg-purple-500 hover:bg-purple-600",
+  },
+  4: { label: "Delivered", className: "bg-green-500 hover:bg-green-600" },
+  5: { label: "Cancelled", className: "bg-red-500 hover:bg-red-600" },
+};
+
 export function Invoices() {
   const { push } = useRouter();
   const [id, setId] = useState<number>(0);
@@ -66,22 +82,6 @@ export function Invoices() {
         accept();
       },
     });
-  };
-
-  const statusMap: {
-    [key: number]: {
-      label: string;
-      className: string;
-    };
-  } = {
-    1: { label: "Pending", className: "bg-yellow-500 hover:bg-yellow-600" },
-    2: { label: "Processing", className: "bg-blue-500 hover:bg-blue-600" },
-    3: {
-      label: "RTD",
-      className: "bg-purple-500 hover:bg-purple-600",
-    },
-    4: { label: "Delivered", className: "bg-green-500 hover:bg-green-600" },
-    5: { label: "Cancelled", className: "bg-red-500 hover:bg-red-600" },
   };
 
   return (

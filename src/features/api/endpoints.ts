@@ -7,4 +7,5 @@ export enum Api {
   GetCustomerByMobile = "customer/mobile",
   Login = "auth/login",
   InvoiceDeliveryDateUpdate = "invoices/delivery-date-update",
+  UpcomingDeliveryOrderList = "invoices/get-upcoming-delivery-order-list",
 }

@@ -58,7 +58,7 @@ export function InvoiceDataTable({
   const searchParams = useSearchParams();
   const activeStatus = searchParams.get("status");
   const search = searchParams.get("search");
-
+  // debugger;
   const { data, isPending } = useGet<TDataTableRes>({
     url,
     queryKey,

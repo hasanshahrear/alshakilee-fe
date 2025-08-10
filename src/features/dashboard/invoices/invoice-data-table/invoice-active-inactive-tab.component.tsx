@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { MenuItem } from "primereact/menuitem";
@@ -13,13 +13,23 @@ export function InvoiceActiveInactiveTab() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
 
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search");
+
+  useEffect(() => {
+    if (searchQuery) {
+      setSearch(searchQuery);
+    }
+  }, []);
+
   useEffect(() => {
     if (search) {
+      setActiveIndex(0);
       push(`?status=${activeIndex}&search=${search}`);
     } else {
       push(`?status=${activeIndex}`);
     }
-  }, [activeIndex]);
+  }, [activeIndex, search]);
 
   const handleSearchClick = () => {
     if (search) {

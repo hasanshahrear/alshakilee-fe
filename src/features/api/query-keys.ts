@@ -6,4 +6,5 @@ export enum QueryKey {
 
   GetInvoiceById = "get-invoice-by-id",
   GetCustomerByMobile = "get-customer-by-mobile",
+  UpcomingDeliveryOrderList = "upcoming-delivery-order-list",
 }

@@ -14,12 +14,14 @@ type TProps = {
   url: string;
   queryKey: string;
   statusFilter?: boolean;
+  showPagination?: boolean;
 };
 export function CustomDataTable({
   columns,
   url,
   queryKey,
   statusFilter = true,
+  showPagination = true,
 }: Readonly<TProps>) {
   const [first, setFirst] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
@@ -66,7 +68,7 @@ export function CustomDataTable({
           ))}
         </DataTable>
 
-        {!isPending && (
+        {!isPending && showPagination && (
           <Paginator
             first={first}
             rows={rows}

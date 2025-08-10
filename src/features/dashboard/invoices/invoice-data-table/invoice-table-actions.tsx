@@ -52,29 +52,20 @@ export function InvoiceTableAction({
 
   const queryClient = useQueryClient();
 
-  const handleWhatsAppClick = (
-    phoneNumber: string,
-    customerName: string,
-    orderId: string,
-  ) => {
-    const shopOwner = "محمد علي";
-    const shopName = "مشغل الشكيلي للخياطة";
+  const handleWhatsAppClick = (phoneNumber: string, orderId: string) => {
+    const shopContactNumber = "24809393";
 
-    const shopContactNumber = "99875538";
+    const message = encodeURIComponent(`
+    عزيزنا الزبون،
 
-    const message = encodeURIComponent(
-      `مرحباً
-      معك ${shopOwner} من ${shopName}
+يسعدنا إبلاغك بأن طلبك رقم ${orderId} أصبح جاهزاً للاستلام من الفرع.
+يمكنك الحضور في أي وقت يناسبك.
 
-      طلبك رقم ${orderId} جاهز الآن للتسليم
-      نحن متحمسون لتسلمه لك
+للاستفسار أو المساعدة، تواصل معنا مباشرة بالرد على هذه الرسالة.
 
-      إذا كان لديك أي استفسار ما عليك سوى الرد على هذه الرسالة
-
-      شكراً لاختيارك ${shopName}
-      – ${shopOwner}
-      - ${shopContactNumber}`,
-    );
+شكراً لاختيارك محلات الشكيلي للخياطة.
+محمد علي
+ ${shopContactNumber}`);
 
     const url = `https://wa.me/968${phoneNumber}?text=${message}`;
 
@@ -95,7 +86,6 @@ export function InvoiceTableAction({
       if (status === 2) {
         handleWhatsAppClick(
           invoiceData?.customer?.mobile,
-          invoiceData?.customer?.name,
           invoiceData?.invoiceNumber,
         );
       }
@@ -437,7 +427,7 @@ export function InvoiceTableAction({
                 <p>C.R. No: 24875</p>
                 <p>Shop: 24809393</p>
                 <p>Hashem: 98714922</p>
-                <p>Mohammed Ali: 99875538</p>
+                <p>Mohammed Ali: 78782020</p>
                 <p>Shop: 313</p>
               </div>
               <div
@@ -592,25 +582,25 @@ export function InvoiceTableAction({
         </div>
       </Dialog>
 
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-center gap-1">
         <button
           onClick={handleEdit}
-          className="flex h-10 w-10 items-center justify-center rounded-md bg-green-500/10 transition-colors hover:bg-green-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-8 w-8 items-center justify-center rounded-md bg-green-500/10 transition-colors hover:bg-green-500/20 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <FiEdit
             className="edit text-green-500"
-            size={16}
+            size={12}
           />
         </button>
 
         {status === EStatus.Cancelled ? (
           <button
             onClick={() => mutateStatus({ status: EStatus.Pending })}
-            className="flex h-10 w-10 items-center justify-center rounded-md bg-yellow-500/10 transition-colors hover:bg-yellow-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-8 w-8 items-center justify-center rounded-md bg-yellow-500/10 transition-colors hover:bg-yellow-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FaUnlock
               className="lock text-yellow-500"
-              size={16}
+              size={12}
             />
           </button>
         ) : null}
@@ -618,20 +608,20 @@ export function InvoiceTableAction({
         {status === EStatus.Pending ? (
           <button
             onClick={handleDelete}
-            className="flex h-10 w-10 items-center justify-center rounded-md bg-red-500/10 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-8 w-8 items-center justify-center rounded-md bg-red-500/10 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FaLock
               className="lock text-red-500"
-              size={16}
+              size={12}
             />
           </button>
         ) : null}
 
         <Menu>
-          <MenuButton className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-50">
+          <MenuButton className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-50">
             <SlOptionsVertical
               className="text-primary"
-              size={16}
+              size={12}
             />
           </MenuButton>
 
