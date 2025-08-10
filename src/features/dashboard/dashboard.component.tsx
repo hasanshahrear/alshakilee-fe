@@ -1,10 +1,10 @@
-import { PageHeader } from "../ui";
+import { Suspense } from "react";
 import { UpcomingDeliveryOrderList } from "./upcoming-delivery-order-list";
 
 export function Dashboard() {
   return (
-    <div>
+    <Suspense>
       <UpcomingDeliveryOrderList />
-    </div>
+    </Suspense>
   );
 }
