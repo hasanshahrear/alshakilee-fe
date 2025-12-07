@@ -5,9 +5,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
   ],
-
   theme: {
     container: {
       center: true,
@@ -37,4 +35,7 @@ export default {
     },
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
 } satisfies Config;

@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useSession } from "next-auth/react";
-import { headers } from "next/headers";
 
 type TProps = {
   url: string;

@@ -628,7 +628,7 @@ export function InvoiceTableAction({
           <MenuItems
             transition
             anchor="right end"
-            className="data-closed:scale-95 data-closed:opacity-0 flex min-w-32 origin-top-right flex-col gap-2 rounded-lg bg-[#f8f8f8] p-2 text-sm/6 shadow-lg transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none"
+            className="data-closed:scale-95 data-closed:opacity-0 flex min-w-32 origin-top-right flex-col gap-2 rounded-lg bg-[#f8f8f8] p-2 text-sm/6 shadow-lg transition duration-100 ease-out focus:outline-none"
           >
             {status < EStatus.Cancelled && status > EStatus.Pending ? (
               <MenuItem>

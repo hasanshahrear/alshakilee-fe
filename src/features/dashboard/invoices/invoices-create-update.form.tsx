@@ -232,7 +232,7 @@ export function InvoicesCreateUpdateForm({ slug }: TProps) {
             <PopoverPanel
               transition
               anchor="bottom"
-              className="data-closed:-translate-y-1 data-closed:opacity-0 mt-2 w-96 divide-y divide-white/5 overflow-y-scroll rounded-xl border bg-white text-sm/6 shadow-xl transition duration-200 ease-in-out [--anchor-gap:--spacing(5)]"
+              className="data-closed:-translate-y-1 data-closed:opacity-0 mt-2 w-96 divide-y divide-white/5 overflow-y-scroll rounded-xl border bg-white text-sm/6 shadow-xl transition duration-200 ease-in-out"
             >
               <div className="p-3">
                 <InvoicePriceDetailsArray />
