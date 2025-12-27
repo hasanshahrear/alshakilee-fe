@@ -14,6 +14,7 @@ export function FormikCancelButton({ children, ...rest }: ButtonProps) {
       onClick={handleCancel}
       outlined
       severity={rest?.severity ?? "secondary"}
+      label="Cancel"
       {...rest}
     >
       {children}

@@ -23,6 +23,7 @@ import { useReactToPrint } from "react-to-print";
 import { Button } from "primereact/button";
 import { TInvoiceItemPriceType } from "../form.config";
 import { toast } from "sonner";
+import QRCode from "react-qr-code";
 
 type TProps = {
   handleEdit?: () => void;
@@ -213,6 +214,13 @@ export function InvoiceTableAction({
                 Tel:
                 <span className="font-semibold"> 24809393 </span>
               </p>
+
+              <QRCode
+                size={60}
+                value={printData?.invoiceNumber || ""}
+                viewBox={`0 0 256 256`}
+                className="ml-auto"
+              />
             </div>
           </div>
 

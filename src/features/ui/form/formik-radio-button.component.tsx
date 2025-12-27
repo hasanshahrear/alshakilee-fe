@@ -3,7 +3,7 @@ import { RadioButton, RadioButtonProps } from "primereact/radiobutton";
 
 type TOption = {
   name: string;
-  value: string | number;
+  value: string | number | boolean;
 };
 
 type TFormikRadioButtonProps = {
