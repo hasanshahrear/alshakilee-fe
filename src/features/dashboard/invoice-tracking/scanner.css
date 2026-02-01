@@ -1,0 +1,99 @@
+/* QR Scanner Styles */
+#qr-reader {
+  border: none !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+#qr-reader video {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block !important;
+  /* Prevent AbortError by ensuring smooth playback */
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+#qr-reader canvas {
+  display: none !important;
+}
+
+#qr-reader__dashboard {
+  display: none !important;
+}
+
+#qr-reader__dashboard_section {
+  display: none !important;
+}
+
+#qr-reader__dashboard_section_csr {
+  display: none !important;
+}
+
+#qr-reader__scan_region {
+  border: none !important;
+}
+
+#qr-reader__camera_selection {
+  display: none !important;
+}
+
+#qr-reader__scan_region img {
+  opacity: 0.5 !important;
+}
+
+#qr-reader > div {
+  width: 100% !important;
+}
+
+#qr-reader > div > div {
+  width: 100% !important;
+}
+
+/* Floating Button Animation */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.floating-scan-btn {
+  animation: pulse-ring 2s infinite;
+}
+
+/* Scanner border animation */
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.qr-scanner-dialog .p-dialog-content {
+  padding: 0 !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .qr-scanner-dialog {
+    width: 95vw !important;
+    margin: 0.5rem;
+  }
+
+  #qr-reader {
+    min-height: 250px !important;
+  }
+}

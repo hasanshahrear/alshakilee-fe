@@ -37,11 +37,14 @@ const CustomLink = ({ href, children }: TCustomLinkProps) => {
 
 const Sidebar = () => {
   const { data } = useSession();
+  const userRole = data?.user?.role;
+
   const handleLogout = async () => {
     await signOut().then(() => {
       window.location.href = "/auth/signin";
     });
   };
+
   return (
     <div className="flex h-full flex-col justify-between">
       <h1 className="mb-6 p-2.5 text-center font-title text-3xl font-bold text-primary">
@@ -49,20 +52,27 @@ const Sidebar = () => {
       </h1>
 
       <div className="flex flex-col gap-1">
-        <CustomLink href="/dashboard">
-          <DashboardIcon /> Dashboard
-        </CustomLink>
-        <CustomLink href="/dashboard/invoices">
-          <InvoiceIcon /> Invoices
-        </CustomLink>
-        <CustomLink href="/dashboard/customer">
-          <PeopleIcon /> Customer
-        </CustomLink>{" "}
-        <CustomLink href="/dashboard/employee-type">
-          <PeopleIcon /> Emp Type
-        </CustomLink>
-        <CustomLink href="/dashboard/user">
-          <PeopleIcon /> Users
+        {userRole === "ADMIN" && (
+          <>
+            <CustomLink href="/dashboard">
+              <DashboardIcon /> Dashboard
+            </CustomLink>
+            <CustomLink href="/dashboard/invoices">
+              <InvoiceIcon /> Invoices
+            </CustomLink>
+            <CustomLink href="/dashboard/customer">
+              <PeopleIcon /> Customer
+            </CustomLink>
+            <CustomLink href="/dashboard/employee-type">
+              <PeopleIcon /> Emp Type
+            </CustomLink>
+            <CustomLink href="/dashboard/user">
+              <PeopleIcon /> Users
+            </CustomLink>
+          </>
+        )}
+        <CustomLink href="/dashboard/invoice-tracking">
+          <PeopleIcon /> Invoice Tracking
         </CustomLink>
       </div>
       <div className="flex-grow" />

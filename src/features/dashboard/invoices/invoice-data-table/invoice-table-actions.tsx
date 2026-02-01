@@ -217,7 +217,7 @@ export function InvoiceTableAction({
 
               <QRCode
                 size={60}
-                value={printData?.invoiceNumber || ""}
+                value={printData?.id?.toString() || ""}
                 viewBox={`0 0 256 256`}
                 className="ml-auto"
               />
