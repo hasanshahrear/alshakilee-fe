@@ -63,6 +63,9 @@ const Sidebar = () => {
         </CustomLink>
         <CustomLink href="/dashboard/user">
           <PeopleIcon /> Users
+        </CustomLink>{" "}
+        <CustomLink href="/dashboard/invoice-tracking">
+          <PeopleIcon /> Invoice Tracking
         </CustomLink>
       </div>
       <div className="flex-grow" />

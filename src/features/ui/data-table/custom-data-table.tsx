@@ -43,7 +43,11 @@ export function CustomDataTable({
     queryParams: {
       page: page + 1,
       limit: rows,
-      status: activeStatus === "0" ? "true" : "false",
+      status: activeStatus
+        ? activeStatus === "0"
+          ? "true"
+          : "false"
+        : undefined,
       queryString: search,
     },
   });

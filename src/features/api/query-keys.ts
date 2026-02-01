@@ -11,4 +11,5 @@ export enum QueryKey {
   UpcomingDeliveryOrderList = "upcoming-delivery-order-list",
   Users = "users",
   GetUserById = "get-user-by-id",
+  InvoiceTrackingList = "invoice-tracking-list",
 }

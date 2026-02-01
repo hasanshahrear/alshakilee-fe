@@ -10,4 +10,5 @@ export enum Api {
   InvoiceDeliveryDateUpdate = "invoices/delivery-date-update",
   UpcomingDeliveryOrderList = "invoices/get-upcoming-delivery-order-list",
   User = "user",
+  InvoiceTracking = "invoice-tracking",
 }
