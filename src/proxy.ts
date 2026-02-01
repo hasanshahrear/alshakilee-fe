@@ -24,6 +24,25 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // Role-based access control
+  const userRole = (token as any).user?.role;
+  const path = request.nextUrl.pathname;
+
+  // If user is an EMPLOYEE
+  if (userRole === "EMPLOYEE") {
+    // Allow access only to invoice-tracking page
+    if (
+      path.startsWith("/dashboard") &&
+      !path.startsWith("/dashboard/invoice-tracking")
+    ) {
+      // Redirect to invoice-tracking page
+      return NextResponse.redirect(
+        new URL("/dashboard/invoice-tracking", request.url),
+      );
+    }
+  }
+
+  // ADMIN has access to all pages
   return NextResponse.next();
 }
 

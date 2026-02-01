@@ -69,3 +69,10 @@ body {
     page-break-before: always;
   }
 }
+
+/* QR Scanner video fix */
+#qr-reader video {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
